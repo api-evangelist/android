@@ -1,0 +1,172 @@
+name: Android APIs
+description: Collection of APIs and services available in the Android ecosystem
+image: https://www.android.com/static/images/logos/android-logo.png
+created: '2024-01-01'
+modified: '2024-01-01'
+url: https://developer.android.com/reference
+specificationVersion: '0.16'
+apis:
+- name: Android Platform APIs
+  description: Core Android framework APIs for building Android applications
+  image: https://www.android.com/static/images/logos/android-logo.png
+  humanUrl: https://developer.android.com/reference
+  baseUrl: https://developer.android.com
+  tags:
+  - Mobile
+  - Android
+  - Framework
+  - SDK
+  properties:
+  - type: Documentation
+    url: https://developer.android.com/docs
+  - type: API Reference
+    url: https://developer.android.com/reference
+  - type: Getting Started
+    url: https://developer.android.com/training/basics/firstapp
+  - type: Code Samples
+    url: https://developer.android.com/samples
+  contact:
+  - type: Support
+    url: https://developer.android.com/support
+- name: Google Play Services APIs
+  description: APIs for integrating Google services into Android apps
+  image: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+  humanUrl: https://developers.google.com/android/guides/overview
+  baseUrl: https://developers.google.com/android
+  tags:
+  - Google Play
+  - Services
+  - Authentication
+  - Maps
+  - Location
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/android/guides/overview
+  - type: API Reference
+    url: https://developers.google.com/android/reference
+  - type: Setup Guide
+    url: https://developers.google.com/android/guides/setup
+  contact:
+  - type: Support
+    url: https://developers.google.com/android/support
+- name: Firebase Android APIs
+  description: Firebase SDKs and APIs for Android app development
+  image: https://firebase.google.com/images/brand-guidelines/logo-standard.png
+  humanUrl: https://firebase.google.com/docs/android/setup
+  baseUrl: https://firebase.google.com
+  tags:
+  - Firebase
+  - Backend
+  - Database
+  - Authentication
+  - Analytics
+  - Cloud Messaging
+  properties:
+  - type: Documentation
+    url: https://firebase.google.com/docs/android/setup
+  - type: API Reference
+    url: https://firebase.google.com/docs/reference/android
+  - type: Code Samples
+    url: https://github.com/firebase/quickstart-android
+  - type: Console
+    url: https://console.firebase.google.com
+  contact:
+  - type: Support
+    url: https://firebase.google.com/support
+- name: Google Maps Android API
+  description: Add maps, location, and geospatial data to Android applications
+  image: https://developers.google.com/maps/images/maps-icon.svg
+  humanUrl: https://developers.google.com/maps/documentation/android-sdk
+  baseUrl: https://maps.googleapis.com
+  tags:
+  - Maps
+  - Location
+  - Geolocation
+  - Navigation
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/maps/documentation/android-sdk
+  - type: API Reference
+    url: https://developers.google.com/android/reference/com/google/android/gms/maps/package-summary
+  - type: Pricing
+    url: https://developers.google.com/maps/pricing-and-plans
+  - type: Getting Started
+    url: https://developers.google.com/maps/documentation/android-sdk/start
+  contact:
+  - type: Support
+    url: https://developers.google.com/maps/support
+- name: Android Jetpack APIs
+  description: Suite of libraries to help developers follow best practices
+  image: https://developer.android.com/images/jetpack/jetpack-hero.svg
+  humanUrl: https://developer.android.com/jetpack
+  baseUrl: https://developer.android.com/jetpack
+  tags:
+  - Jetpack
+  - Libraries
+  - Architecture
+  - UI
+  - Compose
+  properties:
+  - type: Documentation
+    url: https://developer.android.com/jetpack/getting-started
+  - type: API Reference
+    url: https://developer.android.com/jetpack/androidx
+  - type: Release Notes
+    url: https://developer.android.com/jetpack/androidx/versions
+  - type: Compose Documentation
+    url: https://developer.android.com/jetpack/compose
+  contact:
+  - type: Support
+    url: https://developer.android.com/support
+- name: Google Play Console API
+  description: Programmatically manage app releases and track analytics
+  image: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+  humanUrl: https://developers.google.com/android-publisher
+  baseUrl: https://androidpublisher.googleapis.com
+  tags:
+  - Publishing
+  - Analytics
+  - Distribution
+  - REST API
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/android-publisher
+  - type: API Reference
+    url: https://developers.google.com/android-publisher/api-ref
+  - type: OpenAPI
+    url: https://androidpublisher.googleapis.com/$discovery/rest?version=v3
+  - type: Authentication
+    url: https://developers.google.com/android-publisher/authorization
+  contact:
+  - type: Support
+    url: https://support.google.com/googleplay/android-developer
+- name: Google Play Billing API
+  description: Implement in-app purchases and subscriptions
+  image: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+  humanUrl: https://developer.android.com/google/play/billing
+  baseUrl: https://developer.android.com/google/play/billing
+  tags:
+  - Billing
+  - In-App Purchases
+  - Subscriptions
+  - Monetization
+  properties:
+  - type: Documentation
+    url: https://developer.android.com/google/play/billing/integrate
+  - type: API Reference
+    url: https://developer.android.com/google/play/billing/api
+  - type: Testing Guide
+    url: https://developer.android.com/google/play/billing/test
+  contact:
+  - type: Support
+    url: https://support.google.com/googleplay/android-developer
+maintainers:
+- name: Google Android Team
+  email: android-developers@google.com
+  url: https://developer.android.com
+tags:
+- Android
+- Mobile Development
+- Google
+- SDK
+- APIs
