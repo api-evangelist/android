@@ -1,4 +1,6 @@
 name: Android APIs
+segments:
+  - SDKs
 description: Collection of APIs and services available in the Android ecosystem
 image: https://www.android.com/static/images/logos/android-logo.png
 created: '2024-01-01'
