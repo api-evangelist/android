@@ -1,0 +1,1836 @@
+openapi: 3.1.0
+info:
+  title: Google Play Developer API
+  description: >-
+    The Google Play Developer API allows you to perform a number of publishing
+    and app-management tasks. It includes the Subscriptions and In-App Purchases
+    API, which lets you manage in-app purchases and subscriptions, and the
+    Reviews API for retrieving and replying to user reviews. This specification
+    covers the purchases, reviews, and subscriptions resources of the
+    Google Play Developer API v3.
+  version: '3.0'
+  termsOfService: https://developers.google.com/terms
+  contact:
+    name: Google Play Developer Support
+    url: https://support.google.com/googleplay/android-developer
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  x-logo:
+    url: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+    altText: Google Play
+externalDocs:
+  description: Google Play Developer API documentation
+  url: https://developers.google.com/android-publisher
+servers:
+  - url: https://androidpublisher.googleapis.com/androidpublisher/v3
+    description: Google Play Developer API v3 production endpoint
+security:
+  - oauth2:
+      - androidpublisher
+tags:
+  - name: Purchases
+    description: >-
+      Manage in-app product and subscription purchases, including verification,
+      acknowledgment, and consumption of purchase tokens.
+    externalDocs:
+      url: https://developers.google.com/android-publisher/api-ref/rest/v3/purchases.products
+  - name: Subscriptions
+    description: >-
+      Create, manage, and query subscription products and their base plans,
+      offers, and purchase entitlements.
+    externalDocs:
+      url: https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions
+  - name: Reviews
+    description: >-
+      Retrieve user reviews from the Google Play Store and post developer
+      replies to those reviews.
+    externalDocs:
+      url: https://developers.google.com/android-publisher/api-ref/rest/v3/reviews
+  - name: Orders
+    description: >-
+      Refund orders placed through Google Play for in-app products
+      and subscriptions.
+    externalDocs:
+      url: https://developers.google.com/android-publisher/api-ref/rest/v3/orders
+paths:
+  /applications/{packageName}/purchases/products/{productId}/tokens/{token}:
+    get:
+      operationId: getPurchaseProduct
+      summary: Get in-app product purchase status
+      description: >-
+        Checks the purchase and consumption status of an in-app product.
+        Returns the purchase details including the purchase state, consumption
+        state, and order ID.
+      tags:
+        - Purchases
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '200':
+          description: Successful response with product purchase details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPurchase'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge:
+    post:
+      operationId: acknowledgePurchaseProduct
+      summary: Acknowledge an in-app product purchase
+      description: >-
+        Acknowledges a purchase of an in-app item. Purchases that are not
+        acknowledged within three days are automatically refunded.
+      tags:
+        - Purchases
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/purchaseToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductPurchasesAcknowledgeRequest'
+      responses:
+        '204':
+          description: Purchase acknowledged successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/products/{productId}/tokens/{token}:consume:
+    post:
+      operationId: consumePurchaseProduct
+      summary: Consume an in-app product purchase
+      description: >-
+        Consumes a purchase for an in-app item. Consumed purchases can be
+        purchased again, making this appropriate for consumable items.
+      tags:
+        - Purchases
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '204':
+          description: Purchase consumed successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:
+    get:
+      operationId: getPurchaseSubscription
+      summary: Get subscription purchase status
+      description: >-
+        Checks whether a user's subscription purchase is valid and returns
+        its expiry time. Includes information about auto-renewal status,
+        payment state, cancellation reason, and linked purchase token.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/subscriptionId'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '200':
+          description: Successful response with subscription purchase details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchase'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge:
+    post:
+      operationId: acknowledgePurchaseSubscription
+      summary: Acknowledge a subscription purchase
+      description: >-
+        Acknowledges a subscription purchase. Subscriptions that are not
+        acknowledged within three days are automatically refunded.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/subscriptionId'
+        - $ref: '#/components/parameters/purchaseToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPurchasesAcknowledgeRequest'
+      responses:
+        '204':
+          description: Subscription purchase acknowledged successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel:
+    post:
+      operationId: cancelPurchaseSubscription
+      summary: Cancel a subscription purchase
+      description: >-
+        Cancels a user's subscription purchase. The subscription remains valid
+        until its expiration time and will not be auto-renewed.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/subscriptionId'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '204':
+          description: Subscription cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer:
+    post:
+      operationId: deferPurchaseSubscription
+      summary: Defer a subscription purchase
+      description: >-
+        Defers a user's subscription purchase until a specified future
+        expiration time. The user retains access to the subscription
+        content during the deferral period.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/subscriptionId'
+        - $ref: '#/components/parameters/purchaseToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPurchasesDeferRequest'
+      responses:
+        '200':
+          description: Subscription deferred successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchasesDeferResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:revoke:
+    post:
+      operationId: revokePurchaseSubscription
+      summary: Revoke a subscription purchase
+      description: >-
+        Refunds and immediately revokes a user's subscription purchase.
+        Access to the subscription is terminated immediately and a refund
+        is issued. This cannot be undone.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/subscriptionId'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '204':
+          description: Subscription revoked and refunded successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:
+    get:
+      operationId: getSubscriptionPurchaseV2
+      summary: Get subscription purchase v2
+      description: >-
+        Gets the latest subscription purchase state using the Purchases
+        Subscriptions v2 API. Returns detailed information about the
+        subscription including line items, external account identifiers,
+        and subscription state.
+      tags:
+        - Purchases
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '200':
+          description: Successful response with subscription purchase v2 details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchaseV2'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/purchases/voidedpurchases:
+    get:
+      operationId: listVoidedPurchases
+      summary: List voided purchases
+      description: >-
+        Lists the purchases that were cancelled, refunded, or charged back.
+        Voided purchases include both in-app product purchases and
+        subscription purchases.
+      tags:
+        - Purchases
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - name: startTime
+          in: query
+          description: >-
+            The time (in milliseconds since Epoch) of the oldest voided
+            purchase to return. Defaults to 30 days before the current time.
+          schema:
+            type: string
+            format: int64
+        - name: endTime
+          in: query
+          description: >-
+            The time (in milliseconds since Epoch) of the newest voided
+            purchase to return.
+          schema:
+            type: string
+            format: int64
+        - name: maxResults
+          in: query
+          description: Maximum number of results to return. Default and maximum is 1000.
+          schema:
+            type: integer
+            maximum: 1000
+        - name: startIndex
+          in: query
+          description: Index of the first result to return.
+          schema:
+            type: integer
+        - name: token
+          in: query
+          description: Continuation token for paging through results.
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: >-
+            The type of voided purchases to return.
+            0 for voided in-app product purchases,
+            1 for voided subscription purchases.
+          schema:
+            type: integer
+            enum:
+              - 0
+              - 1
+      responses:
+        '200':
+          description: Successful response with list of voided purchases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoidedPurchasesListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /applications/{packageName}/monetization/subscriptions:
+    get:
+      operationId: listSubscriptions
+      summary: List subscription products
+      description: >-
+        Lists all subscriptions defined for the specified application.
+        Returns subscription metadata including product IDs, listings,
+        and base plans.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - name: pageSize
+          in: query
+          description: Maximum number of subscriptions to return.
+          schema:
+            type: integer
+            maximum: 100
+        - name: pageToken
+          in: query
+          description: Page token for pagination.
+          schema:
+            type: string
+        - name: showArchived
+          in: query
+          description: Whether to include archived subscriptions in the response.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response with list of subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSubscription
+      summary: Create a subscription product
+      description: >-
+        Creates a new subscription for an application. The subscription
+        must include at least one base plan and listing.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - name: productId
+          in: query
+          required: true
+          description: The ID to use for the subscription. Must be unique within the app.
+          schema:
+            type: string
+        - name: regionsVersion.version
+          in: query
+          description: The version of the available regions being used.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '200':
+          description: Subscription created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Conflict - subscription with this ID already exists
+
+  /applications/{packageName}/monetization/subscriptions/{productId}:
+    get:
+      operationId: getSubscription
+      summary: Get a subscription product
+      description: >-
+        Reads a single subscription product configuration, including its
+        base plans, offers, and regional pricing.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+      responses:
+        '200':
+          description: Successful response with subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateSubscription
+      summary: Update a subscription product
+      description: >-
+        Updates an existing subscription product configuration. Supports
+        partial updates via the updateMask field.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - name: updateMask
+          in: query
+          description: >-
+            The list of fields to update in this subscription.
+            Uses FieldMask format.
+          schema:
+            type: string
+        - name: regionsVersion.version
+          in: query
+          description: The version of the available regions being used.
+          schema:
+            type: string
+        - name: latencyTolerance
+          in: query
+          description: >-
+            Tolerance for propagation latency.
+            PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE or
+            PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT.
+          schema:
+            type: string
+            enum:
+              - PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE
+              - PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+      responses:
+        '200':
+          description: Subscription updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSubscription
+      summary: Delete a subscription product
+      description: >-
+        Deletes a subscription. A subscription can only be deleted if it has
+        never had a base plan published.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+      responses:
+        '204':
+          description: Subscription deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers:
+    get:
+      operationId: listSubscriptionOffers
+      summary: List subscription offers
+      description: >-
+        Lists all offers for a given subscription's base plan. Returns
+        offer details including eligibility criteria and pricing phases.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/basePlanId'
+        - name: pageSize
+          in: query
+          description: Maximum number of offers to return.
+          schema:
+            type: integer
+        - name: pageToken
+          in: query
+          description: Page token for pagination.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of subscription offers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionOffersResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSubscriptionOffer
+      summary: Create a subscription offer
+      description: >-
+        Creates a new subscription offer. An offer represents special pricing
+        or a free trial for a base plan.
+      tags:
+        - Subscriptions
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/productId'
+        - $ref: '#/components/parameters/basePlanId'
+        - name: offerId
+          in: query
+          required: true
+          description: The ID to use for the offer. Must be unique within the base plan.
+          schema:
+            type: string
+        - name: regionsVersion.version
+          in: query
+          description: The version of the available regions being used.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionOffer'
+      responses:
+        '200':
+          description: Subscription offer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionOffer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /applications/{packageName}/reviews:
+    get:
+      operationId: listReviews
+      summary: List app reviews
+      description: >-
+        Lists all reviews for the specified application. Returns the latest
+        user comment and any developer reply for each review.
+      tags:
+        - Reviews
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - name: maxResults
+          in: query
+          description: Maximum number of reviews to return.
+          schema:
+            type: integer
+        - name: startIndex
+          in: query
+          description: Index of the first review to return.
+          schema:
+            type: integer
+        - name: token
+          in: query
+          description: Continuation token for paging through results.
+          schema:
+            type: string
+        - name: translationLanguage
+          in: query
+          description: >-
+            BCP-47 language tag for translation. If specified, reviews in
+            other languages will be translated to this language.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewsListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /applications/{packageName}/reviews/{reviewId}:
+    get:
+      operationId: getReview
+      summary: Get a single review
+      description: >-
+        Gets a single review by its ID. Returns the user comment,
+        star rating, and any developer reply.
+      tags:
+        - Reviews
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/reviewId'
+        - name: translationLanguage
+          in: query
+          description: BCP-47 language tag for translating the review text.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with review details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/reviews/{reviewId}:reply:
+    post:
+      operationId: replyToReview
+      summary: Reply to a review
+      description: >-
+        Replies to a single review or updates an existing reply.
+        Only one reply per review is allowed.
+      tags:
+        - Reviews
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - $ref: '#/components/parameters/reviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewsReplyRequest'
+      responses:
+        '200':
+          description: Reply posted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewsReplyResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{packageName}/orders/{orderId}:refund:
+    post:
+      operationId: refundOrder
+      summary: Refund an order
+      description: >-
+        Refunds a user's subscription or in-app purchase order. This initiates
+        a refund through Google Play and the user retains access until the
+        end of the current billing period for subscriptions.
+      tags:
+        - Orders
+      parameters:
+        - $ref: '#/components/parameters/packageName'
+        - name: orderId
+          in: path
+          required: true
+          description: The order ID from Google Play.
+          schema:
+            type: string
+        - name: revoke
+          in: query
+          description: >-
+            Whether to revoke the purchased item. If true, access to the
+            subscription or in-app product is terminated immediately.
+          schema:
+            type: boolean
+      responses:
+        '204':
+          description: Order refunded successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: >-
+        OAuth 2.0 authentication for accessing the Google Play Developer API.
+        Requires a service account with appropriate permissions in the
+        Google Play Console.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            androidpublisher: Full access to Google Play Developer API
+
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: >-
+        The package name of the application (e.g., com.example.myapp).
+        This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
+    productId:
+      name: productId
+      in: path
+      required: true
+      description: >-
+        The product ID of the in-app product or subscription
+        (e.g., premium_upgrade, monthly_sub).
+      schema:
+        type: string
+        example: premium_upgrade
+    subscriptionId:
+      name: subscriptionId
+      in: path
+      required: true
+      description: The subscription ID (e.g., monthly_sub).
+      schema:
+        type: string
+        example: monthly_sub
+    purchaseToken:
+      name: token
+      in: path
+      required: true
+      description: >-
+        The token provided to the user's device when the purchase was made.
+        Used to uniquely identify a purchase.
+      schema:
+        type: string
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      description: The unique identifier for the review.
+      schema:
+        type: string
+    basePlanId:
+      name: basePlanId
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the base plan. Base plans define the
+        billing period and renewal type for a subscription.
+      schema:
+        type: string
+        example: monthly
+
+  responses:
+    Unauthorized:
+      description: >-
+        Authentication failed. The OAuth 2.0 token is missing, expired,
+        or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: >-
+        The requested resource was not found. The package name, product ID,
+        purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    ProductPurchase:
+      type: object
+      description: >-
+        Represents an in-app product purchase. Contains the purchase state,
+        consumption status, and order information.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#productPurchase
+        purchaseTimeMillis:
+          type: string
+          format: int64
+          description: Time the product was purchased (milliseconds since Epoch).
+        purchaseState:
+          type: integer
+          description: >-
+            The purchase state of the order.
+            0 = Purchased, 1 = Canceled, 2 = Pending.
+          enum:
+            - 0
+            - 1
+            - 2
+        consumptionState:
+          type: integer
+          description: >-
+            The consumption state of the in-app product.
+            0 = Yet to be consumed, 1 = Consumed.
+          enum:
+            - 0
+            - 1
+        developerPayload:
+          type: string
+          description: Developer-specified string for additional transaction information.
+          deprecated: true
+        orderId:
+          type: string
+          description: The order ID associated with the purchase.
+        purchaseType:
+          type: integer
+          description: >-
+            The type of purchase.
+            0 = Test (sandbox), 1 = Promo, 2 = Rewarded.
+          enum:
+            - 0
+            - 1
+            - 2
+        acknowledgementState:
+          type: integer
+          description: >-
+            The acknowledgement state of the in-app product.
+            0 = Yet to be acknowledged, 1 = Acknowledged.
+          enum:
+            - 0
+            - 1
+        purchaseToken:
+          type: string
+          description: The purchase token generated at the time of purchase.
+        productId:
+          type: string
+          description: The in-app product SKU.
+        quantity:
+          type: integer
+          description: The quantity associated with the purchase.
+        obfuscatedExternalAccountId:
+          type: string
+          description: >-
+            An obfuscated version of the ID uniquely associated with the
+            user's account in your app.
+        obfuscatedExternalProfileId:
+          type: string
+          description: >-
+            An obfuscated version of the ID uniquely associated with the
+            user's profile in your app.
+        regionCode:
+          type: string
+          description: ISO 3166-1 alpha-2 billing region code of the user.
+        refundableQuantity:
+          type: integer
+          description: The quantity eligible for refund.
+
+    ProductPurchasesAcknowledgeRequest:
+      type: object
+      description: Request body for acknowledging an in-app product purchase.
+      properties:
+        developerPayload:
+          type: string
+          description: >-
+            Payload to attach to the purchase after it is acknowledged.
+          deprecated: true
+
+    SubscriptionPurchase:
+      type: object
+      description: >-
+        Represents a subscription purchase. Contains the subscription state,
+        expiry time, auto-renewal status, and cancellation details.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#subscriptionPurchase
+        startTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the subscription was granted (milliseconds since Epoch).
+        expiryTimeMillis:
+          type: string
+          format: int64
+          description: >-
+            Time at which the subscription will expire (milliseconds since
+            Epoch). For cancelled subscriptions, this is when access ends.
+        userCancellationTimeMillis:
+          type: string
+          format: int64
+          description: >-
+            Time at which the subscription was canceled by the user
+            (milliseconds since Epoch). Only present if cancelReason is 0.
+        autoRenewing:
+          type: boolean
+          description: Whether the subscription will automatically be renewed.
+        priceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the subscription price.
+        priceAmountMicros:
+          type: string
+          format: int64
+          description: >-
+            Price of the subscription in micro-units of the currency.
+            For example, 7990000 represents $7.99.
+        introductoryPriceInfo:
+          $ref: '#/components/schemas/IntroductoryPriceInfo'
+        countryCode:
+          type: string
+          description: >-
+            ISO 3166-1 alpha-2 country code of the user at the time
+            the subscription was granted.
+        developerPayload:
+          type: string
+          description: Developer-specified string for additional information.
+          deprecated: true
+        paymentState:
+          type: integer
+          description: >-
+            The payment state of the subscription.
+            0 = Payment pending, 1 = Payment received,
+            2 = Free trial, 3 = Pending deferred upgrade/downgrade.
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+        cancelReason:
+          type: integer
+          description: >-
+            The reason a subscription was cancelled or not auto-renewed.
+            0 = User cancelled, 1 = System cancelled (billing issue),
+            2 = Replaced with a new subscription, 3 = Developer cancelled.
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+        linkedPurchaseToken:
+          type: string
+          description: >-
+            The purchase token of the previous subscription if this
+            subscription is a replacement (upgrade/downgrade).
+        purchaseType:
+          type: integer
+          description: >-
+            The type of purchase.
+            0 = Test (sandbox), 1 = Promo.
+          enum:
+            - 0
+            - 1
+        orderId:
+          type: string
+          description: The order ID of the latest recurring order.
+        acknowledgementState:
+          type: integer
+          description: >-
+            The acknowledgement state.
+            0 = Yet to be acknowledged, 1 = Acknowledged.
+          enum:
+            - 0
+            - 1
+        externalAccountId:
+          type: string
+          description: User account identifier in the third-party service.
+        promotionType:
+          type: integer
+          description: >-
+            The type of promotion applied on this purchase.
+            0 = One-time code, 1 = Vanity code.
+          enum:
+            - 0
+            - 1
+        promotionCode:
+          type: string
+          description: The promotion code applied on this purchase.
+        obfuscatedExternalAccountId:
+          type: string
+          description: Obfuscated user account ID in the third-party service.
+        obfuscatedExternalProfileId:
+          type: string
+          description: Obfuscated user profile ID in the third-party service.
+
+    SubscriptionPurchasesAcknowledgeRequest:
+      type: object
+      description: Request body for acknowledging a subscription purchase.
+      properties:
+        developerPayload:
+          type: string
+          description: Payload to attach to the purchase after acknowledgement.
+          deprecated: true
+
+    SubscriptionPurchasesDeferRequest:
+      type: object
+      description: Request body for deferring a subscription purchase.
+      properties:
+        deferralInfo:
+          $ref: '#/components/schemas/SubscriptionDeferralInfo'
+      required:
+        - deferralInfo
+
+    SubscriptionDeferralInfo:
+      type: object
+      description: Contains the new desired expiry time for a subscription deferral.
+      properties:
+        expectedExpiryTimeMillis:
+          type: string
+          format: int64
+          description: >-
+            The expected expiry time for the subscription. If the current
+            expiry time does not match, the deferral will not occur.
+        desiredExpiryTimeMillis:
+          type: string
+          format: int64
+          description: >-
+            The desired next expiry time to assign to the subscription.
+            Must be later than the current expiry time.
+      required:
+        - expectedExpiryTimeMillis
+        - desiredExpiryTimeMillis
+
+    SubscriptionPurchasesDeferResponse:
+      type: object
+      description: Response from deferring a subscription purchase.
+      properties:
+        newExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The new expiry time for the subscription.
+
+    SubscriptionPurchaseV2:
+      type: object
+      description: >-
+        Indicates the v2 subscription purchase details, including subscription
+        state, line items, and external account information.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#subscriptionPurchaseV2
+        regionCode:
+          type: string
+          description: ISO 3166-1 alpha-2 billing region code.
+        latestOrderId:
+          type: string
+          description: The order ID of the latest order associated with this subscription.
+        lineItems:
+          type: array
+          description: >-
+            Item-level info for a subscription purchase. Each line item
+            corresponds to a base plan or offer.
+          items:
+            $ref: '#/components/schemas/SubscriptionPurchaseLineItem'
+        startTime:
+          type: string
+          format: date-time
+          description: Time at which the subscription was granted.
+        subscriptionState:
+          type: string
+          description: >-
+            The current state of the subscription.
+          enum:
+            - SUBSCRIPTION_STATE_UNSPECIFIED
+            - SUBSCRIPTION_STATE_PENDING
+            - SUBSCRIPTION_STATE_ACTIVE
+            - SUBSCRIPTION_STATE_PAUSED
+            - SUBSCRIPTION_STATE_IN_GRACE_PERIOD
+            - SUBSCRIPTION_STATE_ON_HOLD
+            - SUBSCRIPTION_STATE_CANCELED
+            - SUBSCRIPTION_STATE_EXPIRED
+            - SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED
+        linkedPurchaseToken:
+          type: string
+          description: The purchase token of the old subscription if replaced.
+        pausedStateContext:
+          type: object
+          description: Additional context around paused subscriptions.
+          properties:
+            autoResumeTime:
+              type: string
+              format: date-time
+              description: Time at which the subscription will auto-resume.
+        canceledStateContext:
+          type: object
+          description: Additional context around canceled subscriptions.
+          properties:
+            userInitiatedCancellation:
+              type: object
+              properties:
+                finishTime:
+                  type: string
+                  format: date-time
+            systemInitiatedCancellation:
+              type: object
+            developerInitiatedCancellation:
+              type: object
+            replacementCancellation:
+              type: object
+        acknowledgementState:
+          type: string
+          description: The acknowledgement state of the subscription.
+          enum:
+            - ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+            - ACKNOWLEDGEMENT_STATE_PENDING
+            - ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED
+        externalAccountIdentifiers:
+          type: object
+          description: User account identification in third-party services.
+          properties:
+            externalAccountId:
+              type: string
+            obfuscatedExternalAccountId:
+              type: string
+            obfuscatedExternalProfileId:
+              type: string
+
+    SubscriptionPurchaseLineItem:
+      type: object
+      description: >-
+        An individual line item within a v2 subscription purchase.
+        Each line item represents a base plan or offer.
+      properties:
+        productId:
+          type: string
+          description: The product ID of the subscription.
+        expiryTime:
+          type: string
+          format: date-time
+          description: Time at which the subscription line item will expire.
+        autoRenewingPlan:
+          type: object
+          description: Details for auto-renewing plans.
+          properties:
+            autoRenewEnabled:
+              type: boolean
+        prepaidPlan:
+          type: object
+          description: Details for prepaid plans.
+          properties:
+            allowExtendAfterTime:
+              type: string
+              format: date-time
+        offerDetails:
+          type: object
+          description: Details of the offer applied to this line item.
+          properties:
+            offerTags:
+              type: array
+              items:
+                type: string
+            basePlanId:
+              type: string
+            offerId:
+              type: string
+
+    IntroductoryPriceInfo:
+      type: object
+      description: >-
+        Contains the introductory price information for a subscription.
+      properties:
+        introductoryPriceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the introductory price.
+        introductoryPriceAmountMicros:
+          type: string
+          format: int64
+          description: Introductory price in micro-units of the currency.
+        introductoryPricePeriod:
+          type: string
+          description: >-
+            Introductory price period in ISO 8601 format (e.g., P1W for
+            one week, P1M for one month).
+        introductoryPriceCycles:
+          type: integer
+          description: >-
+            Number of billing periods the introductory price applies for.
+
+    VoidedPurchasesListResponse:
+      type: object
+      description: Response containing a list of voided purchases.
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        voidedPurchases:
+          type: array
+          description: List of voided purchases.
+          items:
+            $ref: '#/components/schemas/VoidedPurchase'
+
+    VoidedPurchase:
+      type: object
+      description: >-
+        A purchase that has been voided (cancelled, refunded, or charged back).
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#voidedPurchase
+        purchaseToken:
+          type: string
+          description: The token which uniquely identifies the purchase.
+        purchaseTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the purchase was made (milliseconds since Epoch).
+        voidedTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the purchase was voided (milliseconds since Epoch).
+        orderId:
+          type: string
+          description: The order ID associated with the voided purchase.
+        voidedSource:
+          type: integer
+          description: >-
+            The source of the voiding.
+            0 = User, 1 = Developer, 2 = Google.
+          enum:
+            - 0
+            - 1
+            - 2
+        voidedReason:
+          type: integer
+          description: >-
+            The reason for voiding.
+            0 = Other, 1 = Remorse, 2 = Not received,
+            3 = Defective, 4 = Accidental purchase,
+            5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+        voidedQuantity:
+          type: integer
+          description: The voided quantity as related to multi-quantity purchases.
+
+    Subscription:
+      type: object
+      description: >-
+        A subscription product defined in the Google Play Console. Contains
+        base plans, listings, and tax and compliance settings.
+      properties:
+        packageName:
+          type: string
+          description: The package name of the parent app.
+          readOnly: true
+        productId:
+          type: string
+          description: The unique product ID of the subscription.
+          readOnly: true
+        basePlans:
+          type: array
+          description: >-
+            The set of base plans for this subscription. A subscription
+            must have at least one base plan.
+          items:
+            $ref: '#/components/schemas/BasePlan'
+        listings:
+          type: array
+          description: >-
+            The localized listings for this subscription. Must have at
+            least one listing.
+          items:
+            $ref: '#/components/schemas/SubscriptionListing'
+        archived:
+          type: boolean
+          description: Whether this subscription is archived.
+          readOnly: true
+        taxAndComplianceSettings:
+          $ref: '#/components/schemas/SubscriptionTaxAndComplianceSettings'
+
+    BasePlan:
+      type: object
+      description: >-
+        A base plan specifies the billing period and renewal type for a
+        subscription. A subscription must have at least one base plan.
+      properties:
+        basePlanId:
+          type: string
+          description: The unique identifier for this base plan.
+        state:
+          type: string
+          description: The state of the base plan.
+          enum:
+            - STATE_UNSPECIFIED
+            - DRAFT
+            - ACTIVE
+            - INACTIVE
+          readOnly: true
+        regionalConfigs:
+          type: array
+          description: Regional pricing configurations.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+                description: ISO 3166-1 alpha-2 region code.
+              price:
+                $ref: '#/components/schemas/Money'
+        autoRenewingBasePlanType:
+          type: object
+          description: Details for auto-renewing base plans.
+          properties:
+            billingPeriodDuration:
+              type: string
+              description: >-
+                Subscription period in ISO 8601 format (e.g., P1M for monthly,
+                P1Y for yearly, P3M for quarterly).
+            gracePeriodDuration:
+              type: string
+              description: >-
+                Grace period after a failed payment in ISO 8601 format.
+            accountHoldDuration:
+              type: string
+              description: Account hold duration in ISO 8601 format.
+            resubscribeState:
+              type: string
+              enum:
+                - RESUBSCRIBE_STATE_UNSPECIFIED
+                - RESUBSCRIBE_STATE_ACTIVE
+                - RESUBSCRIBE_STATE_INACTIVE
+            prorationMode:
+              type: string
+              description: Proration mode for mid-cycle price changes.
+              enum:
+                - SUBSCRIPTION_PRORATION_MODE_UNSPECIFIED
+                - SUBSCRIPTION_PRORATION_MODE_CHARGE_ON_NEXT_BILLING_DATE
+                - SUBSCRIPTION_PRORATION_MODE_CHARGE_FULL_PRICE_IMMEDIATELY
+        prepaidBasePlanType:
+          type: object
+          description: Details for prepaid base plans.
+          properties:
+            billingPeriodDuration:
+              type: string
+              description: Subscription period in ISO 8601 format.
+            timeExtension:
+              type: string
+              enum:
+                - TIME_EXTENSION_UNSPECIFIED
+                - TIME_EXTENSION_ACTIVE
+                - TIME_EXTENSION_INACTIVE
+        offerTags:
+          type: array
+          description: List of up to 20 custom tags for this base plan.
+          items:
+            type: object
+            properties:
+              tag:
+                type: string
+
+    SubscriptionListing:
+      type: object
+      description: Localized listing information for a subscription.
+      properties:
+        languageCode:
+          type: string
+          description: BCP-47 language tag (e.g., en-US).
+        title:
+          type: string
+          description: The title of the subscription in this locale.
+        benefits:
+          type: array
+          description: >-
+            A list of benefits shown to the user on platforms such as the
+            Play Store. Limited to four benefits.
+          items:
+            type: string
+          maxItems: 4
+        description:
+          type: string
+          description: The description of the subscription in this locale.
+
+    SubscriptionTaxAndComplianceSettings:
+      type: object
+      description: Tax and compliance settings for a subscription.
+      properties:
+        eeaWithdrawalRightType:
+          type: string
+          description: Digital content or service classification for EEA withdrawal right.
+          enum:
+            - WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+            - WITHDRAWAL_RIGHT_DIGITAL_CONTENT
+            - WITHDRAWAL_RIGHT_SERVICE
+        taxRateInfoByRegionCode:
+          type: object
+          description: Tax rate information keyed by region code.
+          additionalProperties:
+            type: object
+            properties:
+              eligibleForStreamingServiceTaxRate:
+                type: boolean
+              taxTier:
+                type: string
+        isTokenizedDigitalAsset:
+          type: boolean
+          description: Whether the subscription represents a tokenized digital asset.
+
+    SubscriptionOffer:
+      type: object
+      description: >-
+        A subscription offer represents special pricing for a subscription,
+        such as a free trial or introductory price.
+      properties:
+        packageName:
+          type: string
+          description: The package name of the parent app.
+          readOnly: true
+        productId:
+          type: string
+          description: The product ID of the parent subscription.
+          readOnly: true
+        basePlanId:
+          type: string
+          description: The base plan ID the offer is associated with.
+          readOnly: true
+        offerId:
+          type: string
+          description: The unique identifier for this offer.
+          readOnly: true
+        state:
+          type: string
+          description: The current state of the offer.
+          enum:
+            - STATE_UNSPECIFIED
+            - DRAFT
+            - ACTIVE
+            - INACTIVE
+          readOnly: true
+        phases:
+          type: array
+          description: >-
+            The pricing phases for this offer. Each phase defines a pricing
+            period with its own duration and price.
+          items:
+            $ref: '#/components/schemas/SubscriptionOfferPhase'
+        targeting:
+          type: object
+          description: Targeting rules for the offer.
+          properties:
+            acquisitionRule:
+              type: object
+              description: >-
+                Offer available to users who have never had this subscription.
+              properties:
+                scope:
+                  type: object
+                  properties:
+                    anySubscriptionInApp:
+                      type: object
+                    specificSubscriptionInApp:
+                      type: string
+            upgradeRule:
+              type: object
+              description: >-
+                Offer available to users upgrading from another plan.
+              properties:
+                billingPeriodDuration:
+                  type: string
+                oncePerUser:
+                  type: boolean
+        regionalConfigs:
+          type: array
+          description: Regional configuration for this offer.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+              newSubscriberAvailability:
+                type: boolean
+        offerTags:
+          type: array
+          description: Custom tags for this offer.
+          items:
+            type: object
+            properties:
+              tag:
+                type: string
+
+    SubscriptionOfferPhase:
+      type: object
+      description: >-
+        A single phase of a subscription offer. Defines pricing for a
+        specific period.
+      properties:
+        recurrenceCount:
+          type: integer
+          description: >-
+            The number of times this phase repeats. If 0, the phase
+            repeats indefinitely.
+        duration:
+          type: string
+          description: Duration of a single period in ISO 8601 format.
+        regionalConfigs:
+          type: array
+          description: Regional pricing for this phase.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+              price:
+                $ref: '#/components/schemas/Money'
+              absoluteDiscount:
+                $ref: '#/components/schemas/Money'
+              relativeDiscount:
+                type: number
+                format: double
+                description: Fraction of the base plan price as a discount.
+              free:
+                type: object
+                description: The phase is free.
+
+    ListSubscriptionsResponse:
+      type: object
+      description: Response containing a list of subscriptions.
+      properties:
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+
+    ListSubscriptionOffersResponse:
+      type: object
+      description: Response containing a list of subscription offers.
+      properties:
+        subscriptionOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionOffer'
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+
+    Review:
+      type: object
+      description: >-
+        An individual review of an app on Google Play, containing the
+        user comment and optional developer reply.
+      properties:
+        reviewId:
+          type: string
+          description: Unique identifier for the review.
+        authorName:
+          type: string
+          description: The name of the user who wrote the review.
+        comments:
+          type: array
+          description: >-
+            A list of comments for this review. Contains the user comment
+            and optionally the developer reply.
+          items:
+            $ref: '#/components/schemas/Comment'
+
+    Comment:
+      type: object
+      description: >-
+        A comment associated with a review, either a user comment
+        or a developer comment (reply).
+      properties:
+        userComment:
+          $ref: '#/components/schemas/UserComment'
+        developerComment:
+          $ref: '#/components/schemas/DeveloperComment'
+
+    UserComment:
+      type: object
+      description: A comment from a user reviewing the app.
+      properties:
+        text:
+          type: string
+          description: The text content of the review.
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+        starRating:
+          type: integer
+          description: The star rating (1-5) given by the user.
+          minimum: 1
+          maximum: 5
+        reviewerLanguage:
+          type: string
+          description: BCP-47 language tag of the reviewer's language.
+        device:
+          type: string
+          description: Information about the device used to write the review.
+        androidOsVersion:
+          type: integer
+          description: The Android OS version of the user's device.
+        appVersionCode:
+          type: integer
+          description: The version code of the app installed when the review was written.
+        appVersionName:
+          type: string
+          description: The version name of the app installed when the review was written.
+        thumbsUpCount:
+          type: integer
+          description: Number of users who found this review helpful.
+        thumbsDownCount:
+          type: integer
+          description: Number of users who found this review unhelpful.
+        deviceMetadata:
+          $ref: '#/components/schemas/DeviceMetadata'
+        originalText:
+          type: string
+          description: >-
+            The untranslated text of the review, if a translation was
+            requested.
+
+    DeveloperComment:
+      type: object
+      description: A reply from the developer to a user review.
+      properties:
+        text:
+          type: string
+          description: The text content of the developer reply.
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+
+    DeviceMetadata:
+      type: object
+      description: Metadata about the device used to write a review.
+      properties:
+        manufacturer:
+          type: string
+          description: Device manufacturer (e.g., Samsung, Google).
+        deviceClass:
+          type: string
+          description: Device class (e.g., phone, tablet).
+        screenWidthPx:
+          type: integer
+          description: Screen width in pixels.
+        screenHeightPx:
+          type: integer
+          description: Screen height in pixels.
+        nativePlatform:
+          type: string
+          description: >-
+            Comma-separated list of native platforms
+            (e.g., armeabi-v7a, arm64-v8a).
+        productName:
+          type: string
+          description: Device product name.
+        screenDensityDpi:
+          type: integer
+          description: Screen density in DPI.
+        glEsVersion:
+          type: integer
+          description: OpenGL ES version.
+        cpuModel:
+          type: string
+          description: CPU model identifier.
+        cpuMake:
+          type: string
+          description: CPU manufacturer.
+        ramMb:
+          type: integer
+          description: Device RAM in megabytes.
+
+    ReviewsListResponse:
+      type: object
+      description: Response containing a paginated list of reviews.
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        reviews:
+          type: array
+          description: List of reviews.
+          items:
+            $ref: '#/components/schemas/Review'
+
+    ReviewsReplyRequest:
+      type: object
+      description: Request body for replying to a review.
+      properties:
+        replyText:
+          type: string
+          description: >-
+            The text of the reply. The reply will replace any existing reply.
+            Maximum length is 350 characters.
+          maxLength: 350
+      required:
+        - replyText
+
+    ReviewsReplyResponse:
+      type: object
+      description: Response from posting a reply to a review.
+      properties:
+        result:
+          type: object
+          description: The result of the reply.
+          properties:
+            replyText:
+              type: string
+              description: The reply text that was posted.
+            lastEdited:
+              $ref: '#/components/schemas/Timestamp'
+
+    Money:
+      type: object
+      description: Represents a monetary amount with currency.
+      properties:
+        currencyCode:
+          type: string
+          description: ISO 4217 three-letter currency code (e.g., USD, EUR).
+        units:
+          type: string
+          format: int64
+          description: The whole units of the amount.
+        nanos:
+          type: integer
+          description: >-
+            Number of nano units (10^-9) of the amount.
+            Must be between -999,999,999 and +999,999,999.
+
+    Timestamp:
+      type: object
+      description: A timestamp in seconds and nanoseconds.
+      properties:
+        seconds:
+          type: string
+          format: int64
+          description: Seconds since Unix Epoch.
+        nanos:
+          type: integer
+          description: Non-negative fractions of a second at nanosecond resolution.
+
+    PageInfo:
+      type: object
+      description: Pagination information for list responses.
+      properties:
+        totalResults:
+          type: integer
+          description: Total number of results available.
+        resultPerPage:
+          type: integer
+          description: Maximum number of results per page.
+        startIndex:
+          type: integer
+          description: Index of the first result returned.
+
+    TokenPagination:
+      type: object
+      description: Token-based pagination for large result sets.
+      properties:
+        nextPageToken:
+          type: string
+          description: Token to retrieve the next page of results.
+        previousPageToken:
+          type: string
+          description: Token to retrieve the previous page of results.
+
+    Error:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+            message:
+              type: string
+              description: A human-readable error message.
+            status:
+              type: string
+              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
+            errors:
+              type: array
+              description: Detailed list of errors.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  domain:
+                    type: string
+                  reason:
+                    type: string

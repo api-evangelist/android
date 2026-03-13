@@ -1,0 +1,900 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.android.com/schemas/android-app-schema.json",
+  "title": "Android Application",
+  "description": "Schema representing an Android application and its metadata, including manifest information, Google Play Store listing details, distribution configuration, and associated API integrations. Based on the Android application model as documented at developer.android.com.",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "description": "The unique application ID that identifies the app on the device and in the Google Play Store. Follows Java package naming conventions (e.g., com.example.myapp). Defined in the app's build.gradle as applicationId.",
+      "pattern": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$",
+      "examples": ["com.example.myapp", "com.google.android.apps.maps"]
+    },
+    "appName": {
+      "type": "string",
+      "description": "The user-visible name of the application as it appears on the device and in the Google Play Store.",
+      "maxLength": 50
+    },
+    "versionCode": {
+      "type": "integer",
+      "description": "An internal version number used to determine whether one version is more recent than another. Higher values indicate more recent versions. This is the versionCode specified in build.gradle.",
+      "minimum": 1
+    },
+    "versionName": {
+      "type": "string",
+      "description": "The version name shown to users, following semantic versioning conventions (e.g., 1.0.0). This is the versionName specified in build.gradle.",
+      "examples": ["1.0.0", "2.3.1-beta"]
+    },
+    "minSdkVersion": {
+      "type": "integer",
+      "description": "The minimum Android API level required to run the application. Devices running a lower API level cannot install the app. See https://developer.android.com/guide/topics/manifest/uses-sdk-element.",
+      "minimum": 1,
+      "maximum": 36
+    },
+    "targetSdkVersion": {
+      "type": "integer",
+      "description": "The API level that the application targets. This informs the system how the app expects to behave and enables or disables compatibility behaviors. Apps on Google Play must target a recent API level.",
+      "minimum": 1,
+      "maximum": 36
+    },
+    "compileSdkVersion": {
+      "type": "integer",
+      "description": "The API level the application is compiled against. Determines which Android framework APIs are available at compile time.",
+      "minimum": 1,
+      "maximum": 36
+    },
+    "manifest": {
+      "type": "object",
+      "description": "Key attributes from the AndroidManifest.xml file that define the application's components, permissions, and requirements. See https://developer.android.com/guide/topics/manifest/manifest-intro.",
+      "properties": {
+        "permissions": {
+          "type": "array",
+          "description": "Android permissions the application requires. Each permission must be declared in the manifest and may require runtime user approval on API 23+.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The fully qualified permission name (e.g., android.permission.CAMERA).",
+                "examples": [
+                  "android.permission.INTERNET",
+                  "android.permission.CAMERA",
+                  "android.permission.ACCESS_FINE_LOCATION",
+                  "android.permission.READ_EXTERNAL_STORAGE"
+                ]
+              },
+              "maxSdkVersion": {
+                "type": "integer",
+                "description": "The highest API level at which this permission is required. On higher API levels, the permission is not needed."
+              },
+              "required": {
+                "type": "boolean",
+                "description": "Whether the permission is required for the app to function or is optional.",
+                "default": true
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "activities": {
+          "type": "array",
+          "description": "Activity components declared in the manifest. Activities provide the UI screens of the application.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Fully qualified class name of the activity (e.g., com.example.myapp.MainActivity)."
+              },
+              "exported": {
+                "type": "boolean",
+                "description": "Whether the activity can be launched by components of other applications. Required for activities with intent filters on API 31+."
+              },
+              "launchMode": {
+                "type": "string",
+                "description": "How the activity should be launched. Controls task and back stack behavior.",
+                "enum": ["standard", "singleTop", "singleTask", "singleInstance", "singleInstancePerTask"]
+              },
+              "intentFilters": {
+                "type": "array",
+                "description": "Intent filters that specify what intents the activity can respond to.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "actions": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "Intent actions this filter matches (e.g., android.intent.action.MAIN)."
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": { "type": "string" },
+                      "description": "Intent categories this filter matches (e.g., android.intent.category.LAUNCHER)."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "scheme": { "type": "string" },
+                          "host": { "type": "string" },
+                          "pathPattern": { "type": "string" },
+                          "mimeType": { "type": "string" }
+                        }
+                      },
+                      "description": "Data specifications for URI matching."
+                    }
+                  }
+                }
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "services": {
+          "type": "array",
+          "description": "Service components declared in the manifest. Services perform long-running operations in the background.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Fully qualified class name of the service."
+              },
+              "exported": {
+                "type": "boolean",
+                "description": "Whether other apps can bind to or start this service."
+              },
+              "foregroundServiceType": {
+                "type": "string",
+                "description": "The type of foreground service, required on API 29+ for foreground services.",
+                "enum": [
+                  "camera",
+                  "connectedDevice",
+                  "dataSync",
+                  "health",
+                  "location",
+                  "mediaPlayback",
+                  "mediaProjection",
+                  "microphone",
+                  "phoneCall",
+                  "remoteMessaging",
+                  "shortService",
+                  "specialUse",
+                  "systemExempted"
+                ]
+              },
+              "permission": {
+                "type": "string",
+                "description": "Permission required to start or bind to this service."
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "receivers": {
+          "type": "array",
+          "description": "Broadcast receiver components declared in the manifest.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Fully qualified class name of the broadcast receiver."
+              },
+              "exported": {
+                "type": "boolean",
+                "description": "Whether other apps can send broadcasts to this receiver."
+              },
+              "permission": {
+                "type": "string",
+                "description": "Permission required to send broadcasts to this receiver."
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "contentProviders": {
+          "type": "array",
+          "description": "Content provider components declared in the manifest. Content providers manage access to structured data.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Fully qualified class name of the content provider."
+              },
+              "authorities": {
+                "type": "string",
+                "description": "The authority string that identifies the content provider's data."
+              },
+              "exported": {
+                "type": "boolean",
+                "description": "Whether other apps can access this content provider."
+              },
+              "grantUriPermissions": {
+                "type": "boolean",
+                "description": "Whether to grant temporary URI permissions to access the provider's data."
+              }
+            },
+            "required": ["name", "authorities"]
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "Hardware and software features used by the application, declared with uses-feature elements.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The feature name (e.g., android.hardware.camera).",
+                "examples": [
+                  "android.hardware.camera",
+                  "android.hardware.camera.autofocus",
+                  "android.hardware.location.gps",
+                  "android.hardware.bluetooth_le",
+                  "android.hardware.sensor.accelerometer"
+                ]
+              },
+              "required": {
+                "type": "boolean",
+                "description": "Whether the feature is required. If false, the app can function without it but may provide reduced functionality.",
+                "default": true
+              }
+            },
+            "required": ["name"]
+          }
+        }
+      }
+    },
+    "buildConfiguration": {
+      "type": "object",
+      "description": "Build configuration details from the app's build.gradle file.",
+      "properties": {
+        "buildToolsVersion": {
+          "type": "string",
+          "description": "The version of the Android build tools used.",
+          "examples": ["34.0.0"]
+        },
+        "gradlePluginVersion": {
+          "type": "string",
+          "description": "The version of the Android Gradle Plugin used.",
+          "examples": ["8.7.0"]
+        },
+        "kotlinVersion": {
+          "type": "string",
+          "description": "The version of Kotlin used, if applicable.",
+          "examples": ["2.0.0"]
+        },
+        "composeVersion": {
+          "type": "string",
+          "description": "The version of Jetpack Compose used, if applicable.",
+          "examples": ["1.7.0"]
+        },
+        "buildTypes": {
+          "type": "array",
+          "description": "Build types configured for the application.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the build type.",
+                "examples": ["debug", "release"]
+              },
+              "minifyEnabled": {
+                "type": "boolean",
+                "description": "Whether code shrinking (R8/ProGuard) is enabled."
+              },
+              "debuggable": {
+                "type": "boolean",
+                "description": "Whether the build type generates a debuggable APK."
+              },
+              "signingConfig": {
+                "type": "string",
+                "description": "The name of the signing configuration used."
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "productFlavors": {
+          "type": "array",
+          "description": "Product flavors for building different versions of the app.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "The name of the product flavor."
+              },
+              "dimension": {
+                "type": "string",
+                "description": "The flavor dimension this flavor belongs to."
+              },
+              "applicationIdSuffix": {
+                "type": "string",
+                "description": "Suffix appended to the base application ID."
+              },
+              "versionNameSuffix": {
+                "type": "string",
+                "description": "Suffix appended to the base version name."
+              }
+            },
+            "required": ["name"]
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "External library dependencies declared in build.gradle.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": {
+                "type": "string",
+                "description": "The Maven group ID of the dependency.",
+                "examples": ["androidx.core", "com.google.android.gms"]
+              },
+              "artifact": {
+                "type": "string",
+                "description": "The Maven artifact ID.",
+                "examples": ["core-ktx", "play-services-maps"]
+              },
+              "version": {
+                "type": "string",
+                "description": "The version of the dependency.",
+                "examples": ["1.12.0"]
+              },
+              "configuration": {
+                "type": "string",
+                "description": "The dependency configuration (e.g., implementation, api, testImplementation).",
+                "enum": ["implementation", "api", "compileOnly", "runtimeOnly", "testImplementation", "androidTestImplementation", "kapt", "ksp"]
+              }
+            },
+            "required": ["group", "artifact", "version"]
+          }
+        }
+      }
+    },
+    "playStoreListing": {
+      "type": "object",
+      "description": "Google Play Store listing metadata as managed through the Google Play Console.",
+      "properties": {
+        "defaultLanguage": {
+          "type": "string",
+          "description": "BCP-47 language tag for the default listing language.",
+          "examples": ["en-US"]
+        },
+        "title": {
+          "type": "string",
+          "description": "The app title as displayed on Google Play. Maximum 30 characters.",
+          "maxLength": 30
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "Short promotional text displayed on Google Play. Maximum 80 characters.",
+          "maxLength": 80
+        },
+        "fullDescription": {
+          "type": "string",
+          "description": "Full description of the application on Google Play. Maximum 4000 characters.",
+          "maxLength": 4000
+        },
+        "category": {
+          "type": "string",
+          "description": "The Google Play Store category for the application.",
+          "examples": [
+            "GAME_ACTION",
+            "GAME_PUZZLE",
+            "PRODUCTIVITY",
+            "SOCIAL",
+            "COMMUNICATION",
+            "TOOLS",
+            "EDUCATION",
+            "ENTERTAINMENT",
+            "FINANCE",
+            "HEALTH_AND_FITNESS",
+            "MAPS_AND_NAVIGATION",
+            "MUSIC_AND_AUDIO",
+            "NEWS_AND_MAGAZINES",
+            "PHOTOGRAPHY",
+            "SHOPPING",
+            "TRAVEL_AND_LOCAL",
+            "WEATHER"
+          ]
+        },
+        "contentRating": {
+          "type": "object",
+          "description": "Content rating information based on the IARC rating system.",
+          "properties": {
+            "ratingSystem": {
+              "type": "string",
+              "description": "The rating system used.",
+              "examples": ["IARC", "ESRB", "PEGI", "USK", "ClassInd"]
+            },
+            "rating": {
+              "type": "string",
+              "description": "The content rating value.",
+              "examples": ["Everyone", "Everyone 10+", "Teen", "Mature 17+", "Adults Only"]
+            },
+            "interactiveElements": {
+              "type": "array",
+              "description": "Interactive elements present in the app.",
+              "items": {
+                "type": "string",
+                "examples": ["Users Interact", "In-App Purchases", "Shares Location"]
+              }
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "description": "Pricing configuration for the application.",
+          "properties": {
+            "free": {
+              "type": "boolean",
+              "description": "Whether the app is free to download."
+            },
+            "defaultPrice": {
+              "type": "object",
+              "description": "The default price if the app is paid.",
+              "properties": {
+                "currencyCode": {
+                  "type": "string",
+                  "description": "ISO 4217 currency code."
+                },
+                "units": {
+                  "type": "string",
+                  "description": "Whole units of the price."
+                },
+                "nanos": {
+                  "type": "integer",
+                  "description": "Nano units (10^-9) of the price."
+                }
+              }
+            }
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "description": "Developer contact information displayed on the Play Store listing.",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Developer contact email address. Required for all Play Store listings."
+            },
+            "website": {
+              "type": "string",
+              "format": "uri",
+              "description": "Developer website URL."
+            },
+            "phone": {
+              "type": "string",
+              "description": "Developer contact phone number."
+            },
+            "privacyPolicyUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to the app's privacy policy. Required for apps that collect personal data."
+            }
+          },
+          "required": ["email"]
+        },
+        "assets": {
+          "type": "object",
+          "description": "Graphic assets for the Play Store listing.",
+          "properties": {
+            "icon": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to the app icon (512x512 PNG)."
+            },
+            "featureGraphic": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to the feature graphic (1024x500 PNG or JPEG)."
+            },
+            "screenshots": {
+              "type": "array",
+              "description": "URLs to screenshots. Minimum 2 required, maximum 8.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL to the screenshot image."
+                  },
+                  "deviceType": {
+                    "type": "string",
+                    "description": "The type of device this screenshot represents.",
+                    "enum": ["phone", "sevenInchTablet", "tenInchTablet", "tv", "wearOS", "chromebook"]
+                  }
+                }
+              },
+              "minItems": 2,
+              "maxItems": 8
+            },
+            "videoUrl": {
+              "type": "string",
+              "format": "uri",
+              "description": "URL to a YouTube video showcasing the app."
+            }
+          }
+        }
+      },
+      "required": ["title", "shortDescription", "fullDescription"]
+    },
+    "distribution": {
+      "type": "object",
+      "description": "Distribution and release configuration for the application.",
+      "properties": {
+        "track": {
+          "type": "string",
+          "description": "The release track the app is published on.",
+          "enum": ["internal", "alpha", "beta", "production"]
+        },
+        "releaseStatus": {
+          "type": "string",
+          "description": "The status of the current release.",
+          "enum": ["draft", "inProgress", "halted", "completed"]
+        },
+        "rolloutPercentage": {
+          "type": "number",
+          "description": "For staged rollouts, the percentage of users receiving this release.",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "countries": {
+          "type": "array",
+          "description": "ISO 3166-1 alpha-2 country codes where the app is available.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "appBundle": {
+          "type": "object",
+          "description": "Android App Bundle (AAB) configuration details.",
+          "properties": {
+            "format": {
+              "type": "string",
+              "description": "The distribution format.",
+              "enum": ["AAB", "APK"]
+            },
+            "sha256CertFingerprint": {
+              "type": "string",
+              "description": "SHA-256 fingerprint of the app's signing certificate."
+            },
+            "playAppSigning": {
+              "type": "boolean",
+              "description": "Whether Google Play App Signing is enabled."
+            }
+          }
+        },
+        "deviceTargeting": {
+          "type": "object",
+          "description": "Device targeting configuration for the application.",
+          "properties": {
+            "supportedAbis": {
+              "type": "array",
+              "description": "Supported CPU architectures.",
+              "items": {
+                "type": "string",
+                "enum": ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"]
+              }
+            },
+            "supportedScreenDensities": {
+              "type": "array",
+              "description": "Supported screen densities.",
+              "items": {
+                "type": "string",
+                "enum": ["ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"]
+              }
+            },
+            "supportedLocales": {
+              "type": "array",
+              "description": "BCP-47 locale codes for supported languages.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "inAppProducts": {
+      "type": "array",
+      "description": "In-app products (managed products) available for purchase within the application.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "description": "The unique product ID for the in-app product."
+          },
+          "productType": {
+            "type": "string",
+            "description": "The type of in-app product.",
+            "enum": ["managedUser", "subscription"]
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the in-app product.",
+            "enum": ["active", "inactive"]
+          },
+          "defaultPrice": {
+            "type": "object",
+            "description": "Default price of the product.",
+            "properties": {
+              "currencyCode": {
+                "type": "string"
+              },
+              "priceMicros": {
+                "type": "string",
+                "format": "int64",
+                "description": "Price in micro-units."
+              }
+            }
+          },
+          "listings": {
+            "type": "object",
+            "description": "Localized product listings keyed by BCP-47 language tag.",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Product title in this locale."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Product description in this locale."
+                }
+              }
+            }
+          }
+        },
+        "required": ["productId", "productType"]
+      }
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "Subscription products available in the application, following the Google Play Billing Library model.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "string",
+            "description": "The unique product ID for the subscription."
+          },
+          "basePlans": {
+            "type": "array",
+            "description": "Base plans defining billing periods and renewal behavior.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "basePlanId": {
+                  "type": "string",
+                  "description": "Unique identifier for the base plan."
+                },
+                "billingPeriod": {
+                  "type": "string",
+                  "description": "Billing period in ISO 8601 duration format.",
+                  "examples": ["P1M", "P3M", "P6M", "P1Y", "P1W"]
+                },
+                "renewalType": {
+                  "type": "string",
+                  "description": "Whether the plan auto-renews or is prepaid.",
+                  "enum": ["AUTO_RENEWING", "PREPAID"]
+                },
+                "price": {
+                  "type": "object",
+                  "properties": {
+                    "currencyCode": { "type": "string" },
+                    "units": { "type": "string" },
+                    "nanos": { "type": "integer" }
+                  }
+                }
+              },
+              "required": ["basePlanId", "billingPeriod"]
+            }
+          },
+          "offers": {
+            "type": "array",
+            "description": "Subscription offers such as free trials and introductory pricing.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "offerId": {
+                  "type": "string"
+                },
+                "basePlanId": {
+                  "type": "string"
+                },
+                "phases": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "duration": {
+                        "type": "string",
+                        "description": "Phase duration in ISO 8601 format."
+                      },
+                      "recurrenceCount": {
+                        "type": "integer"
+                      },
+                      "pricingType": {
+                        "type": "string",
+                        "enum": ["FREE", "DISCOUNTED", "FULL_PRICE"]
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["offerId", "basePlanId"]
+            }
+          },
+          "listings": {
+            "type": "object",
+            "description": "Localized subscription listings keyed by BCP-47 language tag.",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "description": { "type": "string" },
+                "benefits": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "maxItems": 4
+                }
+              }
+            }
+          }
+        },
+        "required": ["productId"]
+      }
+    },
+    "dataSafety": {
+      "type": "object",
+      "description": "Data safety declaration for Google Play, describing what data the app collects, shares, and how it is handled. See https://developer.android.com/guide/topics/data/collect-share.",
+      "properties": {
+        "dataCollected": {
+          "type": "array",
+          "description": "Types of user data the app collects.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "The data category.",
+                "enum": [
+                  "Location",
+                  "Personal info",
+                  "Financial info",
+                  "Health and fitness",
+                  "Messages",
+                  "Photos and videos",
+                  "Audio files",
+                  "Files and docs",
+                  "Calendar",
+                  "Contacts",
+                  "App activity",
+                  "Web browsing",
+                  "App info and performance",
+                  "Device or other IDs"
+                ]
+              },
+              "dataTypes": {
+                "type": "array",
+                "description": "Specific data types collected within the category.",
+                "items": { "type": "string" }
+              },
+              "purpose": {
+                "type": "array",
+                "description": "Purposes for collecting this data.",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "App functionality",
+                    "Analytics",
+                    "Developer communications",
+                    "Advertising or marketing",
+                    "Fraud prevention, security, and compliance",
+                    "Personalization",
+                    "Account management"
+                  ]
+                }
+              },
+              "optional": {
+                "type": "boolean",
+                "description": "Whether providing this data is optional for the user."
+              }
+            },
+            "required": ["category"]
+          }
+        },
+        "dataShared": {
+          "type": "array",
+          "description": "Types of user data the app shares with third parties.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": { "type": "string" },
+              "dataTypes": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "purpose": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "securityPractices": {
+          "type": "object",
+          "description": "Security practices for handling user data.",
+          "properties": {
+            "dataEncryptedInTransit": {
+              "type": "boolean",
+              "description": "Whether data is encrypted during transmission."
+            },
+            "dataCanBeDeleted": {
+              "type": "boolean",
+              "description": "Whether users can request that their data be deleted."
+            },
+            "independentSecurityReview": {
+              "type": "boolean",
+              "description": "Whether the app has undergone an independent security review."
+            }
+          }
+        }
+      }
+    },
+    "apiIntegrations": {
+      "type": "array",
+      "description": "External APIs and services integrated into the application.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the API or service.",
+            "examples": [
+              "Google Play Billing",
+              "Firebase Analytics",
+              "Google Maps SDK",
+              "Google AdMob",
+              "Firebase Cloud Messaging"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the API or SDK integrated."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of integration.",
+            "enum": ["SDK", "REST API", "gRPC", "GraphQL", "WebSocket"]
+          },
+          "documentationUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the API documentation."
+          },
+          "requiredPermissions": {
+            "type": "array",
+            "description": "Android permissions required by this integration.",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "required": ["packageName", "appName", "versionCode", "versionName"]
+}

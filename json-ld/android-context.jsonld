@@ -1,0 +1,600 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://developer.android.com/ns/",
+    "android": "https://developer.android.com/ns/",
+    "schema": "https://schema.org/",
+    "gplay": "https://developers.google.com/android-publisher/ns/",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "AndroidApplication": {
+      "@id": "android:AndroidApplication",
+      "@context": {
+        "packageName": {
+          "@id": "android:packageName",
+          "@type": "xsd:string"
+        },
+        "appName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "versionCode": {
+          "@id": "android:versionCode",
+          "@type": "xsd:integer"
+        },
+        "versionName": {
+          "@id": "schema:softwareVersion",
+          "@type": "xsd:string"
+        },
+        "minSdkVersion": {
+          "@id": "android:minSdkVersion",
+          "@type": "xsd:integer"
+        },
+        "targetSdkVersion": {
+          "@id": "android:targetSdkVersion",
+          "@type": "xsd:integer"
+        },
+        "compileSdkVersion": {
+          "@id": "android:compileSdkVersion",
+          "@type": "xsd:integer"
+        },
+        "applicationCategory": {
+          "@id": "schema:applicationCategory",
+          "@type": "xsd:string"
+        },
+        "operatingSystem": {
+          "@id": "schema:operatingSystem",
+          "@type": "xsd:string"
+        },
+        "downloadUrl": {
+          "@id": "schema:downloadUrl",
+          "@type": "@id"
+        },
+        "installUrl": {
+          "@id": "schema:installUrl",
+          "@type": "@id"
+        },
+        "datePublished": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:date"
+        },
+        "dateModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:date"
+        }
+      }
+    },
+
+    "AndroidPermission": {
+      "@id": "android:AndroidPermission",
+      "@context": {
+        "permissionName": {
+          "@id": "android:permissionName",
+          "@type": "xsd:string"
+        },
+        "protectionLevel": {
+          "@id": "android:protectionLevel",
+          "@type": "xsd:string"
+        },
+        "permissionGroup": {
+          "@id": "android:permissionGroup",
+          "@type": "xsd:string"
+        },
+        "isRequired": {
+          "@id": "android:isRequired",
+          "@type": "xsd:boolean"
+        },
+        "maxSdkVersion": {
+          "@id": "android:maxSdkVersion",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "AndroidActivity": {
+      "@id": "android:AndroidActivity",
+      "@context": {
+        "className": {
+          "@id": "android:className",
+          "@type": "xsd:string"
+        },
+        "exported": {
+          "@id": "android:exported",
+          "@type": "xsd:boolean"
+        },
+        "launchMode": {
+          "@id": "android:launchMode",
+          "@type": "xsd:string"
+        },
+        "intentFilter": {
+          "@id": "android:intentFilter",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "AndroidService": {
+      "@id": "android:AndroidService",
+      "@context": {
+        "className": {
+          "@id": "android:className",
+          "@type": "xsd:string"
+        },
+        "exported": {
+          "@id": "android:exported",
+          "@type": "xsd:boolean"
+        },
+        "foregroundServiceType": {
+          "@id": "android:foregroundServiceType",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "AndroidBroadcastReceiver": {
+      "@id": "android:AndroidBroadcastReceiver",
+      "@context": {
+        "className": {
+          "@id": "android:className",
+          "@type": "xsd:string"
+        },
+        "exported": {
+          "@id": "android:exported",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "AndroidContentProvider": {
+      "@id": "android:AndroidContentProvider",
+      "@context": {
+        "className": {
+          "@id": "android:className",
+          "@type": "xsd:string"
+        },
+        "authorities": {
+          "@id": "android:authorities",
+          "@type": "xsd:string"
+        },
+        "exported": {
+          "@id": "android:exported",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "IntentFilter": {
+      "@id": "android:IntentFilter",
+      "@context": {
+        "action": {
+          "@id": "android:action",
+          "@type": "xsd:string",
+          "@container": "@set"
+        },
+        "category": {
+          "@id": "android:category",
+          "@type": "xsd:string",
+          "@container": "@set"
+        },
+        "dataScheme": {
+          "@id": "android:dataScheme",
+          "@type": "xsd:string"
+        },
+        "dataHost": {
+          "@id": "android:dataHost",
+          "@type": "xsd:string"
+        },
+        "dataMimeType": {
+          "@id": "android:dataMimeType",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "PlayStoreListing": {
+      "@id": "gplay:PlayStoreListing",
+      "@context": {
+        "title": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "shortDescription": {
+          "@id": "schema:abstract",
+          "@type": "xsd:string"
+        },
+        "fullDescription": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "category": {
+          "@id": "schema:applicationCategory",
+          "@type": "xsd:string"
+        },
+        "contentRating": {
+          "@id": "schema:contentRating",
+          "@type": "xsd:string"
+        },
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "priceCurrency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "isFree": {
+          "@id": "schema:isAccessibleForFree",
+          "@type": "xsd:boolean"
+        },
+        "screenshot": {
+          "@id": "schema:screenshot",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "icon": {
+          "@id": "schema:thumbnailUrl",
+          "@type": "@id"
+        },
+        "videoUrl": {
+          "@id": "schema:video",
+          "@type": "@id"
+        },
+        "privacyPolicyUrl": {
+          "@id": "gplay:privacyPolicyUrl",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "InAppProduct": {
+      "@id": "gplay:InAppProduct",
+      "@context": {
+        "productId": {
+          "@id": "gplay:productId",
+          "@type": "xsd:string"
+        },
+        "productType": {
+          "@id": "gplay:productType",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "gplay:status",
+          "@type": "xsd:string"
+        },
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "priceCurrency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "title": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "SubscriptionProduct": {
+      "@id": "gplay:SubscriptionProduct",
+      "@context": {
+        "productId": {
+          "@id": "gplay:productId",
+          "@type": "xsd:string"
+        },
+        "basePlan": {
+          "@id": "gplay:basePlan",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "offer": {
+          "@id": "gplay:offer",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "BasePlan": {
+      "@id": "gplay:BasePlan",
+      "@context": {
+        "basePlanId": {
+          "@id": "gplay:basePlanId",
+          "@type": "xsd:string"
+        },
+        "billingPeriod": {
+          "@id": "gplay:billingPeriod",
+          "@type": "xsd:duration"
+        },
+        "renewalType": {
+          "@id": "gplay:renewalType",
+          "@type": "xsd:string"
+        },
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "priceCurrency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "gplay:state",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "SubscriptionOffer": {
+      "@id": "gplay:SubscriptionOffer",
+      "@context": {
+        "offerId": {
+          "@id": "gplay:offerId",
+          "@type": "xsd:string"
+        },
+        "basePlanId": {
+          "@id": "gplay:basePlanId",
+          "@type": "xsd:string"
+        },
+        "phase": {
+          "@id": "gplay:phase",
+          "@type": "@id",
+          "@container": "@list"
+        },
+        "state": {
+          "@id": "gplay:state",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "ProductPurchase": {
+      "@id": "gplay:ProductPurchase",
+      "@context": {
+        "purchaseToken": {
+          "@id": "gplay:purchaseToken",
+          "@type": "xsd:string"
+        },
+        "orderId": {
+          "@id": "gplay:orderId",
+          "@type": "xsd:string"
+        },
+        "purchaseTime": {
+          "@id": "gplay:purchaseTime",
+          "@type": "xsd:dateTime"
+        },
+        "purchaseState": {
+          "@id": "gplay:purchaseState",
+          "@type": "xsd:integer"
+        },
+        "consumptionState": {
+          "@id": "gplay:consumptionState",
+          "@type": "xsd:integer"
+        },
+        "acknowledgementState": {
+          "@id": "gplay:acknowledgementState",
+          "@type": "xsd:integer"
+        },
+        "regionCode": {
+          "@id": "gplay:regionCode",
+          "@type": "xsd:string"
+        },
+        "productId": {
+          "@id": "gplay:productId",
+          "@type": "xsd:string"
+        },
+        "quantity": {
+          "@id": "gplay:quantity",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "SubscriptionPurchase": {
+      "@id": "gplay:SubscriptionPurchase",
+      "@context": {
+        "purchaseToken": {
+          "@id": "gplay:purchaseToken",
+          "@type": "xsd:string"
+        },
+        "orderId": {
+          "@id": "gplay:orderId",
+          "@type": "xsd:string"
+        },
+        "startTime": {
+          "@id": "gplay:startTime",
+          "@type": "xsd:dateTime"
+        },
+        "expiryTime": {
+          "@id": "gplay:expiryTime",
+          "@type": "xsd:dateTime"
+        },
+        "autoRenewing": {
+          "@id": "gplay:autoRenewing",
+          "@type": "xsd:boolean"
+        },
+        "priceCurrency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "priceAmountMicros": {
+          "@id": "gplay:priceAmountMicros",
+          "@type": "xsd:long"
+        },
+        "paymentState": {
+          "@id": "gplay:paymentState",
+          "@type": "xsd:integer"
+        },
+        "cancelReason": {
+          "@id": "gplay:cancelReason",
+          "@type": "xsd:integer"
+        },
+        "subscriptionState": {
+          "@id": "gplay:subscriptionState",
+          "@type": "xsd:string"
+        },
+        "acknowledgementState": {
+          "@id": "gplay:acknowledgementState",
+          "@type": "xsd:integer"
+        },
+        "linkedPurchaseToken": {
+          "@id": "gplay:linkedPurchaseToken",
+          "@type": "xsd:string"
+        },
+        "countryCode": {
+          "@id": "gplay:countryCode",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Review": {
+      "@id": "gplay:Review",
+      "@context": {
+        "reviewId": {
+          "@id": "gplay:reviewId",
+          "@type": "xsd:string"
+        },
+        "authorName": {
+          "@id": "schema:author",
+          "@type": "xsd:string"
+        },
+        "reviewText": {
+          "@id": "schema:reviewBody",
+          "@type": "xsd:string"
+        },
+        "starRating": {
+          "@id": "schema:ratingValue",
+          "@type": "xsd:integer"
+        },
+        "reviewerLanguage": {
+          "@id": "schema:inLanguage",
+          "@type": "xsd:string"
+        },
+        "lastModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "appVersionCode": {
+          "@id": "android:versionCode",
+          "@type": "xsd:integer"
+        },
+        "appVersionName": {
+          "@id": "schema:softwareVersion",
+          "@type": "xsd:string"
+        },
+        "thumbsUpCount": {
+          "@id": "schema:upvoteCount",
+          "@type": "xsd:integer"
+        },
+        "developerReply": {
+          "@id": "gplay:developerReply",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "DeveloperReply": {
+      "@id": "gplay:DeveloperReply",
+      "@context": {
+        "replyText": {
+          "@id": "schema:text",
+          "@type": "xsd:string"
+        },
+        "lastModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DataSafety": {
+      "@id": "android:DataSafety",
+      "@context": {
+        "dataCollected": {
+          "@id": "android:dataCollected",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "dataShared": {
+          "@id": "android:dataShared",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "dataEncryptedInTransit": {
+          "@id": "android:dataEncryptedInTransit",
+          "@type": "xsd:boolean"
+        },
+        "dataCanBeDeleted": {
+          "@id": "android:dataCanBeDeleted",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "DeviceMetadata": {
+      "@id": "android:DeviceMetadata",
+      "@context": {
+        "manufacturer": {
+          "@id": "schema:manufacturer",
+          "@type": "xsd:string"
+        },
+        "deviceClass": {
+          "@id": "android:deviceClass",
+          "@type": "xsd:string"
+        },
+        "productName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "screenWidthPx": {
+          "@id": "android:screenWidthPx",
+          "@type": "xsd:integer"
+        },
+        "screenHeightPx": {
+          "@id": "android:screenHeightPx",
+          "@type": "xsd:integer"
+        },
+        "screenDensityDpi": {
+          "@id": "android:screenDensityDpi",
+          "@type": "xsd:integer"
+        },
+        "ramMb": {
+          "@id": "android:ramMb",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "ApiIntegration": {
+      "@id": "android:ApiIntegration",
+      "@context": {
+        "apiName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "apiVersion": {
+          "@id": "schema:softwareVersion",
+          "@type": "xsd:string"
+        },
+        "integrationType": {
+          "@id": "android:integrationType",
+          "@type": "xsd:string"
+        },
+        "documentationUrl": {
+          "@id": "schema:documentation",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}
