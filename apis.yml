@@ -1,4 +1,4 @@
-name: Android APIs
+name: Android
 segments:
   - SDKs
 description: Collection of APIs and services available in the Android ecosystem
