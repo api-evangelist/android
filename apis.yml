@@ -16,9 +16,9 @@ apis:
     humanUrl: https://developer.android.com/reference
     baseUrl: https://developer.android.com
     tags:
-      - Mobile
       - Android
       - Framework
+      - Mobile
       - SDK
     properties:
       - type: Documentation
@@ -45,11 +45,10 @@ apis:
     humanUrl: https://developers.google.com/android/guides/overview
     baseUrl: https://developers.google.com/android
     tags:
-      - Google Play
-      - Services
       - Authentication
-      - Maps
+      - Google Play
       - Location
+      - Maps
     properties:
       - type: Documentation
         url: https://developers.google.com/android/guides/overview
@@ -69,12 +68,12 @@ apis:
     humanUrl: https://firebase.google.com/docs/android/setup
     baseUrl: https://firebase.google.com
     tags:
-      - Firebase
-      - Backend
-      - Database
-      - Authentication
       - Analytics
+      - Authentication
+      - Backend
       - Cloud Messaging
+      - Database
+      - Firebase
     properties:
       - type: Documentation
         url: https://firebase.google.com/docs/android/setup
@@ -96,16 +95,15 @@ apis:
     humanUrl: https://developers.google.com/maps/documentation/android-sdk
     baseUrl: https://maps.googleapis.com
     tags:
-      - Maps
-      - Location
       - Geolocation
+      - Location
+      - Maps
       - Navigation
     properties:
       - type: Documentation
         url: https://developers.google.com/maps/documentation/android-sdk
       - type: API Reference
-        url: 
-          https://developers.google.com/android/reference/com/google/android/gms/maps/package-summary
+        url: https://developers.google.com/android/reference/com/google/android/gms/maps/package-summary
       - type: Pricing
         url: https://developers.google.com/maps/pricing-and-plans
       - type: Getting Started
@@ -122,11 +120,11 @@ apis:
     humanUrl: https://developer.android.com/jetpack
     baseUrl: https://developer.android.com/jetpack
     tags:
+      - Architecture
+      - Compose
       - Jetpack
       - Libraries
-      - Architecture
       - UI
-      - Compose
     properties:
       - type: Documentation
         url: https://developer.android.com/jetpack/getting-started
@@ -150,9 +148,9 @@ apis:
     humanUrl: https://developers.google.com/android-publisher
     baseUrl: https://androidpublisher.googleapis.com
     tags:
-      - Publishing
       - Analytics
       - Distribution
+      - Publishing
       - REST API
     properties:
       - type: Documentation
@@ -164,8 +162,7 @@ apis:
       - type: Authentication
         url: https://developers.google.com/android-publisher/authorization
       - type: Release Notes
-        url: 
-          https://developer.android.com/google/play/billing/play-developer-apis-release-notes
+        url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
     contact:
       - type: Support
         url: https://support.google.com/googleplay/android-developer
@@ -178,8 +175,8 @@ apis:
     tags:
       - Billing
       - In-App Purchases
-      - Subscriptions
       - Monetization
+      - Subscriptions
     properties:
       - type: Documentation
         url: https://developer.android.com/google/play/billing/integrate
@@ -198,11 +195,11 @@ apis:
     humanUrl: https://developer.android.com/ndk
     baseUrl: https://developer.android.com/ndk
     tags:
-      - NDK
-      - Native
       - C++
-      - Performance
+      - Native
+      - NDK
       - OpenGL
+      - Performance
       - Vulkan
     properties:
       - type: Documentation
@@ -226,13 +223,13 @@ apis:
     humanUrl: https://developers.google.com/ml-kit
     baseUrl: https://developers.google.com/ml-kit
     tags:
+      - Barcode Scanning
+      - Face Detection
       - Machine Learning
       - ML Kit
-      - Vision
-      - Text Recognition
-      - Face Detection
-      - Barcode Scanning
       - On-Device
+      - Text Recognition
+      - Vision
     properties:
       - type: Documentation
         url: https://developers.google.com/ml-kit
@@ -255,23 +252,20 @@ apis:
     humanUrl: https://developer.android.com/health-and-fitness/health-connect
     baseUrl: https://developer.android.com/health-and-fitness
     tags:
-      - Health
-      - Fitness
-      - Wearables
       - Data Sharing
+      - Fitness
+      - Health
       - Privacy
+      - Wearables
     properties:
       - type: Documentation
         url: https://developer.android.com/health-and-fitness/health-connect
       - type: Getting Started
-        url: 
-          https://developer.android.com/health-and-fitness/health-connect/get-started
+        url: https://developer.android.com/health-and-fitness/health-connect/get-started
       - type: API Reference
-        url: 
-          https://developer.android.com/reference/android/health/connect/package-summary
+        url: https://developer.android.com/reference/android/health/connect/package-summary
       - type: Data Types
-        url: 
-          https://developer.android.com/health-and-fitness/health-connect/data-types
+        url: https://developer.android.com/health-and-fitness/health-connect/data-types
       - type: Codelab
         url: https://developer.android.com/codelabs/health-connect
     contact:
@@ -286,10 +280,10 @@ apis:
     baseUrl: https://developer.android.com/media/camera
     tags:
       - Camera
-      - Media
       - Image Capture
-      - Video
       - Jetpack
+      - Media
+      - Video
     properties:
       - type: Documentation
         url: https://developer.android.com/media/camera/camerax
@@ -313,11 +307,11 @@ apis:
     humanUrl: https://developer.android.com/wear
     baseUrl: https://developer.android.com/wear
     tags:
-      - Wear OS
-      - Wearables
       - Smartwatch
       - Tiles
       - Watch Face
+      - Wear OS
+      - Wearables
     properties:
       - type: Documentation
         url: https://developer.android.com/training/wearables
@@ -343,16 +337,15 @@ apis:
       - Android Auto
       - Automotive
       - Cars
-      - Navigation
       - Media
+      - Navigation
     properties:
       - type: Documentation
         url: https://developer.android.com/training/cars
       - type: Android Auto Overview
         url: https://developer.android.com/training/cars/platforms/android-auto
       - type: Car Hardware APIs
-        url: 
-          https://developer.android.com/training/cars/apps/library/car-hardware-api
+        url: https://developer.android.com/training/cars/apps/library/car-hardware-api
       - type: API Reference
         url: https://developer.android.com/reference/android/car/package-summary
       - type: Code Samples
@@ -368,12 +361,12 @@ apis:
     humanUrl: https://developers.google.com/admob
     baseUrl: https://developers.google.com/admob
     tags:
-      - Advertising
-      - Monetization
       - AdMob
       - Ads
+      - Advertising
       - Banner
       - Interstitial
+      - Monetization
     properties:
       - type: Documentation
         url: https://developers.google.com/admob
@@ -394,21 +387,19 @@ apis:
     humanUrl: https://developer.android.com/guide/topics/ui/accessibility
     baseUrl: https://developer.android.com
     tags:
-      - Accessibility
       - A11y
+      - Accessibility
       - Assistive Technology
       - Screen Reader
     properties:
       - type: Documentation
         url: https://developer.android.com/guide/topics/ui/accessibility
       - type: API Reference
-        url: 
-          https://developer.android.com/reference/android/accessibilityservice/AccessibilityService
+        url: https://developer.android.com/reference/android/accessibilityservice/AccessibilityService
       - type: Accessibility Service Guide
         url: https://developer.android.com/guide/topics/ui/accessibility/service
       - type: Codelab
-        url: 
-          https://codelabs.developers.google.com/codelabs/developing-android-a11y-service
+        url: https://codelabs.developers.google.com/codelabs/developing-android-a11y-service
     contact:
       - type: Support
         url: https://developer.android.com/support
@@ -421,18 +412,17 @@ apis:
     baseUrl: https://developer.android.com/tv
     tags:
       - Android TV
-      - Television
       - Leanback
-      - Media
       - Living Room
+      - Media
+      - Television
     properties:
       - type: Documentation
         url: https://developer.android.com/tv
       - type: Leanback UI Toolkit
         url: https://developer.android.com/training/tv/playback/leanback
       - type: Leanback Libraries
-        url: 
-          https://developer.android.com/training/tv/playback/leanback/leanback-libraries
+        url: https://developer.android.com/training/tv/playback/leanback/leanback-libraries
       - type: Code Samples
         url: https://github.com/android/tv-samples
     contact:
@@ -446,11 +436,11 @@ apis:
     humanUrl: https://developer.android.com/google/play/integrity
     baseUrl: https://developer.android.com/google/play/integrity
     tags:
-      - Security
-      - Integrity
-      - Verification
       - Anti-Fraud
       - Device Attestation
+      - Integrity
+      - Security
+      - Verification
     properties:
       - type: Documentation
         url: https://developer.android.com/google/play/integrity/overview
@@ -459,8 +449,7 @@ apis:
       - type: Integrity Verdicts
         url: https://developer.android.com/google/play/integrity/verdicts
       - type: Additional Tools
-        url: 
-          https://developer.android.com/google/play/integrity/additional-tools
+        url: https://developer.android.com/google/play/integrity/additional-tools
     contact:
       - type: Support
         url: https://support.google.com/googleplay/android-developer
@@ -472,12 +461,12 @@ apis:
     humanUrl: https://developer.android.com/identity/credential-manager
     baseUrl: https://developer.android.com/identity
     tags:
-      - Identity
       - Authentication
-      - Passkeys
       - Credentials
-      - Sign-In
+      - Identity
+      - Passkeys
       - Security
+      - Sign-In
     properties:
       - type: Documentation
         url: https://developer.android.com/identity/credential-manager
@@ -488,8 +477,7 @@ apis:
       - type: Credential Provider
         url: https://developer.android.com/identity/sign-in/credential-provider
       - type: Codelab
-        url: 
-          https://codelabs.developers.google.com/credential-manager-api-for-android
+        url: https://codelabs.developers.google.com/credential-manager-api-for-android
     contact:
       - type: Support
         url: https://developer.android.com/support
@@ -503,10 +491,10 @@ apis:
     tags:
       - AI
       - Gemini Nano
-      - On-Device
       - Generative AI
-      - Machine Learning
       - LLM
+      - Machine Learning
+      - On-Device
     properties:
       - type: Documentation
         url: https://developer.android.com/ai/gemini-nano
@@ -529,12 +517,12 @@ apis:
     humanUrl: https://developer.android.com/google/play/developer-api
     baseUrl: https://androidpublisher.googleapis.com
     tags:
-      - REST API
-      - Publishing
-      - Reporting
       - App Management
       - Google Play
+      - Publishing
       - Purchases
+      - Reporting
+      - REST API
       - Reviews
       - Subscriptions
     properties:
@@ -549,8 +537,7 @@ apis:
       - type: JSON-LD Context
         url: json-ld/android-context.jsonld
       - type: Release Notes
-        url: 
-          https://developer.android.com/google/play/billing/play-developer-apis-release-notes
+        url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
     contact:
       - type: Support
         url: https://support.google.com/googleplay/android-developer
@@ -563,9 +550,9 @@ apis:
     baseUrl: https://developer.android.com/ai
     tags:
       - AI
+      - Cloud
       - Gemini
       - Generative AI
-      - Cloud
       - LLM
     properties:
       - type: Documentation
@@ -608,13 +595,12 @@ maintainers:
     email: android-developers@google.com
     url: https://developer.android.com
 tags:
-  - Android
-  - Mobile Development
-  - Google
-  - SDK
-  - APIs
-  - Wearables
-  - TV
-  - Automotive
   - AI
+  - Android
+  - Automotive
+  - Google
   - Machine Learning
+  - Mobile Development
+  - SDK
+  - TV
+  - Wearables
