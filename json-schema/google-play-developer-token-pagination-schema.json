@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TokenPagination",
+  "type": "object",
+  "description": "Token-based pagination for large result sets.",
+  "properties": {
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token to retrieve the next page of results."
+    },
+    "previousPageToken": {
+      "type": "string",
+      "description": "Token to retrieve the previous page of results."
+    }
+  }
+}

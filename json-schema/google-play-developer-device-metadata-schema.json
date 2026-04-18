@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeviceMetadata",
+  "type": "object",
+  "description": "Metadata about the device used to write a review.",
+  "properties": {
+    "manufacturer": {
+      "type": "string",
+      "description": "Device manufacturer (e.g., Samsung, Google)."
+    },
+    "deviceClass": {
+      "type": "string",
+      "description": "Device class (e.g., phone, tablet)."
+    },
+    "screenWidthPx": {
+      "type": "integer",
+      "description": "Screen width in pixels."
+    },
+    "screenHeightPx": {
+      "type": "integer",
+      "description": "Screen height in pixels."
+    },
+    "nativePlatform": {
+      "type": "string",
+      "description": "Comma-separated list of native platforms (e.g., armeabi-v7a, arm64-v8a)."
+    },
+    "productName": {
+      "type": "string",
+      "description": "Device product name."
+    },
+    "screenDensityDpi": {
+      "type": "integer",
+      "description": "Screen density in DPI."
+    },
+    "glEsVersion": {
+      "type": "integer",
+      "description": "OpenGL ES version."
+    },
+    "cpuModel": {
+      "type": "string",
+      "description": "CPU model identifier."
+    },
+    "cpuMake": {
+      "type": "string",
+      "description": "CPU manufacturer."
+    },
+    "ramMb": {
+      "type": "integer",
+      "description": "Device RAM in megabytes."
+    }
+  }
+}

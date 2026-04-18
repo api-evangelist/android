@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SubscriptionListing",
+  "type": "object",
+  "properties": {
+    "languageCode": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "array"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

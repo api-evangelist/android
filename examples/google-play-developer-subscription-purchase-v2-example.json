@@ -1,0 +1,13 @@
+{
+  "kind": "example_value",
+  "regionCode": "example_value",
+  "latestOrderId": "500123",
+  "lineItems": [],
+  "startTime": "example_value",
+  "subscriptionState": "example_value",
+  "linkedPurchaseToken": "example_value",
+  "pausedStateContext": "example_value",
+  "canceledStateContext": "example_value",
+  "acknowledgementState": "example_value",
+  "externalAccountIdentifiers": "example_value"
+}

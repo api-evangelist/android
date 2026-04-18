@@ -1,0 +1,10 @@
+{
+  "kind": "example_value",
+  "purchaseToken": "example_value",
+  "purchaseTimeMillis": "example_value",
+  "voidedTimeMillis": "example_value",
+  "orderId": "500123",
+  "voidedSource": 10,
+  "voidedReason": 10,
+  "voidedQuantity": 10
+}

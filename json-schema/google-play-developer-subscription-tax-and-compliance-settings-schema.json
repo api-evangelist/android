@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionTaxAndComplianceSettings",
+  "type": "object",
+  "description": "Tax and compliance settings for a subscription.",
+  "properties": {
+    "eeaWithdrawalRightType": {
+      "type": "string",
+      "description": "Digital content or service classification for EEA withdrawal right."
+    },
+    "taxRateInfoByRegionCode": {
+      "type": "object",
+      "description": "Tax rate information keyed by region code."
+    },
+    "isTokenizedDigitalAsset": {
+      "type": "boolean",
+      "description": "Whether the subscription represents a tokenized digital asset."
+    }
+  }
+}

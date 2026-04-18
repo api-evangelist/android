@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionOffer",
+  "type": "object",
+  "description": "A subscription offer represents special pricing for a subscription, such as a free trial or introductory price.",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "description": "The package name of the parent app."
+    },
+    "productId": {
+      "type": "string",
+      "description": "The product ID of the parent subscription."
+    },
+    "basePlanId": {
+      "type": "string",
+      "description": "The base plan ID the offer is associated with."
+    },
+    "offerId": {
+      "type": "string",
+      "description": "The unique identifier for this offer."
+    },
+    "state": {
+      "type": "string",
+      "description": "The current state of the offer."
+    },
+    "phases": {
+      "type": "array",
+      "description": "The pricing phases for this offer. Each phase defines a pricing period with its own duration and price."
+    },
+    "targeting": {
+      "type": "object",
+      "description": "Targeting rules for the offer."
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional configuration for this offer."
+    },
+    "offerTags": {
+      "type": "array",
+      "description": "Custom tags for this offer."
+    }
+  }
+}

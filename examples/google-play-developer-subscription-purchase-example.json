@@ -1,0 +1,22 @@
+{
+  "kind": "example_value",
+  "startTimeMillis": "example_value",
+  "expiryTimeMillis": "example_value",
+  "userCancellationTimeMillis": "example_value",
+  "autoRenewing": true,
+  "priceCurrencyCode": "example_value",
+  "priceAmountMicros": "example_value",
+  "countryCode": "example_value",
+  "developerPayload": "example_value",
+  "paymentState": 10,
+  "cancelReason": 10,
+  "linkedPurchaseToken": "example_value",
+  "purchaseType": 10,
+  "orderId": "500123",
+  "acknowledgementState": 10,
+  "externalAccountId": "500123",
+  "promotionType": 10,
+  "promotionCode": "example_value",
+  "obfuscatedExternalAccountId": "500123",
+  "obfuscatedExternalProfileId": "500123"
+}

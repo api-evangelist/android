@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ProductPurchase",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string"
+    },
+    "purchaseTimeMillis": {
+      "type": "string"
+    },
+    "purchaseState": {
+      "type": "integer"
+    },
+    "consumptionState": {
+      "type": "integer"
+    },
+    "developerPayload": {
+      "type": "string"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "purchaseType": {
+      "type": "integer"
+    },
+    "acknowledgementState": {
+      "type": "integer"
+    },
+    "purchaseToken": {
+      "type": "string"
+    },
+    "productId": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "obfuscatedExternalAccountId": {
+      "type": "string"
+    },
+    "obfuscatedExternalProfileId": {
+      "type": "string"
+    },
+    "regionCode": {
+      "type": "string"
+    },
+    "refundableQuantity": {
+      "type": "integer"
+    }
+  }
+}

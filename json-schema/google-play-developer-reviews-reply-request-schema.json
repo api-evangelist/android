@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewsReplyRequest",
+  "type": "object",
+  "description": "Request body for replying to a review.",
+  "properties": {
+    "replyText": {
+      "type": "string",
+      "description": "The text of the reply. The reply will replace any existing reply. Maximum length is 350 characters."
+    }
+  }
+}

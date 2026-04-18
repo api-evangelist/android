@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SubscriptionPurchaseV2",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string"
+    },
+    "regionCode": {
+      "type": "string"
+    },
+    "latestOrderId": {
+      "type": "string"
+    },
+    "lineItems": {
+      "type": "array"
+    },
+    "startTime": {
+      "type": "string"
+    },
+    "subscriptionState": {
+      "type": "string"
+    },
+    "linkedPurchaseToken": {
+      "type": "string"
+    },
+    "pausedStateContext": {
+      "type": "object"
+    },
+    "canceledStateContext": {
+      "type": "object"
+    },
+    "acknowledgementState": {
+      "type": "string"
+    },
+    "externalAccountIdentifiers": {
+      "type": "object"
+    }
+  }
+}

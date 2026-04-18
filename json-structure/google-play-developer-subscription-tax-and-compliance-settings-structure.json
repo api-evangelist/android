@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SubscriptionTaxAndComplianceSettings",
+  "type": "object",
+  "properties": {
+    "eeaWithdrawalRightType": {
+      "type": "string"
+    },
+    "taxRateInfoByRegionCode": {
+      "type": "object"
+    },
+    "isTokenizedDigitalAsset": {
+      "type": "boolean"
+    }
+  }
+}

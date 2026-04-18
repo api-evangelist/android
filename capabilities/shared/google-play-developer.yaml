@@ -1,0 +1,268 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Google Play Developer API"
+  description: "REST API for managing Google Play in-app purchases, subscriptions, reviews, and orders programmatically."
+  tags:
+    - Google Play
+    - Android
+    - Subscriptions
+    - In-App Purchases
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      GOOGLE_PLAY_OAUTH_TOKEN: GOOGLE_PLAY_OAUTH_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: google-play
+      baseUri: "https://androidpublisher.googleapis.com/androidpublisher/v3"
+      description: "Google Play Developer API v3"
+      authentication:
+        type: bearer
+        token: "{{GOOGLE_PLAY_OAUTH_TOKEN}}"
+      resources:
+        - name: product-purchases
+          path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}
+          description: "In-app product purchases"
+          operations:
+            - name: get-purchase-product
+              method: GET
+              description: "Get in-app product purchase status"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+                - name: productId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Product ID"
+                - name: token
+                  in: path
+                  type: string
+                  required: true
+                  description: "Purchase token"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: subscription-purchases
+          path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}
+          description: "Subscription purchases"
+          operations:
+            - name: get-purchase-subscription
+              method: GET
+              description: "Get subscription purchase status"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+                - name: subscriptionId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Subscription ID"
+                - name: token
+                  in: path
+                  type: string
+                  required: true
+                  description: "Purchase token"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: subscriptions
+          path: /applications/{packageName}/monetization/subscriptions
+          description: "Subscription products"
+          operations:
+            - name: list-subscriptions
+              method: GET
+              description: "List subscription products"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-subscription
+              method: POST
+              description: "Create a subscription product"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: reviews
+          path: /applications/{packageName}/reviews
+          description: "App reviews"
+          operations:
+            - name: list-reviews
+              method: GET
+              description: "List app reviews"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: review-details
+          path: /applications/{packageName}/reviews/{reviewId}
+          description: "Review details"
+          operations:
+            - name: get-review
+              method: GET
+              description: "Get a single review"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+                - name: reviewId
+                  in: path
+                  type: string
+                  required: true
+                  description: "Review ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: voided-purchases
+          path: /applications/{packageName}/purchases/voidedpurchases
+          description: "Voided purchases"
+          operations:
+            - name: list-voided-purchases
+              method: GET
+              description: "List voided purchases"
+              inputParameters:
+                - name: packageName
+                  in: path
+                  type: string
+                  required: true
+                  description: "Application package name"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: google-play-api
+      resources:
+        - path: /v1/subscriptions
+          name: subscriptions
+          description: "Subscription products"
+          operations:
+            - method: GET
+              name: list-subscriptions
+              description: "List subscriptions"
+              call: "google-play.list-subscriptions"
+        - path: /v1/reviews
+          name: reviews
+          description: "App reviews"
+          operations:
+            - method: GET
+              name: list-reviews
+              description: "List reviews"
+              call: "google-play.list-reviews"
+
+    - type: mcp
+      port: 9100
+      namespace: google-play-mcp
+      transport: http
+      tools:
+        - name: get-purchase-product
+          description: "Get in-app product purchase status"
+          hints:
+            readOnly: true
+          call: "google-play.get-purchase-product"
+          with:
+            packageName: "tools.packageName"
+            productId: "tools.productId"
+            token: "tools.token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-purchase-subscription
+          description: "Get subscription purchase status"
+          hints:
+            readOnly: true
+          call: "google-play.get-purchase-subscription"
+          with:
+            packageName: "tools.packageName"
+            subscriptionId: "tools.subscriptionId"
+            token: "tools.token"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-subscriptions
+          description: "List subscription products for an app"
+          hints:
+            readOnly: true
+          call: "google-play.list-subscriptions"
+          with:
+            packageName: "tools.packageName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-reviews
+          description: "List app reviews from Google Play"
+          hints:
+            readOnly: true
+          call: "google-play.list-reviews"
+          with:
+            packageName: "tools.packageName"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-review
+          description: "Get a specific app review"
+          hints:
+            readOnly: true
+          call: "google-play.get-review"
+          with:
+            packageName: "tools.packageName"
+            reviewId: "tools.reviewId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-voided-purchases
+          description: "List voided (refunded/cancelled) purchases"
+          hints:
+            readOnly: true
+          call: "google-play.list-voided-purchases"
+          with:
+            packageName: "tools.packageName"
+          outputParameters:
+            - type: object
+              mapping: "$."

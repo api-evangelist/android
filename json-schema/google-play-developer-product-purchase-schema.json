@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductPurchase",
+  "type": "object",
+  "description": "Represents an in-app product purchase. Contains the purchase state, consumption status, and order information.",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier."
+    },
+    "purchaseTimeMillis": {
+      "type": "string",
+      "description": "Time the product was purchased (milliseconds since Epoch)."
+    },
+    "purchaseState": {
+      "type": "integer",
+      "description": "The purchase state of the order. 0 = Purchased, 1 = Canceled, 2 = Pending."
+    },
+    "consumptionState": {
+      "type": "integer",
+      "description": "The consumption state of the in-app product. 0 = Yet to be consumed, 1 = Consumed."
+    },
+    "developerPayload": {
+      "type": "string",
+      "description": "Developer-specified string for additional transaction information."
+    },
+    "orderId": {
+      "type": "string",
+      "description": "The order ID associated with the purchase."
+    },
+    "purchaseType": {
+      "type": "integer",
+      "description": "The type of purchase. 0 = Test (sandbox), 1 = Promo, 2 = Rewarded."
+    },
+    "acknowledgementState": {
+      "type": "integer",
+      "description": "The acknowledgement state of the in-app product. 0 = Yet to be acknowledged, 1 = Acknowledged."
+    },
+    "purchaseToken": {
+      "type": "string",
+      "description": "The purchase token generated at the time of purchase."
+    },
+    "productId": {
+      "type": "string",
+      "description": "The in-app product SKU."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "The quantity associated with the purchase."
+    },
+    "obfuscatedExternalAccountId": {
+      "type": "string",
+      "description": "An obfuscated version of the ID uniquely associated with the user's account in your app."
+    },
+    "obfuscatedExternalProfileId": {
+      "type": "string",
+      "description": "An obfuscated version of the ID uniquely associated with the user's profile in your app."
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 billing region code of the user."
+    },
+    "refundableQuantity": {
+      "type": "integer",
+      "description": "The quantity eligible for refund."
+    }
+  }
+}

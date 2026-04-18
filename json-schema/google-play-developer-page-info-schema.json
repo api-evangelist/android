@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PageInfo",
+  "type": "object",
+  "description": "Pagination information for list responses.",
+  "properties": {
+    "totalResults": {
+      "type": "integer",
+      "description": "Total number of results available."
+    },
+    "resultPerPage": {
+      "type": "integer",
+      "description": "Maximum number of results per page."
+    },
+    "startIndex": {
+      "type": "integer",
+      "description": "Index of the first result returned."
+    }
+  }
+}

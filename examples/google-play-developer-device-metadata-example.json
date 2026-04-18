@@ -1,0 +1,13 @@
+{
+  "manufacturer": "example_value",
+  "deviceClass": "example_value",
+  "screenWidthPx": 10,
+  "screenHeightPx": 10,
+  "nativePlatform": "example_value",
+  "productName": "example_value",
+  "screenDensityDpi": 10,
+  "glEsVersion": 10,
+  "cpuModel": "example_value",
+  "cpuMake": "example_value",
+  "ramMb": 10
+}

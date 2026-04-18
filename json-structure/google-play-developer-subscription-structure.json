@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Subscription",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "type": "string"
+    },
+    "productId": {
+      "type": "string"
+    },
+    "basePlans": {
+      "type": "array"
+    },
+    "listings": {
+      "type": "array"
+    },
+    "archived": {
+      "type": "boolean"
+    }
+  }
+}

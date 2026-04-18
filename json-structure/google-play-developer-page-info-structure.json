@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "PageInfo",
+  "type": "object",
+  "properties": {
+    "totalResults": {
+      "type": "integer"
+    },
+    "resultPerPage": {
+      "type": "integer"
+    },
+    "startIndex": {
+      "type": "integer"
+    }
+  }
+}

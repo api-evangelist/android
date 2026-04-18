@@ -1,0 +1,12 @@
+{
+  "text": "example_value",
+  "starRating": 10,
+  "reviewerLanguage": "example_value",
+  "device": "example_value",
+  "androidOsVersion": 10,
+  "appVersionCode": 10,
+  "appVersionName": "example_value",
+  "thumbsUpCount": 10,
+  "thumbsDownCount": 10,
+  "originalText": "example_value"
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewsListResponse",
+  "type": "object",
+  "description": "Response containing a paginated list of reviews.",
+  "properties": {
+    "reviews": {
+      "type": "array",
+      "description": "List of reviews."
+    }
+  }
+}

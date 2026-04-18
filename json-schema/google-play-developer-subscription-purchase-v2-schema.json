@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionPurchaseV2",
+  "type": "object",
+  "description": "Indicates the v2 subscription purchase details, including subscription state, line items, and external account information.",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier."
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 billing region code."
+    },
+    "latestOrderId": {
+      "type": "string",
+      "description": "The order ID of the latest order associated with this subscription."
+    },
+    "lineItems": {
+      "type": "array",
+      "description": "Item-level info for a subscription purchase. Each line item corresponds to a base plan or offer."
+    },
+    "startTime": {
+      "type": "string",
+      "description": "Time at which the subscription was granted."
+    },
+    "subscriptionState": {
+      "type": "string",
+      "description": "The current state of the subscription."
+    },
+    "linkedPurchaseToken": {
+      "type": "string",
+      "description": "The purchase token of the old subscription if replaced."
+    },
+    "pausedStateContext": {
+      "type": "object",
+      "description": "Additional context around paused subscriptions."
+    },
+    "canceledStateContext": {
+      "type": "object",
+      "description": "Additional context around canceled subscriptions."
+    },
+    "acknowledgementState": {
+      "type": "string",
+      "description": "The acknowledgement state of the subscription."
+    },
+    "externalAccountIdentifiers": {
+      "type": "object",
+      "description": "User account identification in third-party services."
+    }
+  }
+}

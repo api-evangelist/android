@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "VoidedPurchase",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string"
+    },
+    "purchaseToken": {
+      "type": "string"
+    },
+    "purchaseTimeMillis": {
+      "type": "string"
+    },
+    "voidedTimeMillis": {
+      "type": "string"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "voidedSource": {
+      "type": "integer"
+    },
+    "voidedReason": {
+      "type": "integer"
+    },
+    "voidedQuantity": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "basePlanId": "500123",
+  "state": "example_value",
+  "regionalConfigs": [],
+  "autoRenewingBasePlanType": "example_value",
+  "prepaidBasePlanType": "example_value",
+  "offerTags": []
+}

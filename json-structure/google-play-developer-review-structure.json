@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Review",
+  "type": "object",
+  "properties": {
+    "reviewId": {
+      "type": "string"
+    },
+    "authorName": {
+      "type": "string"
+    },
+    "comments": {
+      "type": "array"
+    }
+  }
+}

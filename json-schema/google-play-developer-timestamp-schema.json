@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Timestamp",
+  "type": "object",
+  "description": "A timestamp in seconds and nanoseconds.",
+  "properties": {
+    "seconds": {
+      "type": "string",
+      "description": "Seconds since Unix Epoch."
+    },
+    "nanos": {
+      "type": "integer",
+      "description": "Non-negative fractions of a second at nanosecond resolution."
+    }
+  }
+}

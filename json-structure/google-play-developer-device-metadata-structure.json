@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DeviceMetadata",
+  "type": "object",
+  "properties": {
+    "manufacturer": {
+      "type": "string"
+    },
+    "deviceClass": {
+      "type": "string"
+    },
+    "screenWidthPx": {
+      "type": "integer"
+    },
+    "screenHeightPx": {
+      "type": "integer"
+    },
+    "nativePlatform": {
+      "type": "string"
+    },
+    "productName": {
+      "type": "string"
+    },
+    "screenDensityDpi": {
+      "type": "integer"
+    },
+    "glEsVersion": {
+      "type": "integer"
+    },
+    "cpuModel": {
+      "type": "string"
+    },
+    "cpuMake": {
+      "type": "string"
+    },
+    "ramMb": {
+      "type": "integer"
+    }
+  }
+}

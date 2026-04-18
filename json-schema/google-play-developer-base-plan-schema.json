@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BasePlan",
+  "type": "object",
+  "description": "A base plan specifies the billing period and renewal type for a subscription. A subscription must have at least one base plan.",
+  "properties": {
+    "basePlanId": {
+      "type": "string",
+      "description": "The unique identifier for this base plan."
+    },
+    "state": {
+      "type": "string",
+      "description": "The state of the base plan."
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional pricing configurations."
+    },
+    "autoRenewingBasePlanType": {
+      "type": "object",
+      "description": "Details for auto-renewing base plans."
+    },
+    "prepaidBasePlanType": {
+      "type": "object",
+      "description": "Details for prepaid base plans."
+    },
+    "offerTags": {
+      "type": "array",
+      "description": "List of up to 20 custom tags for this base plan."
+    }
+  }
+}

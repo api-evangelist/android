@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListSubscriptionOffersResponse",
+  "type": "object",
+  "description": "Response containing a list of subscription offers.",
+  "properties": {
+    "subscriptionOffers": {
+      "type": "array"
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for the next page of results."
+    }
+  }
+}

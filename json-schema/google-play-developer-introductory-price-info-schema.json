@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntroductoryPriceInfo",
+  "type": "object",
+  "description": "Contains the introductory price information for a subscription.",
+  "properties": {
+    "introductoryPriceCurrencyCode": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the introductory price."
+    },
+    "introductoryPriceAmountMicros": {
+      "type": "string",
+      "description": "Introductory price in micro-units of the currency."
+    },
+    "introductoryPricePeriod": {
+      "type": "string",
+      "description": "Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month)."
+    },
+    "introductoryPriceCycles": {
+      "type": "integer",
+      "description": "Number of billing periods the introductory price applies for."
+    }
+  }
+}

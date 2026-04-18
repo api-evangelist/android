@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionOfferPhase",
+  "type": "object",
+  "description": "A single phase of a subscription offer. Defines pricing for a specific period.",
+  "properties": {
+    "recurrenceCount": {
+      "type": "integer",
+      "description": "The number of times this phase repeats. If 0, the phase repeats indefinitely."
+    },
+    "duration": {
+      "type": "string",
+      "description": "Duration of a single period in ISO 8601 format."
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional pricing for this phase."
+    }
+  }
+}

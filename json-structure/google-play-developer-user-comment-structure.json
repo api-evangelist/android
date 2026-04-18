@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UserComment",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "starRating": {
+      "type": "integer"
+    },
+    "reviewerLanguage": {
+      "type": "string"
+    },
+    "device": {
+      "type": "string"
+    },
+    "androidOsVersion": {
+      "type": "integer"
+    },
+    "appVersionCode": {
+      "type": "integer"
+    },
+    "appVersionName": {
+      "type": "string"
+    },
+    "thumbsUpCount": {
+      "type": "integer"
+    },
+    "thumbsDownCount": {
+      "type": "integer"
+    },
+    "originalText": {
+      "type": "string"
+    }
+  }
+}

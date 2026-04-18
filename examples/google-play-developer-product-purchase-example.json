@@ -1,0 +1,17 @@
+{
+  "kind": "example_value",
+  "purchaseTimeMillis": "example_value",
+  "purchaseState": 10,
+  "consumptionState": 10,
+  "developerPayload": "example_value",
+  "orderId": "500123",
+  "purchaseType": 10,
+  "acknowledgementState": 10,
+  "purchaseToken": "example_value",
+  "productId": "500123",
+  "quantity": 10,
+  "obfuscatedExternalAccountId": "500123",
+  "obfuscatedExternalProfileId": "500123",
+  "regionCode": "example_value",
+  "refundableQuantity": 10
+}

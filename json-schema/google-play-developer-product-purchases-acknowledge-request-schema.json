@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductPurchasesAcknowledgeRequest",
+  "type": "object",
+  "description": "Request body for acknowledging an in-app product purchase.",
+  "properties": {
+    "developerPayload": {
+      "type": "string",
+      "description": "Payload to attach to the purchase after it is acknowledged."
+    }
+  }
+}

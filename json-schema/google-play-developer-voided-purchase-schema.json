@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VoidedPurchase",
+  "type": "object",
+  "description": "A purchase that has been voided (cancelled, refunded, or charged back).",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier."
+    },
+    "purchaseToken": {
+      "type": "string",
+      "description": "The token which uniquely identifies the purchase."
+    },
+    "purchaseTimeMillis": {
+      "type": "string",
+      "description": "Time at which the purchase was made (milliseconds since Epoch)."
+    },
+    "voidedTimeMillis": {
+      "type": "string",
+      "description": "Time at which the purchase was voided (milliseconds since Epoch)."
+    },
+    "orderId": {
+      "type": "string",
+      "description": "The order ID associated with the voided purchase."
+    },
+    "voidedSource": {
+      "type": "integer",
+      "description": "The source of the voiding. 0 = User, 1 = Developer, 2 = Google."
+    },
+    "voidedReason": {
+      "type": "integer",
+      "description": "The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback."
+    },
+    "voidedQuantity": {
+      "type": "integer",
+      "description": "The voided quantity as related to multi-quantity purchases."
+    }
+  }
+}

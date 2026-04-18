@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "IntroductoryPriceInfo",
+  "type": "object",
+  "properties": {
+    "introductoryPriceCurrencyCode": {
+      "type": "string"
+    },
+    "introductoryPriceAmountMicros": {
+      "type": "string"
+    },
+    "introductoryPricePeriod": {
+      "type": "string"
+    },
+    "introductoryPriceCycles": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+name: android API Vocabulary
+provider: android
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 21
+schemas: 33
+tags:
+- Orders
+- Purchases
+- Reviews
+- Subscriptions

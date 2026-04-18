@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "TokenPagination",
+  "type": "object",
+  "properties": {
+    "nextPageToken": {
+      "type": "string"
+    },
+    "previousPageToken": {
+      "type": "string"
+    }
+  }
+}

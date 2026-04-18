@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SubscriptionPurchase",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string"
+    },
+    "startTimeMillis": {
+      "type": "string"
+    },
+    "expiryTimeMillis": {
+      "type": "string"
+    },
+    "userCancellationTimeMillis": {
+      "type": "string"
+    },
+    "autoRenewing": {
+      "type": "boolean"
+    },
+    "priceCurrencyCode": {
+      "type": "string"
+    },
+    "priceAmountMicros": {
+      "type": "string"
+    },
+    "countryCode": {
+      "type": "string"
+    },
+    "developerPayload": {
+      "type": "string"
+    },
+    "paymentState": {
+      "type": "integer"
+    },
+    "cancelReason": {
+      "type": "integer"
+    },
+    "linkedPurchaseToken": {
+      "type": "string"
+    },
+    "purchaseType": {
+      "type": "integer"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "acknowledgementState": {
+      "type": "integer"
+    },
+    "externalAccountId": {
+      "type": "string"
+    },
+    "promotionType": {
+      "type": "integer"
+    },
+    "promotionCode": {
+      "type": "string"
+    },
+    "obfuscatedExternalAccountId": {
+      "type": "string"
+    },
+    "obfuscatedExternalProfileId": {
+      "type": "string"
+    }
+  }
+}

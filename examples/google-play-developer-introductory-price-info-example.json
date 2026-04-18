@@ -1,0 +1,6 @@
+{
+  "introductoryPriceCurrencyCode": "example_value",
+  "introductoryPriceAmountMicros": "example_value",
+  "introductoryPricePeriod": "example_value",
+  "introductoryPriceCycles": 10
+}

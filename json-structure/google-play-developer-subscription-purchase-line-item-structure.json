@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SubscriptionPurchaseLineItem",
+  "type": "object",
+  "properties": {
+    "productId": {
+      "type": "string"
+    },
+    "expiryTime": {
+      "type": "string"
+    },
+    "autoRenewingPlan": {
+      "type": "object"
+    },
+    "prepaidPlan": {
+      "type": "object"
+    },
+    "offerDetails": {
+      "type": "object"
+    }
+  }
+}

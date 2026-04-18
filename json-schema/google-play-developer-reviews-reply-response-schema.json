@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewsReplyResponse",
+  "type": "object",
+  "description": "Response from posting a reply to a review.",
+  "properties": {
+    "result": {
+      "type": "object",
+      "description": "The result of the reply."
+    }
+  }
+}

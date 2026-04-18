@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SubscriptionPurchaseLineItem",
+  "type": "object",
+  "description": "An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.",
+  "properties": {
+    "productId": {
+      "type": "string",
+      "description": "The product ID of the subscription."
+    },
+    "expiryTime": {
+      "type": "string",
+      "description": "Time at which the subscription line item will expire."
+    },
+    "autoRenewingPlan": {
+      "type": "object",
+      "description": "Details for auto-renewing plans."
+    },
+    "prepaidPlan": {
+      "type": "object",
+      "description": "Details for prepaid plans."
+    },
+    "offerDetails": {
+      "type": "object",
+      "description": "Details of the offer applied to this line item."
+    }
+  }
+}

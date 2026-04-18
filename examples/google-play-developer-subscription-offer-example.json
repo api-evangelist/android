@@ -1,0 +1,11 @@
+{
+  "packageName": "example_value",
+  "productId": "500123",
+  "basePlanId": "500123",
+  "offerId": "500123",
+  "state": "example_value",
+  "phases": [],
+  "targeting": "example_value",
+  "regionalConfigs": [],
+  "offerTags": []
+}
