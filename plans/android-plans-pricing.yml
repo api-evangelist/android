@@ -4,316 +4,420 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Android
 providerId: android
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AI
   - Android
-  - Automotive
-  - Google
-  - Machine Learning
   - Mobile Development
+  - Google Play
+  - Maps
+  - Firebase
+  - AdMob
   - SDK
-  - TV
-  - Wearables
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: >-
+  The Android developer surface is a multi-product platform spanning free SDKs
+  (Android framework, Jetpack, NDK, ML Kit on-device, CameraX, Health Connect,
+  Wear OS, Android TV, Android for Cars) and monetized Google services. Real
+  pricing exists for Google Play (one-time $25 developer registration; 15% /
+  30% service fee on paid apps and IAP, 15% on subscriptions and on first $1M
+  annual revenue), Google Maps Platform (per-1000-call pricing after 10K
+  monthly free events), and Firebase (Spark free tier with hard limits; Blaze
+  pay-as-you-go on Cloud Storage at $0.026/GB and Realtime Database at $5/GB
+  stored, $1/GB downloaded). AdMob is revenue-share, not pay-to-use.
+sources:
+  - https://support.google.com/googleplay/android-developer/answer/112622
+  - https://developers.google.com/maps/billing-and-pricing/pricing
+  - https://firebase.google.com/pricing
+  - https://developer.android.com/distribute/console/registration
 plans:
-  - id: android-free
-    name: Free
+  - id: android-sdk-free
+    name: Android SDK & Jetpack
     type: freemium
-    description: Free entry tier for the Android API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: >-
+      Core Android framework, Jetpack libraries, NDK, Android Studio, ML Kit
+      on-device, CameraX, Health Connect, Wear OS, Android for Cars, Android
+      TV, Compose, and Gemini Nano on-device APIs are free. No license fee,
+      no per-call cost.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
+      - label: Framework / Jetpack / NDK SDKs
+        description: All on-device Android SDKs and Android Studio tooling
+        name: sdks
+        type: flat
+        metric: download
+        limit: -1
+        timeFrame: usage
         geo: global
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
         unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
-        unit: 1
-        price: '0.00'
+        price: '$0'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
       - name: Android Platform APIs
-      - name: Google Play Services APIs
-      - name: Firebase Android APIs
-      - name: Google Maps Android API
-      - name: Android Jetpack APIs
-      - name: Google Play Console API
-      - name: Google Play Billing API
-      - name: Android NDK APIs
-  - id: android-pro
-    name: Professional
-    type: paid
-    description: Production tier for Android. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Jetpack (Compose, Lifecycle, Room, etc.)
+      - name: Android NDK
+      - name: ML Kit (on-device)
+      - name: CameraX
+      - name: Health Connect
+      - name: Wear OS
+      - name: Android for Cars
+      - name: Android TV
+      - name: Gemini Nano on-device
+      - name: Credential Manager
+      - name: Accessibility APIs
+  - id: android-google-play-publishing
+    name: Google Play Console & Distribution
+    type: subscription
+    description: >-
+      Google Play developer account is required to publish apps. One-time
+      registration fee, then service fees apply on paid apps, in-app purchases,
+      and subscriptions sold through Google Play Billing.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
+      - label: Google Play Developer Registration
+        description: One-time fee to create a Google Play developer account
+        name: play_developer_registration
+        type: flat
+        metric: account
+        limit: 1
+        timeFrame: usage
         geo: global
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
         unit: 1
-        price: TBD
+        price: '$25'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Paid Apps & In-App Purchases (first $1M annual revenue)
+        description: Service fee on the first $1M USD in earnings per developer per year
+        name: play_service_fee_15
         type: metered
-        metric: requests
+        metric: transaction
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '15%'
+        userMultiplied: false
+      - label: Paid Apps & In-App Purchases (above $1M annual revenue)
+        description: Service fee on earnings above $1M USD per developer per year
+        name: play_service_fee_30
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '30%'
+        userMultiplied: false
+      - label: Auto-Renewing Subscriptions
+        description: Service fee on auto-renewing subscriptions, regardless of revenue tier
+        name: play_subscription_fee
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '15%'
+        userMultiplied: false
+      - label: Alternative Billing (South Korea / India)
+        description: Service-fee reduction when offering alternative billing in eligible regions
+        name: play_alt_billing_discount
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: 'KR,IN'
+        unit: 1
+        price: 'standard rate minus 4%'
+        userMultiplied: false
+    elements:
+      - name: Google Play Console
+      - name: Google Play Billing Library
+      - name: Play Integrity API
+      - name: Play Asset Delivery
+      - name: Internal / Closed / Open Testing Tracks
+      - name: Crashlytics + Vitals
+  - id: android-maps-platform
+    name: Google Maps Platform (Android SDK)
+    type: usage-based
+    description: >-
+      Maps SDK for Android is free unlimited. Places, Geocoding, Directions,
+      and Distance Matrix bill per 1,000 calls after a 10,000 monthly free
+      event allowance. Pricing reflects the Maps Platform Essentials tier
+      (May 2026).
+    entries:
+      - label: Maps SDK for Android
+        description: Mobile map rendering on Android
+        name: maps_sdk_android
+        type: flat
+        metric: request
         limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
         unit: 1000
-        price: TBD
+        price: '$0 (unlimited)'
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Android Platform APIs
-      - name: Google Play Services APIs
-      - name: Firebase Android APIs
-      - name: Google Maps Android API
-      - name: Android Jetpack APIs
-      - name: Google Play Console API
-      - name: Google Play Billing API
-      - name: Android NDK APIs
-      - name: Google ML Kit Android APIs
-      - name: Android Health Connect API
-      - name: Android CameraX API
-      - name: Wear OS APIs
-      - name: Android for Cars APIs
-      - name: Google AdMob Android API
-      - name: Android Accessibility APIs
-      - name: Android TV APIs
-      - name: Google Play Integrity API
-      - name: Android Credential Manager API
-      - name: Gemini Nano On-Device AI API
-      - name: Google Play Developer APIs
-      - name: Gemini Developer API for Android
-  - id: android-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Android. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Places SDK Autocomplete
+        description: Place autocomplete requests after 10K monthly free events
+        name: places_autocomplete
+        type: metered
+        metric: request
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
-        unit: 1
-        price: custom
+        geo: global
+        unit: 1000
+        price: '$2.83'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://developer.android.com
-          - https://developers.google.com/android
-          - https://firebase.google.com
-          - https://maps.googleapis.com
-          - https://developer.android.com/jetpack
-          - https://androidpublisher.googleapis.com
-          - https://developer.android.com/google/play/billing
-          - https://developer.android.com/ndk
-          - https://developers.google.com/ml-kit
-          - https://developer.android.com/health-and-fitness
-          - https://developer.android.com/media/camera
-          - https://developer.android.com/wear
-          - https://developer.android.com/cars
-          - https://developers.google.com/admob
-          - https://developer.android.com/tv
-          - https://developer.android.com/google/play/integrity
-          - https://developer.android.com/identity
-          - https://developer.android.com/ai
+      - label: Places Details
+        description: Place details lookups after 10K monthly free events
+        name: places_details
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '$5.00'
+        userMultiplied: false
+      - label: Geocoding
+        description: Forward / reverse geocoding after 10K monthly free events
+        name: geocoding
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '$5.00'
+        userMultiplied: false
+      - label: Directions (Routes Legacy)
+        description: Routing requests after 10K monthly free events
+        name: directions
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '$5.00'
+        userMultiplied: false
+      - label: Distance Matrix (Routes Legacy)
+        description: Distance matrix requests after 10K monthly free events
+        name: distance_matrix
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: '$5.00'
+        userMultiplied: false
+      - label: Monthly Free Events
+        description: Free events per product per month (Essentials tier)
+        name: free_events
+        type: quota
+        metric: request
+        limit: 10000
+        timeFrame: month
+        geo: global
         unit: 1
-        price: custom
+        price: '$0'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Android Platform APIs
-      - name: Google Play Services APIs
-      - name: Firebase Android APIs
-      - name: Google Maps Android API
-      - name: Android Jetpack APIs
-      - name: Google Play Console API
-      - name: Google Play Billing API
-      - name: Android NDK APIs
-      - name: Google ML Kit Android APIs
-      - name: Android Health Connect API
-      - name: Android CameraX API
-      - name: Wear OS APIs
-      - name: Android for Cars APIs
-      - name: Google AdMob Android API
-      - name: Android Accessibility APIs
-      - name: Android TV APIs
-      - name: Google Play Integrity API
-      - name: Android Credential Manager API
-      - name: Gemini Nano On-Device AI API
-      - name: Google Play Developer APIs
-      - name: Gemini Developer API for Android
+      - name: Maps SDK for Android
+      - name: Places SDK for Android
+      - name: Geocoding API
+      - name: Directions / Routes API
+      - name: Distance Matrix API
+  - id: android-firebase-spark
+    name: Firebase Spark (Free)
+    type: freemium
+    description: >-
+      Firebase Spark plan with no payment method required. Hard caps on
+      Firestore, Realtime Database, Cloud Storage, and Authentication.
+    entries:
+      - label: Cloud Firestore Storage
+        description: Document storage cap on Spark
+        name: firestore_storage_spark
+        type: quota
+        metric: gb
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Cloud Firestore Reads
+        description: Document reads per day on Spark
+        name: firestore_reads_spark
+        type: quota
+        metric: read
+        limit: 50000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Cloud Firestore Writes
+        description: Document writes per day on Spark
+        name: firestore_writes_spark
+        type: quota
+        metric: write
+        limit: 20000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Realtime Database Storage
+        description: RTDB storage cap on Spark
+        name: rtdb_storage_spark
+        type: quota
+        metric: gb
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Realtime Database Connections
+        description: Simultaneous connections on Spark
+        name: rtdb_connections_spark
+        type: quota
+        metric: connection
+        limit: 100
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Cloud Storage
+        description: Storage cap on Spark (legacy buckets)
+        name: storage_cap_spark
+        type: quota
+        metric: gb
+        limit: 5
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+      - label: Authentication MAUs
+        description: Monthly Active Users on Spark
+        name: auth_mau_spark
+        type: quota
+        metric: user
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0'
+        userMultiplied: false
+    elements:
+      - name: Cloud Firestore
+      - name: Realtime Database
+      - name: Cloud Storage
+      - name: Firebase Authentication
+      - name: Firebase Hosting
+      - name: Cloud Messaging
+  - id: android-firebase-blaze
+    name: Firebase Blaze (Pay-As-You-Go)
+    type: usage-based
+    description: >-
+      Firebase Blaze plan billed at the underlying Google Cloud rates.
+      Eligible accounts may receive $300 in free credit on signup.
+    entries:
+      - label: Realtime Database Storage
+        description: Per-GB stored beyond the 1 GiB Spark allowance
+        name: rtdb_storage_blaze
+        type: metered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$5'
+        userMultiplied: false
+      - label: Realtime Database Downloads
+        description: Per-GB downloaded beyond the 10 GiB Spark allowance
+        name: rtdb_download_blaze
+        type: metered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$1'
+        userMultiplied: false
+      - label: Cloud Storage
+        description: Per-GB stored beyond the 5 GB Spark allowance
+        name: storage_blaze
+        type: metered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$0.026'
+        userMultiplied: false
+      - label: Cloud Firestore (above Spark)
+        description: Reads / writes / storage above Spark limits, billed at Google Cloud rates
+        name: firestore_blaze
+        type: metered
+        metric: varies
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'see Google Cloud Firestore pricing'
+        userMultiplied: false
+      - label: Authentication (above Spark)
+        description: MAUs above 50K Spark cap, billed at Identity Platform rates
+        name: auth_blaze
+        type: metered
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'see Google Cloud Identity Platform pricing'
+        userMultiplied: false
+      - label: New Account Credit
+        description: One-time signup credit for eligible accounts
+        name: blaze_signup_credit
+        type: flat
+        metric: USD
+        limit: 300
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '-$300'
+        userMultiplied: false
+    elements:
+      - name: All Spark Features
+      - name: Cloud Functions
+      - name: Cloud Run Integration
+      - name: Higher Quotas
+      - name: BigQuery Export
+  - id: android-admob-revenue-share
+    name: Google AdMob (Revenue Share)
+    type: usage-based
+    description: >-
+      AdMob is monetized for the developer (not paid by them). Google retains
+      a small share of ad revenue; the rest is paid to the publisher per
+      AdMob's published payment terms.
+    entries:
+      - label: Ad Revenue Share
+        description: Revenue share retained by Google (rest paid to publisher); rate published in AdMob terms
+        name: admob_revshare
+        type: metered
+        metric: impression
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 'see AdMob terms (revenue share)'
+        userMultiplied: false
+    elements:
+      - name: Banner / Interstitial / Native / Rewarded Ad Formats
+      - name: Mediation
+      - name: Audience Reporting
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com

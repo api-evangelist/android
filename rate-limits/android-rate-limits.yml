@@ -4,191 +4,131 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Android
 providerId: android
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AI
   - Android
-  - Automotive
-  - Google
-  - Machine Learning
-  - Mobile Development
-  - SDK
-  - TV
-  - Wearables
+  - Google Play
+  - Maps
+  - Firebase
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Android API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: >-
+  Rate limits across the Android ecosystem are service-specific. On-device
+  Android framework / Jetpack / NDK / ML Kit calls are not rate-limited (they
+  are local). Network-backed Google services that ship to Android apps each
+  carry their own quota policy: the Google Play Developer API (Android
+  Publisher) defaults to 3,000 queries per minute per quota bucket; Google
+  Maps Platform applies per-product QPS / per-day project quotas configurable
+  in Google Cloud Console; Firebase / Cloud Firestore inherit Google Cloud
+  service quotas; Play Integrity has its own daily request ceiling. Limits
+  scope to the project / API key / developer account, not to the end user
+  device.
+sources:
+  - https://developers.google.com/android-publisher/quotas
+  - https://developers.google.com/maps/documentation/android-sdk/usage-and-billing
+  - https://firebase.google.com/docs/firestore/quotas
+  - https://developer.android.com/google/play/integrity/setup
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  requestId: X-Goog-Api-Client
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: On-Device Android SDK / Jetpack / NDK / ML Kit
+    scope: device
+    metric: varies
+    limit: 'no rate limit (local API, bounded by device CPU/GPU/NPU)'
+    notes: >-
+      Local APIs are not throttled by Google. Performance is bounded by the
+      device.
+  - name: Google Play Developer API (Subscriptions bucket)
+    scope: project
     metric: requests_per_minute
-    limit: 10
-    burst: 20
+    limit: 3000
     timeFrame: minute
-    applies:
-      - Android Platform APIs
-      - Google Play Services APIs
-      - Firebase Android APIs
-      - Google Maps Android API
-      - Android Jetpack APIs
-      - Google Play Console API
-      - Google Play Billing API
-      - Android NDK APIs
-      - Google ML Kit Android APIs
-      - Android Health Connect API
-      - Android CameraX API
-      - Wear OS APIs
-      - Android for Cars APIs
-      - Google AdMob Android API
-      - Android Accessibility APIs
-      - Android TV APIs
-      - Google Play Integrity API
-      - Android Credential Manager API
-      - Gemini Nano On-Device AI API
-      - Google Play Developer APIs
-      - Gemini Developer API for Android
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Android Platform APIs
-      - Google Play Services APIs
-      - Firebase Android APIs
-      - Google Maps Android API
-      - Android Jetpack APIs
-      - Google Play Console API
-      - Google Play Billing API
-      - Android NDK APIs
-      - Google ML Kit Android APIs
-      - Android Health Connect API
-      - Android CameraX API
-      - Wear OS APIs
-      - Android for Cars APIs
-      - Google AdMob Android API
-      - Android Accessibility APIs
-      - Android TV APIs
-      - Google Play Integrity API
-      - Android Credential Manager API
-      - Gemini Nano On-Device AI API
-      - Google Play Developer APIs
-      - Gemini Developer API for Android
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
+    notes: >-
+      SubscriptionPurchases / SubscriptionPurchasesV2 share this bucket.
+  - name: Google Play Developer API (Subscription Updates bucket)
+    scope: project
     metric: requests_per_minute
-    limit: 100
-    burst: 200
+    limit: 3000
     timeFrame: minute
-    applies:
-      - Android Platform APIs
-      - Google Play Services APIs
-      - Firebase Android APIs
-      - Google Maps Android API
-      - Android Jetpack APIs
-      - Google Play Console API
-      - Google Play Billing API
-      - Android NDK APIs
-      - Google ML Kit Android APIs
-      - Android Health Connect API
-      - Android CameraX API
-      - Wear OS APIs
-      - Android for Cars APIs
-      - Google AdMob Android API
-      - Android Accessibility APIs
-      - Android TV APIs
-      - Google Play Integrity API
-      - Android Credential Manager API
-      - Gemini Nano On-Device AI API
-      - Google Play Developer APIs
-      - Gemini Developer API for Android
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Android Platform APIs
-      - Google Play Services APIs
-      - Firebase Android APIs
-      - Google Maps Android API
-      - Android Jetpack APIs
-      - Google Play Console API
-      - Google Play Billing API
-      - Android NDK APIs
-      - Google ML Kit Android APIs
-      - Android Health Connect API
-      - Android CameraX API
-      - Wear OS APIs
-      - Android for Cars APIs
-      - Google AdMob Android API
-      - Android Accessibility APIs
-      - Android TV APIs
-      - Google Play Integrity API
-      - Android Credential Manager API
-      - Gemini Nano On-Device AI API
-      - Google Play Developer APIs
-      - Gemini Developer API for Android
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
+    notes: >-
+      Cancel, defer, refund, revoke operations.
+  - name: Google Play Developer API (One-time Purchases bucket)
+    scope: project
     metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+    limit: 3000
     timeFrame: minute
-    applies:
-      - Android Platform APIs
-      - Google Play Services APIs
-      - Firebase Android APIs
-      - Google Maps Android API
-      - Android Jetpack APIs
-      - Google Play Console API
-      - Google Play Billing API
-      - Android NDK APIs
-      - Google ML Kit Android APIs
-      - Android Health Connect API
-      - Android CameraX API
-      - Wear OS APIs
-      - Android for Cars APIs
-      - Google AdMob Android API
-      - Android Accessibility APIs
-      - Android TV APIs
-      - Google Play Integrity API
-      - Android Credential Manager API
-      - Gemini Nano On-Device AI API
-      - Google Play Developer APIs
-      - Gemini Developer API for Android
+    notes: >-
+      ProductPurchase APIs.
+  - name: Google Play Developer API (Orders bucket)
+    scope: project
+    metric: requests_per_minute
+    limit: 3000
+    timeFrame: minute
+    notes: >-
+      Orders and Voided Purchases APIs.
+  - name: Google Play Developer API (External Transactions bucket)
+    scope: project
+    metric: requests_per_minute
+    limit: 3000
+    timeFrame: minute
+  - name: Google Play Developer API (Publishing / Monetization / Reviews bucket)
+    scope: project
+    metric: requests_per_minute
+    limit: 3000
+    timeFrame: minute
+    notes: >-
+      All publishing, monetization, permissions, and review-reply APIs.
+  - name: Google Maps Platform Quotas
+    scope: project
+    metric: varies
+    limit: 'per-product QPS and per-day quotas configurable in Google Cloud Console'
+    notes: >-
+      Default QPS for many Maps APIs is 10 per second per project; raise via
+      console or sales.
+  - name: Cloud Firestore Writes per Document
+    scope: account
+    metric: writes_per_second
+    limit: 1
+    timeFrame: second
+    notes: >-
+      Soft limit on sustained write throughput to a single document. See
+      Firestore quotas for project-level write limits.
+  - name: Play Integrity API Standard Requests
+    scope: project
+    metric: requests_per_day
+    limit: 10000
+    timeFrame: day
+    notes: >-
+      Default daily quota; raise via the Google Play Console quota request
+      flow.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Per-Bucket Independence (Play Developer API)
+    description: >-
+      Google Play Developer API quota buckets are independent — exceeding one
+      does not throttle the others.
+  - name: Quota Increase Path
+    description: >-
+      Monitor in Google Cloud Console at IAM & Admin > Quotas; submit a quota
+      request via the Google Play / Maps / Firebase console for sustained
+      higher limits.
+  - name: Exponential Backoff
+    description: >-
+      Google client libraries implement automatic exponential backoff on 429 /
+      503; manual integrators should do the same and respect Retry-After.
+  - name: Project Scoping
+    description: >-
+      Quotas are enforced at the Google Cloud project / Google Play developer
+      account level, not per end-user device.
+  - name: Free-Tier Free-Events (Maps)
+    description: >-
+      Maps Platform Essentials tier provides 10K monthly free events per
+      product before metered billing begins; Maps SDK for Android itself is
+      unlimited free.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com

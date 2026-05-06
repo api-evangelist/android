@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,336 +9,166 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Android
 providerId: android
-publisherName: Android
-serviceCategory: API
+publisherName: Google LLC
+serviceCategory: Mobile Development Platform
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - AI
-  - Android
-  - Automotive
-  - Google
-  - Machine Learning
-  - Mobile Development
-  - SDK
-  - TV
-  - Wearables
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Android API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+  - Android
+  - Google Play
+  - Maps
+  - Firebase
+  - AdMob
+description: >-
+  FOCUS-aligned FinOps for the Android ecosystem. The platform mixes free
+  on-device SDKs with three monetized surfaces — Google Play (take rate on
+  paid apps / IAP / subscriptions plus a one-time $25 developer registration),
+  Google Maps Platform (per-1000-call usage charges with a 10K monthly free
+  allowance), and Firebase / Google Cloud (pay-as-you-go on Cloud Storage,
+  Firestore, RTDB, etc.). AdMob runs in the opposite direction as a publisher
+  revenue share. All Android-related Google charges flow through Google Cloud
+  / Google Play billing accounts and are visible in Cloud Billing exports
+  (BigQuery), Play Console financial reports, and Firebase usage tabs.
+sources:
+  - https://support.google.com/googleplay/android-developer/answer/112622
+  - https://developers.google.com/maps/billing-and-pricing/pricing
+  - https://firebase.google.com/pricing
+  - https://cloud.google.com/billing/docs/how-to/export-data-bigquery
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Take Rate + Pay-As-You-Go + Subscription
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Refund
+    - Credit
 focusColumns:
-  ServiceName: Android
-  ServiceCategory: Developer Tools / API
-  ProviderName: Android
-  PublisherName: Android
-  InvoiceIssuerName: Android
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: Android Platform (Google Play, Maps, Firebase, AdMob)
+  ServiceCategory: Mobile Development Platform
+  ProviderName: Google
+  PublisherName: Google LLC
+  InvoiceIssuerName: Google LLC (region-specific Google entity)
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: play_developer_registration
+    description: One-time $25 developer account fee
+    unit: account
+    aggregation: count
+    dimensions:
+      - account
+  - name: play_paid_app_revenue
+    description: Gross revenue from paid app downloads and in-app purchases sold via Google Play Billing
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - app
+      - country
+      - revenue_tier
+  - name: play_service_fee
+    description: Service fee retained by Google (15% on first $1M, 30% above; 15% on subscriptions)
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - app
+      - country
+      - fee_tier
+  - name: play_subscription_revenue
+    description: Auto-renewing subscription revenue
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - app
+      - product_id
+      - country
+  - name: maps_api_calls
+    description: Billable Google Maps Platform calls beyond the 10K monthly free events
     unit: request
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - product
+      - api_key
+      - country
+  - name: firebase_storage_gb
+    description: GB stored across Firebase Cloud Storage / RTDB / Firestore
+    unit: GB-month
+    aggregation: max
+    dimensions:
+      - service
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
+      - project
+  - name: firebase_egress_gb
+    description: GB downloaded / egressed from Firebase services
     unit: GB
     aggregation: sum
     dimensions:
-      - api
+      - service
       - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - project
+  - name: firestore_reads_writes
+    description: Firestore document operations beyond the Spark allowance
+    unit: operation
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Android Platform APIs
-    baseURL: https://developer.android.com
-    tags:
-      - Android
-      - Framework
-      - Mobile
-      - SDK
-    serviceName: Android Platform APIs
-    serviceCategory: API
-  - name: Google Play Services APIs
-    baseURL: https://developers.google.com/android
-    tags:
-      - Authentication
-      - Google Play
-      - Location
-      - Maps
-    serviceName: Google Play Services APIs
-    serviceCategory: API
-  - name: Firebase Android APIs
-    baseURL: https://firebase.google.com
-    tags:
-      - Analytics
-      - Authentication
-      - Backend
-      - Cloud Messaging
-      - Database
-      - Firebase
-    serviceName: Firebase Android APIs
-    serviceCategory: API
-  - name: Google Maps Android API
-    baseURL: https://maps.googleapis.com
-    tags:
-      - Geolocation
-      - Location
-      - Maps
-      - Navigation
-    serviceName: Google Maps Android API
-    serviceCategory: API
-  - name: Android Jetpack APIs
-    baseURL: https://developer.android.com/jetpack
-    tags:
-      - Architecture
-      - Compose
-      - Jetpack
-      - Libraries
-      - UI
-    serviceName: Android Jetpack APIs
-    serviceCategory: API
-  - name: Google Play Console API
-    baseURL: https://androidpublisher.googleapis.com
-    tags:
-      - Analytics
-      - Distribution
-      - Publishing
-      - REST API
-    serviceName: Google Play Console API
-    serviceCategory: API
-  - name: Google Play Billing API
-    baseURL: https://developer.android.com/google/play/billing
-    tags:
-      - Billing
-      - In-App Purchases
-      - Monetization
-      - Subscriptions
-    serviceName: Google Play Billing API
-    serviceCategory: API
-  - name: Android NDK APIs
-    baseURL: https://developer.android.com/ndk
-    tags:
-      - C++
-      - Native
-      - NDK
-      - OpenGL
-      - Performance
-      - Vulkan
-    serviceName: Android NDK APIs
-    serviceCategory: API
-  - name: Google ML Kit Android APIs
-    baseURL: https://developers.google.com/ml-kit
-    tags:
-      - Barcode Scanning
-      - Face Detection
-      - Machine Learning
-      - ML Kit
-      - On-Device
-      - Text Recognition
-      - Vision
-    serviceName: Google ML Kit Android APIs
-    serviceCategory: API
-  - name: Android Health Connect API
-    baseURL: https://developer.android.com/health-and-fitness
-    tags:
-      - Data Sharing
-      - Fitness
-      - Health
-      - Privacy
-      - Wearables
-    serviceName: Android Health Connect API
-    serviceCategory: API
-  - name: Android CameraX API
-    baseURL: https://developer.android.com/media/camera
-    tags:
-      - Camera
-      - Image Capture
-      - Jetpack
-      - Media
-      - Video
-    serviceName: Android CameraX API
-    serviceCategory: API
-  - name: Wear OS APIs
-    baseURL: https://developer.android.com/wear
-    tags:
-      - Smartwatch
-      - Tiles
-      - Watch Face
-      - Wear OS
-      - Wearables
-    serviceName: Wear OS APIs
-    serviceCategory: API
-  - name: Android for Cars APIs
-    baseURL: https://developer.android.com/cars
-    tags:
-      - Android Auto
-      - Automotive
-      - Cars
-      - Media
-      - Navigation
-    serviceName: Android for Cars APIs
-    serviceCategory: API
-  - name: Google AdMob Android API
-    baseURL: https://developers.google.com/admob
-    tags:
-      - AdMob
-      - Ads
-      - Advertising
-      - Banner
-      - Interstitial
-      - Monetization
-    serviceName: Google AdMob Android API
-    serviceCategory: API
-  - name: Android Accessibility APIs
-    baseURL: https://developer.android.com
-    tags:
-      - A11y
-      - Accessibility
-      - Assistive Technology
-      - Screen Reader
-    serviceName: Android Accessibility APIs
-    serviceCategory: API
-  - name: Android TV APIs
-    baseURL: https://developer.android.com/tv
-    tags:
-      - Android TV
-      - Leanback
-      - Living Room
-      - Media
-      - Television
-    serviceName: Android TV APIs
-    serviceCategory: API
-  - name: Google Play Integrity API
-    baseURL: https://developer.android.com/google/play/integrity
-    tags:
-      - Anti-Fraud
-      - Device Attestation
-      - Integrity
-      - Security
-      - Verification
-    serviceName: Google Play Integrity API
-    serviceCategory: API
-  - name: Android Credential Manager API
-    baseURL: https://developer.android.com/identity
-    tags:
-      - Authentication
-      - Credentials
-      - Identity
-      - Passkeys
-      - Security
-      - Sign-In
-    serviceName: Android Credential Manager API
-    serviceCategory: API
-  - name: Gemini Nano On-Device AI API
-    baseURL: https://developer.android.com/ai
-    tags:
-      - AI
-      - Gemini Nano
-      - Generative AI
-      - LLM
-      - Machine Learning
-      - On-Device
-    serviceName: Gemini Nano On-Device AI API
-    serviceCategory: API
-  - name: Google Play Developer APIs
-    baseURL: https://androidpublisher.googleapis.com
-    tags:
-      - App Management
-      - Google Play
-      - Publishing
-      - Purchases
-      - Reporting
-      - REST API
-      - Reviews
-      - Subscriptions
-    serviceName: Google Play Developer APIs
-    serviceCategory: API
-  - name: Gemini Developer API for Android
-    baseURL: https://developer.android.com/ai
-    tags:
-      - AI
-      - Cloud
-      - Gemini
-      - Generative AI
-      - LLM
-    serviceName: Gemini Developer API for Android
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - operation_type
+      - region
+      - project
+  - name: auth_mau
+    description: Authentication monthly active users beyond the Spark 50K cap
+    unit: user
+    aggregation: max
+    dimensions:
+      - project
+      - region
+  - name: admob_ad_revenue
+    description: Ad revenue paid out to the publisher (negative cost / inflow)
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - app
+      - ad_unit
+      - country
+      - format
+  - name: play_developer_api_quota
+    description: Calls against the Google Play Developer API (informational; not directly billed)
+    unit: request
+    aggregation: sum
+    dimensions:
+      - bucket
+      - project
+principles:
+  - name: Visibility
+    description: >-
+      Combine Cloud Billing BigQuery exports for Firebase / Maps spend, the
+      Google Play Console financial reports for app and IAP earnings, and the
+      AdMob payouts report for ad revenue. Use Google Cloud Console > Billing
+      > Reports for cross-product cost views.
+  - name: Allocation
+    description: >-
+      Tag Google Cloud projects per app or environment (dev / staging / prod);
+      use distinct API keys per app for Maps so per-app spend can be sliced.
+      Allocate Google Play earnings by package name and country in the Play
+      financial CSV.
+  - name: Optimization
+    description: >-
+      Stay under Maps' 10K monthly free events through caching and request
+      consolidation; right-size Firestore indexes and avoid hot documents to
+      respect the 1 write/sec/document soft limit; keep app revenue in the 15%
+      tier as long as possible by structuring multiple developer accounts only
+      where Google's policy allows; use AdMob mediation to maximize fill at
+      the floor price you set.
+  - name: Accountability
+    description: >-
+      Mobile / app team owns Maps and Firebase budgets per project; finance
+      reconciles Play payouts and AdMob payouts against the Google merchant
+      accounts. Set Cloud Billing budget alerts per project and Play Console
+      payout monitoring per app.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com
