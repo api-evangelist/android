@@ -1,0 +1,181 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Play Developer API — Reviews
+  description: 'Google Play Developer API — Reviews. 3 operations. Lead operation: List App Reviews. Self-contained Naftiko
+    capability covering one Android business surface.'
+  tags:
+  - Android
+  - Reviews
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ANDROID_API_KEY: ANDROID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-play-developer-reviews
+    baseUri: https://androidpublisher.googleapis.com/androidpublisher/v3
+    description: Google Play Developer API — Reviews business capability. Self-contained, no shared references.
+    resources:
+    - name: applications-packageName-reviews
+      path: /applications/{packageName}/reviews
+      operations:
+      - name: listreviews
+        method: GET
+        description: List App Reviews
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: maxResults
+          in: query
+          type: integer
+          description: Maximum number of reviews to return.
+        - name: startIndex
+          in: query
+          type: integer
+          description: Index of the first review to return.
+        - name: token
+          in: query
+          type: string
+          description: Continuation token for paging through results.
+        - name: translationLanguage
+          in: query
+          type: string
+          description: BCP-47 language tag for translation. If specified, reviews in other languages will be translated to
+            this language.
+    - name: applications-packageName-reviews-reviewId
+      path: /applications/{packageName}/reviews/{reviewId}
+      operations:
+      - name: getreview
+        method: GET
+        description: Get a Single Review
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: translationLanguage
+          in: query
+          type: string
+          description: BCP-47 language tag for translating the review text.
+    - name: applications-packageName-reviews-reviewId}:reply
+      path: /applications/{packageName}/reviews/{reviewId}:reply
+      operations:
+      - name: replytoreview
+        method: POST
+        description: Reply to a Review
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ANDROID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-play-developer-reviews-rest
+    port: 8080
+    description: REST adapter for Google Play Developer API — Reviews. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/applications/{packagename}/reviews
+      name: applications-packagename-reviews
+      description: REST surface for applications-packageName-reviews.
+      operations:
+      - method: GET
+        name: listreviews
+        description: List App Reviews
+        call: google-play-developer-reviews.listreviews
+        with:
+          maxResults: rest.maxResults
+          startIndex: rest.startIndex
+          token: rest.token
+          translationLanguage: rest.translationLanguage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/reviews/{reviewid}
+      name: applications-packagename-reviews-reviewid
+      description: REST surface for applications-packageName-reviews-reviewId.
+      operations:
+      - method: GET
+        name: getreview
+        description: Get a Single Review
+        call: google-play-developer-reviews.getreview
+        with:
+          translationLanguage: rest.translationLanguage
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/reviews/reviewid-reply
+      name: applications-packagename-reviews-reviewid-reply
+      description: REST surface for applications-packageName-reviews-reviewId}:reply.
+      operations:
+      - method: POST
+        name: replytoreview
+        description: Reply to a Review
+        call: google-play-developer-reviews.replytoreview
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-play-developer-reviews-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Play Developer API — Reviews. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-app-reviews
+      description: List App Reviews
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-reviews.listreviews
+      with:
+        maxResults: tools.maxResults
+        startIndex: tools.startIndex
+        token: tools.token
+        translationLanguage: tools.translationLanguage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-review
+      description: Get a Single Review
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-reviews.getreview
+      with:
+        translationLanguage: tools.translationLanguage
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reply-review
+      description: Reply to a Review
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-reviews.replytoreview
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

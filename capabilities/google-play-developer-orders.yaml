@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Play Developer API — Orders
+  description: 'Google Play Developer API — Orders. 1 operations. Lead operation: Refund an Order. Self-contained Naftiko
+    capability covering one Android business surface.'
+  tags:
+  - Android
+  - Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ANDROID_API_KEY: ANDROID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-play-developer-orders
+    baseUri: https://androidpublisher.googleapis.com/androidpublisher/v3
+    description: Google Play Developer API — Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: applications-packageName-orders-orderId}:refund
+      path: /applications/{packageName}/orders/{orderId}:refund
+      operations:
+      - name: refundorder
+        method: POST
+        description: Refund an Order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderId
+          in: path
+          type: string
+          description: The order ID from Google Play.
+          required: true
+        - name: revoke
+          in: query
+          type: boolean
+          description: Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated
+            immediately.
+    authentication:
+      type: bearer
+      token: '{{env.ANDROID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-play-developer-orders-rest
+    port: 8080
+    description: REST adapter for Google Play Developer API — Orders. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/applications/{packagename}/orders/orderid-refund
+      name: applications-packagename-orders-orderid-refund
+      description: REST surface for applications-packageName-orders-orderId}:refund.
+      operations:
+      - method: POST
+        name: refundorder
+        description: Refund an Order
+        call: google-play-developer-orders.refundorder
+        with:
+          orderId: rest.orderId
+          revoke: rest.revoke
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-play-developer-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Play Developer API — Orders. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: refund-order
+      description: Refund an Order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-orders.refundorder
+      with:
+        orderId: tools.orderId
+        revoke: tools.revoke
+      outputParameters:
+      - type: object
+        mapping: $.

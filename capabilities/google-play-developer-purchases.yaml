@@ -1,0 +1,429 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Play Developer API — Purchases
+  description: 'Google Play Developer API — Purchases. 10 operations. Lead operation: Get In-app Product Purchase Status.
+    Self-contained Naftiko capability covering one Android business surface.'
+  tags:
+  - Android
+  - Purchases
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ANDROID_API_KEY: ANDROID_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: google-play-developer-purchases
+    baseUri: https://androidpublisher.googleapis.com/androidpublisher/v3
+    description: Google Play Developer API — Purchases business capability. Self-contained, no shared references.
+    resources:
+    - name: applications-packageName-purchases-products-productId-tokens-token
+      path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}
+      operations:
+      - name: getpurchaseproduct
+        method: GET
+        description: Get In-app Product Purchase Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-products-productId-tokens-token}:acknowledge
+      path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge
+      operations:
+      - name: acknowledgepurchaseproduct
+        method: POST
+        description: Acknowledge an In-app Product Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: applications-packageName-purchases-products-productId-tokens-token}:consume
+      path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}:consume
+      operations:
+      - name: consumepurchaseproduct
+        method: POST
+        description: Consume an In-app Product Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-subscriptions-subscriptionId-tokens-token
+      path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}
+      operations:
+      - name: getpurchasesubscription
+        method: GET
+        description: Get Subscription Purchase Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:ac
+      path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge
+      operations:
+      - name: acknowledgepurchasesubscription
+        method: POST
+        description: Acknowledge a Subscription Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:ca
+      path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel
+      operations:
+      - name: cancelpurchasesubscription
+        method: POST
+        description: Cancel a Subscription Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:de
+      path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer
+      operations:
+      - name: deferpurchasesubscription
+        method: POST
+        description: Defer a Subscription Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:re
+      path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:revoke
+      operations:
+      - name: revokepurchasesubscription
+        method: POST
+        description: Revoke a Subscription Purchase
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-subscriptionsv2-tokens-token
+      path: /applications/{packageName}/purchases/subscriptionsv2/tokens/{token}
+      operations:
+      - name: getsubscriptionpurchasev2
+        method: GET
+        description: Get Subscription Purchase V2
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: applications-packageName-purchases-voidedpurchases
+      path: /applications/{packageName}/purchases/voidedpurchases
+      operations:
+      - name: listvoidedpurchases
+        method: GET
+        description: List Voided Purchases
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: startTime
+          in: query
+          type: string
+          description: The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days
+            before the current time.
+        - name: endTime
+          in: query
+          type: string
+          description: The time (in milliseconds since Epoch) of the newest voided purchase to return.
+        - name: maxResults
+          in: query
+          type: integer
+          description: Maximum number of results to return. Default and maximum is 1000.
+        - name: startIndex
+          in: query
+          type: integer
+          description: Index of the first result to return.
+        - name: token
+          in: query
+          type: string
+          description: Continuation token for paging through results.
+        - name: type
+          in: query
+          type: integer
+          description: The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription
+            purchases.
+    authentication:
+      type: bearer
+      token: '{{env.ANDROID_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: google-play-developer-purchases-rest
+    port: 8080
+    description: REST adapter for Google Play Developer API — Purchases. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/applications/{packagename}/purchases/products/{productid}/tokens/{token}
+      name: applications-packagename-purchases-products-productid-tokens-token
+      description: REST surface for applications-packageName-purchases-products-productId-tokens-token.
+      operations:
+      - method: GET
+        name: getpurchaseproduct
+        description: Get In-app Product Purchase Status
+        call: google-play-developer-purchases.getpurchaseproduct
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/products/{productid}/tokens/token-acknowledge
+      name: applications-packagename-purchases-products-productid-tokens-token-acknowledge
+      description: REST surface for applications-packageName-purchases-products-productId-tokens-token}:acknowledge.
+      operations:
+      - method: POST
+        name: acknowledgepurchaseproduct
+        description: Acknowledge an In-app Product Purchase
+        call: google-play-developer-purchases.acknowledgepurchaseproduct
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/products/{productid}/tokens/token-consume
+      name: applications-packagename-purchases-products-productid-tokens-token-consume
+      description: REST surface for applications-packageName-purchases-products-productId-tokens-token}:consume.
+      operations:
+      - method: POST
+        name: consumepurchaseproduct
+        description: Consume an In-app Product Purchase
+        call: google-play-developer-purchases.consumepurchaseproduct
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptions/{subscriptionid}/tokens/{token}
+      name: applications-packagename-purchases-subscriptions-subscriptionid-tokens-token
+      description: REST surface for applications-packageName-purchases-subscriptions-subscriptionId-tokens-token.
+      operations:
+      - method: GET
+        name: getpurchasesubscription
+        description: Get Subscription Purchase Status
+        call: google-play-developer-purchases.getpurchasesubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptions/{subscriptionid}/tokens/token-acknowledge
+      name: applications-packagename-purchases-subscriptions-subscriptionid-tokens-token-ac
+      description: REST surface for applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:ac.
+      operations:
+      - method: POST
+        name: acknowledgepurchasesubscription
+        description: Acknowledge a Subscription Purchase
+        call: google-play-developer-purchases.acknowledgepurchasesubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptions/{subscriptionid}/tokens/token-cancel
+      name: applications-packagename-purchases-subscriptions-subscriptionid-tokens-token-ca
+      description: REST surface for applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:ca.
+      operations:
+      - method: POST
+        name: cancelpurchasesubscription
+        description: Cancel a Subscription Purchase
+        call: google-play-developer-purchases.cancelpurchasesubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptions/{subscriptionid}/tokens/token-defer
+      name: applications-packagename-purchases-subscriptions-subscriptionid-tokens-token-de
+      description: REST surface for applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:de.
+      operations:
+      - method: POST
+        name: deferpurchasesubscription
+        description: Defer a Subscription Purchase
+        call: google-play-developer-purchases.deferpurchasesubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptions/{subscriptionid}/tokens/token-revoke
+      name: applications-packagename-purchases-subscriptions-subscriptionid-tokens-token-re
+      description: REST surface for applications-packageName-purchases-subscriptions-subscriptionId-tokens-token}:re.
+      operations:
+      - method: POST
+        name: revokepurchasesubscription
+        description: Revoke a Subscription Purchase
+        call: google-play-developer-purchases.revokepurchasesubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/subscriptionsv2/tokens/{token}
+      name: applications-packagename-purchases-subscriptionsv2-tokens-token
+      description: REST surface for applications-packageName-purchases-subscriptionsv2-tokens-token.
+      operations:
+      - method: GET
+        name: getsubscriptionpurchasev2
+        description: Get Subscription Purchase V2
+        call: google-play-developer-purchases.getsubscriptionpurchasev2
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/applications/{packagename}/purchases/voidedpurchases
+      name: applications-packagename-purchases-voidedpurchases
+      description: REST surface for applications-packageName-purchases-voidedpurchases.
+      operations:
+      - method: GET
+        name: listvoidedpurchases
+        description: List Voided Purchases
+        call: google-play-developer-purchases.listvoidedpurchases
+        with:
+          startTime: rest.startTime
+          endTime: rest.endTime
+          maxResults: rest.maxResults
+          startIndex: rest.startIndex
+          token: rest.token
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: google-play-developer-purchases-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Play Developer API — Purchases. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-app-product-purchase-status
+      description: Get In-app Product Purchase Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-purchases.getpurchaseproduct
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: acknowledge-app-product-purchase
+      description: Acknowledge an In-app Product Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.acknowledgepurchaseproduct
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: consume-app-product-purchase
+      description: Consume an In-app Product Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.consumepurchaseproduct
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscription-purchase-status
+      description: Get Subscription Purchase Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-purchases.getpurchasesubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: acknowledge-subscription-purchase
+      description: Acknowledge a Subscription Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.acknowledgepurchasesubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-subscription-purchase
+      description: Cancel a Subscription Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.cancelpurchasesubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: defer-subscription-purchase
+      description: Defer a Subscription Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.deferpurchasesubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-subscription-purchase
+      description: Revoke a Subscription Purchase
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: google-play-developer-purchases.revokepurchasesubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscription-purchase-v2
+      description: Get Subscription Purchase V2
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-purchases.getsubscriptionpurchasev2
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-voided-purchases
+      description: List Voided Purchases
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: google-play-developer-purchases.listvoidedpurchases
+      with:
+        startTime: tools.startTime
+        endTime: tools.endTime
+        maxResults: tools.maxResults
+        startIndex: tools.startIndex
+        token: tools.token
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
