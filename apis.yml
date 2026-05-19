@@ -8,7 +8,7 @@ type: Index
 position: Consumer
 access: 3rd-Party
 created: '2024-01-01'
-modified: '2026-04-18'
+modified: '2026-05-19'
 specificationVersion: '0.19'
 tags:
   - AI
@@ -569,6 +569,9 @@ common:
         description: Access Google platform capabilities including authentication, location, and Google Drive APIs.
       - name: TensorFlow Lite
         description: Deploy custom machine learning models on Android devices for real-time inference with hardware acceleration.
+  - name: Agent Skills
+    url: https://github.com/android/skills
+    type: AgentSkill
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
