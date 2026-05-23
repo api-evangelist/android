@@ -1,0 +1,32 @@
+{
+  "operationId": "listReviews",
+  "method": "GET",
+  "path": "/applications/{packageName}/reviews",
+  "summary": "List App Reviews",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listreviews200Example",
+      "example": {
+        "pageInfo": {
+          "totalResults": 10,
+          "resultPerPage": 10,
+          "startIndex": 10
+        },
+        "tokenPagination": {
+          "nextPageToken": "example_value",
+          "previousPageToken": "example_value"
+        },
+        "reviews": [
+          {
+            "reviewId": "500123",
+            "authorName": "example_value",
+            "comments": {}
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "operationId": "getPurchaseProduct",
+  "method": "GET",
+  "path": "/applications/{packageName}/purchases/products/{productId}/tokens/{token}",
+  "summary": "Get In-app Product Purchase Status",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpurchaseproduct200Example",
+      "example": {
+        "kind": "example_value",
+        "purchaseTimeMillis": "example_value",
+        "purchaseState": 0,
+        "consumptionState": 0,
+        "developerPayload": "example_value",
+        "orderId": "500123",
+        "purchaseType": 0,
+        "acknowledgementState": 0,
+        "purchaseToken": "example_value",
+        "productId": "500123",
+        "quantity": 10,
+        "obfuscatedExternalAccountId": "500123",
+        "obfuscatedExternalProfileId": "500123",
+        "regionCode": "example_value",
+        "refundableQuantity": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReviewsListResponse",
+  "title": "ReviewsListResponse",
+  "type": "object",
+  "description": "Response containing a paginated list of reviews.",
+  "properties": {
+    "pageInfo": {
+      "$ref": "#/components/schemas/PageInfo"
+    },
+    "tokenPagination": {
+      "$ref": "#/components/schemas/TokenPagination"
+    },
+    "reviews": {
+      "type": "array",
+      "description": "List of reviews.",
+      "items": {
+        "$ref": "#/components/schemas/Review"
+      },
+      "example": []
+    }
+  }
+}

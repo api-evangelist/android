@@ -1,0 +1,28 @@
+{
+  "operationId": "deferPurchaseSubscription",
+  "method": "POST",
+  "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer",
+  "summary": "Defer a Subscription Purchase",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "DeferpurchasesubscriptionRequestExample",
+      "example": {
+        "deferralInfo": {
+          "expectedExpiryTimeMillis": "example_value",
+          "desiredExpiryTimeMillis": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Deferpurchasesubscription200Example",
+      "example": {
+        "newExpiryTimeMillis": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionListing",
+  "title": "SubscriptionListing",
+  "type": "object",
+  "description": "Localized listing information for a subscription.",
+  "properties": {
+    "languageCode": {
+      "type": "string",
+      "description": "BCP-47 language tag (e.g., en-US).",
+      "example": "example_value"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the subscription in this locale.",
+      "example": "Example Title"
+    },
+    "benefits": {
+      "type": "array",
+      "description": "A list of benefits shown to the user on platforms such as the Play Store. Limited to four benefits.",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "example": []
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the subscription in this locale.",
+      "example": "A sample description."
+    }
+  }
+}

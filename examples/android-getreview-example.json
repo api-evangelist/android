@@ -1,0 +1,21 @@
+{
+  "operationId": "getReview",
+  "method": "GET",
+  "path": "/applications/{packageName}/reviews/{reviewId}",
+  "summary": "Get a Single Review",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getreview200Example",
+      "example": {
+        "reviewId": "500123",
+        "authorName": "example_value",
+        "comments": [
+          {}
+        ]
+      }
+    }
+  ]
+}

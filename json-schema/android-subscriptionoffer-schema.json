@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionOffer",
+  "title": "SubscriptionOffer",
+  "type": "object",
+  "description": "A subscription offer represents special pricing for a subscription, such as a free trial or introductory price.",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "description": "The package name of the parent app.",
+      "readOnly": true,
+      "example": "example_value"
+    },
+    "productId": {
+      "type": "string",
+      "description": "The product ID of the parent subscription.",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "basePlanId": {
+      "type": "string",
+      "description": "The base plan ID the offer is associated with.",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "offerId": {
+      "type": "string",
+      "description": "The unique identifier for this offer.",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "state": {
+      "type": "string",
+      "description": "The current state of the offer.",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "DRAFT",
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "readOnly": true,
+      "example": "STATE_UNSPECIFIED"
+    },
+    "phases": {
+      "type": "array",
+      "description": "The pricing phases for this offer. Each phase defines a pricing period with its own duration and price.",
+      "items": {
+        "$ref": "#/components/schemas/SubscriptionOfferPhase"
+      },
+      "example": []
+    },
+    "targeting": {
+      "type": "object",
+      "description": "Targeting rules for the offer.",
+      "properties": {
+        "acquisitionRule": {
+          "type": "object",
+          "description": "Offer available to users who have never had this subscription.",
+          "properties": {
+            "scope": {
+              "type": "object",
+              "properties": {
+                "anySubscriptionInApp": {
+                  "type": "object"
+                },
+                "specificSubscriptionInApp": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "upgradeRule": {
+          "type": "object",
+          "description": "Offer available to users upgrading from another plan.",
+          "properties": {
+            "billingPeriodDuration": {
+              "type": "string"
+            },
+            "oncePerUser": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional configuration for this offer.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "regionCode": {
+            "type": "string"
+          },
+          "newSubscriberAvailability": {
+            "type": "boolean"
+          }
+        }
+      },
+      "example": []
+    },
+    "offerTags": {
+      "type": "array",
+      "description": "Custom tags for this offer.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

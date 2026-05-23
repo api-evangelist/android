@@ -1,0 +1,16 @@
+{
+  "operationId": "acknowledgePurchaseProduct",
+  "method": "POST",
+  "path": "/applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge",
+  "summary": "Acknowledge an In-app Product Purchase",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "AcknowledgepurchaseproductRequestExample",
+      "example": {
+        "developerPayload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

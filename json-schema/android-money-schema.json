@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Money",
+  "title": "Money",
+  "type": "object",
+  "description": "Represents a monetary amount with currency.",
+  "properties": {
+    "currencyCode": {
+      "type": "string",
+      "description": "ISO 4217 three-letter currency code (e.g., USD, EUR).",
+      "example": "example_value"
+    },
+    "units": {
+      "type": "string",
+      "format": "int64",
+      "description": "The whole units of the amount.",
+      "example": "example_value"
+    },
+    "nanos": {
+      "type": "integer",
+      "description": "Number of nano units (10^-9) of the amount. Must be between -999,999,999 and +999,999,999.",
+      "example": 10
+    }
+  }
+}

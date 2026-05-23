@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionPurchaseLineItem",
+  "title": "SubscriptionPurchaseLineItem",
+  "type": "object",
+  "description": "An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.",
+  "properties": {
+    "productId": {
+      "type": "string",
+      "description": "The product ID of the subscription.",
+      "example": "500123"
+    },
+    "expiryTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time at which the subscription line item will expire.",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "autoRenewingPlan": {
+      "type": "object",
+      "description": "Details for auto-renewing plans.",
+      "properties": {
+        "autoRenewEnabled": {
+          "type": "boolean"
+        }
+      },
+      "example": "example_value"
+    },
+    "prepaidPlan": {
+      "type": "object",
+      "description": "Details for prepaid plans.",
+      "properties": {
+        "allowExtendAfterTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "example": "example_value"
+    },
+    "offerDetails": {
+      "type": "object",
+      "description": "Details of the offer applied to this line item.",
+      "properties": {
+        "offerTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "basePlanId": {
+          "type": "string"
+        },
+        "offerId": {
+          "type": "string"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

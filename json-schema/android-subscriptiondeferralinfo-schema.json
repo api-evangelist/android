@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionDeferralInfo",
+  "title": "SubscriptionDeferralInfo",
+  "type": "object",
+  "description": "Contains the new desired expiry time for a subscription deferral.",
+  "properties": {
+    "expectedExpiryTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.",
+      "example": "example_value"
+    },
+    "desiredExpiryTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "The desired next expiry time to assign to the subscription. Must be later than the current expiry time.",
+      "example": "example_value"
+    }
+  },
+  "required": [
+    "expectedExpiryTimeMillis",
+    "desiredExpiryTimeMillis"
+  ]
+}

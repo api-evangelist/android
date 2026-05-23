@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionPurchasesDeferResponse",
+  "title": "SubscriptionPurchasesDeferResponse",
+  "type": "object",
+  "description": "Response from deferring a subscription purchase.",
+  "properties": {
+    "newExpiryTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "The new expiry time for the subscription.",
+      "example": "example_value"
+    }
+  }
+}

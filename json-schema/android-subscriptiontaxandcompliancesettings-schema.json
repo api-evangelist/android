@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionTaxAndComplianceSettings",
+  "title": "SubscriptionTaxAndComplianceSettings",
+  "type": "object",
+  "description": "Tax and compliance settings for a subscription.",
+  "properties": {
+    "eeaWithdrawalRightType": {
+      "type": "string",
+      "description": "Digital content or service classification for EEA withdrawal right.",
+      "enum": [
+        "WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED",
+        "WITHDRAWAL_RIGHT_DIGITAL_CONTENT",
+        "WITHDRAWAL_RIGHT_SERVICE"
+      ],
+      "example": "WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED"
+    },
+    "taxRateInfoByRegionCode": {
+      "type": "object",
+      "description": "Tax rate information keyed by region code.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "eligibleForStreamingServiceTaxRate": {
+            "type": "boolean"
+          },
+          "taxTier": {
+            "type": "string"
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "isTokenizedDigitalAsset": {
+      "type": "boolean",
+      "description": "Whether the subscription represents a tokenized digital asset.",
+      "example": true
+    }
+  }
+}

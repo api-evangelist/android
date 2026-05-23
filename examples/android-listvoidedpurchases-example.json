@@ -1,0 +1,37 @@
+{
+  "operationId": "listVoidedPurchases",
+  "method": "GET",
+  "path": "/applications/{packageName}/purchases/voidedpurchases",
+  "summary": "List Voided Purchases",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listvoidedpurchases200Example",
+      "example": {
+        "pageInfo": {
+          "totalResults": 10,
+          "resultPerPage": 10,
+          "startIndex": 10
+        },
+        "tokenPagination": {
+          "nextPageToken": "example_value",
+          "previousPageToken": "example_value"
+        },
+        "voidedPurchases": [
+          {
+            "kind": "example_value",
+            "purchaseToken": "example_value",
+            "purchaseTimeMillis": "example_value",
+            "voidedTimeMillis": "example_value",
+            "orderId": "500123",
+            "voidedSource": 0,
+            "voidedReason": 0,
+            "voidedQuantity": 10
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionPurchasesDeferRequest",
+  "title": "SubscriptionPurchasesDeferRequest",
+  "type": "object",
+  "description": "Request body for deferring a subscription purchase.",
+  "properties": {
+    "deferralInfo": {
+      "$ref": "#/components/schemas/SubscriptionDeferralInfo"
+    }
+  },
+  "required": [
+    "deferralInfo"
+  ]
+}

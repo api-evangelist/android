@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Subscription",
+  "title": "Subscription",
+  "type": "object",
+  "description": "A subscription product defined in the Google Play Console. Contains base plans, listings, and tax and compliance settings.",
+  "properties": {
+    "packageName": {
+      "type": "string",
+      "description": "The package name of the parent app.",
+      "readOnly": true,
+      "example": "example_value"
+    },
+    "productId": {
+      "type": "string",
+      "description": "The unique product ID of the subscription.",
+      "readOnly": true,
+      "example": "500123"
+    },
+    "basePlans": {
+      "type": "array",
+      "description": "The set of base plans for this subscription. A subscription must have at least one base plan.",
+      "items": {
+        "$ref": "#/components/schemas/BasePlan"
+      },
+      "example": []
+    },
+    "listings": {
+      "type": "array",
+      "description": "The localized listings for this subscription. Must have at least one listing.",
+      "items": {
+        "$ref": "#/components/schemas/SubscriptionListing"
+      },
+      "example": []
+    },
+    "archived": {
+      "type": "boolean",
+      "description": "Whether this subscription is archived.",
+      "readOnly": true,
+      "example": true
+    },
+    "taxAndComplianceSettings": {
+      "$ref": "#/components/schemas/SubscriptionTaxAndComplianceSettings"
+    }
+  }
+}

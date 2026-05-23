@@ -1,0 +1,31 @@
+{
+  "operationId": "replyToReview",
+  "method": "POST",
+  "path": "/applications/{packageName}/reviews/{reviewId}:reply",
+  "summary": "Reply to a Review",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ReplytoreviewRequestExample",
+      "example": {
+        "replyText": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Replytoreview200Example",
+      "example": {
+        "result": {
+          "replyText": "example_value",
+          "lastEdited": {
+            "seconds": "example_value",
+            "nanos": 10
+          }
+        }
+      }
+    }
+  ]
+}

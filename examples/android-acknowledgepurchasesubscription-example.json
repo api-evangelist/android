@@ -1,0 +1,16 @@
+{
+  "operationId": "acknowledgePurchaseSubscription",
+  "method": "POST",
+  "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge",
+  "summary": "Acknowledge a Subscription Purchase",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "AcknowledgepurchasesubscriptionRequestExample",
+      "example": {
+        "developerPayload": "example_value"
+      }
+    }
+  ],
+  "responseExamples": []
+}

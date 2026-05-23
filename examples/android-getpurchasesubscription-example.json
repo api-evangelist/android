@@ -1,0 +1,42 @@
+{
+  "operationId": "getPurchaseSubscription",
+  "method": "GET",
+  "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}",
+  "summary": "Get Subscription Purchase Status",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getpurchasesubscription200Example",
+      "example": {
+        "kind": "example_value",
+        "startTimeMillis": "example_value",
+        "expiryTimeMillis": "example_value",
+        "userCancellationTimeMillis": "example_value",
+        "autoRenewing": true,
+        "priceCurrencyCode": "example_value",
+        "priceAmountMicros": "example_value",
+        "introductoryPriceInfo": {
+          "introductoryPriceCurrencyCode": "example_value",
+          "introductoryPriceAmountMicros": "example_value",
+          "introductoryPricePeriod": "example_value",
+          "introductoryPriceCycles": 10
+        },
+        "countryCode": "example_value",
+        "developerPayload": "example_value",
+        "paymentState": 0,
+        "cancelReason": 0,
+        "linkedPurchaseToken": "example_value",
+        "purchaseType": 0,
+        "orderId": "500123",
+        "acknowledgementState": 0,
+        "externalAccountId": "500123",
+        "promotionType": 0,
+        "promotionCode": "example_value",
+        "obfuscatedExternalAccountId": "500123",
+        "obfuscatedExternalProfileId": "500123"
+      }
+    }
+  ]
+}

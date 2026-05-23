@@ -1,0 +1,14 @@
+name: Android Domain Vocabulary
+provider: Android
+providerId: android
+description: Tag-derived vocabulary for the Android API surface; sourced from openapi/ tags.
+terms:
+- term: Purchases
+  description: Manage in-app product and subscription purchases, including verification, acknowledgment, and consumption of
+    purchase tokens.
+- term: Subscriptions
+  description: Create, manage, and query subscription products and their base plans, offers, and purchase entitlements.
+- term: Reviews
+  description: Retrieve user reviews from the Google Play Store and post developer replies to those reviews.
+- term: Orders
+  description: Refund orders placed through Google Play for in-app products and subscriptions.

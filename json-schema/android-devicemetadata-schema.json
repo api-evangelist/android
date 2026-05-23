@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeviceMetadata",
+  "title": "DeviceMetadata",
+  "type": "object",
+  "description": "Metadata about the device used to write a review.",
+  "properties": {
+    "manufacturer": {
+      "type": "string",
+      "description": "Device manufacturer (e.g., Samsung, Google).",
+      "example": "example_value"
+    },
+    "deviceClass": {
+      "type": "string",
+      "description": "Device class (e.g., phone, tablet).",
+      "example": "example_value"
+    },
+    "screenWidthPx": {
+      "type": "integer",
+      "description": "Screen width in pixels.",
+      "example": 10
+    },
+    "screenHeightPx": {
+      "type": "integer",
+      "description": "Screen height in pixels.",
+      "example": 10
+    },
+    "nativePlatform": {
+      "type": "string",
+      "description": "Comma-separated list of native platforms (e.g., armeabi-v7a, arm64-v8a).",
+      "example": "example_value"
+    },
+    "productName": {
+      "type": "string",
+      "description": "Device product name.",
+      "example": "example_value"
+    },
+    "screenDensityDpi": {
+      "type": "integer",
+      "description": "Screen density in DPI.",
+      "example": 10
+    },
+    "glEsVersion": {
+      "type": "integer",
+      "description": "OpenGL ES version.",
+      "example": 10
+    },
+    "cpuModel": {
+      "type": "string",
+      "description": "CPU model identifier.",
+      "example": "example_value"
+    },
+    "cpuMake": {
+      "type": "string",
+      "description": "CPU manufacturer.",
+      "example": "example_value"
+    },
+    "ramMb": {
+      "type": "integer",
+      "description": "Device RAM in megabytes.",
+      "example": 10
+    }
+  }
+}

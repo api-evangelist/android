@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BasePlan",
+  "title": "BasePlan",
+  "type": "object",
+  "description": "A base plan specifies the billing period and renewal type for a subscription. A subscription must have at least one base plan.",
+  "properties": {
+    "basePlanId": {
+      "type": "string",
+      "description": "The unique identifier for this base plan.",
+      "example": "500123"
+    },
+    "state": {
+      "type": "string",
+      "description": "The state of the base plan.",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "DRAFT",
+        "ACTIVE",
+        "INACTIVE"
+      ],
+      "readOnly": true,
+      "example": "STATE_UNSPECIFIED"
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional pricing configurations.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "regionCode": {
+            "type": "string",
+            "description": "ISO 3166-1 alpha-2 region code."
+          },
+          "price": {
+            "$ref": "#/components/schemas/Money"
+          }
+        }
+      },
+      "example": []
+    },
+    "autoRenewingBasePlanType": {
+      "type": "object",
+      "description": "Details for auto-renewing base plans.",
+      "properties": {
+        "billingPeriodDuration": {
+          "type": "string",
+          "description": "Subscription period in ISO 8601 format (e.g., P1M for monthly, P1Y for yearly, P3M for quarterly)."
+        },
+        "gracePeriodDuration": {
+          "type": "string",
+          "description": "Grace period after a failed payment in ISO 8601 format."
+        },
+        "accountHoldDuration": {
+          "type": "string",
+          "description": "Account hold duration in ISO 8601 format."
+        },
+        "resubscribeState": {
+          "type": "string",
+          "enum": [
+            "RESUBSCRIBE_STATE_UNSPECIFIED",
+            "RESUBSCRIBE_STATE_ACTIVE",
+            "RESUBSCRIBE_STATE_INACTIVE"
+          ]
+        },
+        "prorationMode": {
+          "type": "string",
+          "description": "Proration mode for mid-cycle price changes.",
+          "enum": [
+            "SUBSCRIPTION_PRORATION_MODE_UNSPECIFIED",
+            "SUBSCRIPTION_PRORATION_MODE_CHARGE_ON_NEXT_BILLING_DATE",
+            "SUBSCRIPTION_PRORATION_MODE_CHARGE_FULL_PRICE_IMMEDIATELY"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "prepaidBasePlanType": {
+      "type": "object",
+      "description": "Details for prepaid base plans.",
+      "properties": {
+        "billingPeriodDuration": {
+          "type": "string",
+          "description": "Subscription period in ISO 8601 format."
+        },
+        "timeExtension": {
+          "type": "string",
+          "enum": [
+            "TIME_EXTENSION_UNSPECIFIED",
+            "TIME_EXTENSION_ACTIVE",
+            "TIME_EXTENSION_INACTIVE"
+          ]
+        }
+      },
+      "example": "example_value"
+    },
+    "offerTags": {
+      "type": "array",
+      "description": "List of up to 20 custom tags for this base plan.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

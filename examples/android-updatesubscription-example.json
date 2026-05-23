@@ -1,0 +1,75 @@
+{
+  "operationId": "updateSubscription",
+  "method": "PATCH",
+  "path": "/applications/{packageName}/monetization/subscriptions/{productId}",
+  "summary": "Update a Subscription Product",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatesubscriptionRequestExample",
+      "example": {
+        "packageName": "example_value",
+        "productId": "500123",
+        "basePlans": [
+          {
+            "basePlanId": "500123",
+            "state": "STATE_UNSPECIFIED",
+            "regionalConfigs": {},
+            "autoRenewingBasePlanType": {},
+            "prepaidBasePlanType": {},
+            "offerTags": {}
+          }
+        ],
+        "listings": [
+          {
+            "languageCode": "example_value",
+            "title": "Example Title",
+            "benefits": {},
+            "description": "A sample description."
+          }
+        ],
+        "archived": true,
+        "taxAndComplianceSettings": {
+          "eeaWithdrawalRightType": "WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED",
+          "taxRateInfoByRegionCode": "example_value",
+          "isTokenizedDigitalAsset": true
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Updatesubscription200Example",
+      "example": {
+        "packageName": "example_value",
+        "productId": "500123",
+        "basePlans": [
+          {
+            "basePlanId": "500123",
+            "state": "STATE_UNSPECIFIED",
+            "regionalConfigs": {},
+            "autoRenewingBasePlanType": {},
+            "prepaidBasePlanType": {},
+            "offerTags": {}
+          }
+        ],
+        "listings": [
+          {
+            "languageCode": "example_value",
+            "title": "Example Title",
+            "benefits": {},
+            "description": "A sample description."
+          }
+        ],
+        "archived": true,
+        "taxAndComplianceSettings": {
+          "eeaWithdrawalRightType": "WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED",
+          "taxRateInfoByRegionCode": "example_value",
+          "isTokenizedDigitalAsset": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoidedPurchasesListResponse",
+  "title": "VoidedPurchasesListResponse",
+  "type": "object",
+  "description": "Response containing a list of voided purchases.",
+  "properties": {
+    "pageInfo": {
+      "$ref": "#/components/schemas/PageInfo"
+    },
+    "tokenPagination": {
+      "$ref": "#/components/schemas/TokenPagination"
+    },
+    "voidedPurchases": {
+      "type": "array",
+      "description": "List of voided purchases.",
+      "items": {
+        "$ref": "#/components/schemas/VoidedPurchase"
+      },
+      "example": []
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "operationId": "getSubscriptionPurchaseV2",
+  "method": "GET",
+  "path": "/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}",
+  "summary": "Get Subscription Purchase V2",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsubscriptionpurchasev2200Example",
+      "example": {
+        "kind": "example_value",
+        "regionCode": "example_value",
+        "latestOrderId": "500123",
+        "lineItems": [
+          {
+            "productId": "500123",
+            "expiryTime": "2026-01-15T10:30:00Z",
+            "autoRenewingPlan": {},
+            "prepaidPlan": {},
+            "offerDetails": {}
+          }
+        ],
+        "startTime": "2026-01-15T10:30:00Z",
+        "subscriptionState": "SUBSCRIPTION_STATE_UNSPECIFIED",
+        "linkedPurchaseToken": "example_value",
+        "pausedStateContext": {
+          "autoResumeTime": "2026-01-15T10:30:00Z"
+        },
+        "canceledStateContext": {
+          "userInitiatedCancellation": {
+            "finishTime": "2026-01-15T10:30:00Z"
+          },
+          "systemInitiatedCancellation": "example_value",
+          "developerInitiatedCancellation": "example_value",
+          "replacementCancellation": "example_value"
+        },
+        "acknowledgementState": "ACKNOWLEDGEMENT_STATE_UNSPECIFIED",
+        "externalAccountIdentifiers": {
+          "externalAccountId": "500123",
+          "obfuscatedExternalAccountId": "500123",
+          "obfuscatedExternalProfileId": "500123"
+        }
+      }
+    }
+  ]
+}

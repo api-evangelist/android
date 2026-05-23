@@ -1,0 +1,30 @@
+{
+  "operationId": "listSubscriptionOffers",
+  "method": "GET",
+  "path": "/applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers",
+  "summary": "List Subscription Offers",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listsubscriptionoffers200Example",
+      "example": {
+        "subscriptionOffers": [
+          {
+            "packageName": "example_value",
+            "productId": "500123",
+            "basePlanId": "500123",
+            "offerId": "500123",
+            "state": "STATE_UNSPECIFIED",
+            "phases": {},
+            "targeting": {},
+            "regionalConfigs": {},
+            "offerTags": {}
+          }
+        ],
+        "nextPageToken": "example_value"
+      }
+    }
+  ]
+}

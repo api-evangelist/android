@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionOfferPhase",
+  "title": "SubscriptionOfferPhase",
+  "type": "object",
+  "description": "A single phase of a subscription offer. Defines pricing for a specific period.",
+  "properties": {
+    "recurrenceCount": {
+      "type": "integer",
+      "description": "The number of times this phase repeats. If 0, the phase repeats indefinitely.",
+      "example": 10
+    },
+    "duration": {
+      "type": "string",
+      "description": "Duration of a single period in ISO 8601 format.",
+      "example": "example_value"
+    },
+    "regionalConfigs": {
+      "type": "array",
+      "description": "Regional pricing for this phase.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "regionCode": {
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "absoluteDiscount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "relativeDiscount": {
+            "type": "number",
+            "format": "double",
+            "description": "Fraction of the base plan price as a discount."
+          },
+          "free": {
+            "type": "object",
+            "description": "The phase is free."
+          }
+        }
+      },
+      "example": []
+    }
+  }
+}

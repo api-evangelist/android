@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Comment",
+  "title": "Comment",
+  "type": "object",
+  "description": "A comment associated with a review, either a user comment or a developer comment (reply).",
+  "properties": {
+    "userComment": {
+      "$ref": "#/components/schemas/UserComment"
+    },
+    "developerComment": {
+      "$ref": "#/components/schemas/DeveloperComment"
+    }
+  }
+}

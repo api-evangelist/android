@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Timestamp",
+  "title": "Timestamp",
+  "type": "object",
+  "description": "A timestamp in seconds and nanoseconds.",
+  "properties": {
+    "seconds": {
+      "type": "string",
+      "format": "int64",
+      "description": "Seconds since Unix Epoch.",
+      "example": "example_value"
+    },
+    "nanos": {
+      "type": "integer",
+      "description": "Non-negative fractions of a second at nanosecond resolution.",
+      "example": 10
+    }
+  }
+}

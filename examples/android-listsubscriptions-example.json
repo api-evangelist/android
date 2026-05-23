@@ -1,0 +1,26 @@
+{
+  "operationId": "listSubscriptions",
+  "method": "GET",
+  "path": "/applications/{packageName}/monetization/subscriptions",
+  "summary": "List Subscription Products",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listsubscriptions200Example",
+      "example": {
+        "subscriptions": [
+          {
+            "packageName": "example_value",
+            "productId": "500123",
+            "basePlans": {},
+            "listings": {},
+            "archived": true
+          }
+        ],
+        "nextPageToken": "example_value"
+      }
+    }
+  ]
+}

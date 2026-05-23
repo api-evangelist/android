@@ -1,0 +1,93 @@
+{
+  "operationId": "createSubscriptionOffer",
+  "method": "POST",
+  "path": "/applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers",
+  "summary": "Create a Subscription Offer",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatesubscriptionofferRequestExample",
+      "example": {
+        "packageName": "example_value",
+        "productId": "500123",
+        "basePlanId": "500123",
+        "offerId": "500123",
+        "state": "STATE_UNSPECIFIED",
+        "phases": [
+          {
+            "recurrenceCount": 10,
+            "duration": "example_value",
+            "regionalConfigs": {}
+          }
+        ],
+        "targeting": {
+          "acquisitionRule": {
+            "scope": {
+              "anySubscriptionInApp": "example_value",
+              "specificSubscriptionInApp": "example_value"
+            }
+          },
+          "upgradeRule": {
+            "billingPeriodDuration": "example_value",
+            "oncePerUser": true
+          }
+        },
+        "regionalConfigs": [
+          {
+            "regionCode": "example_value",
+            "newSubscriberAvailability": true
+          }
+        ],
+        "offerTags": [
+          {
+            "tag": "example_value"
+          }
+        ]
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createsubscriptionoffer200Example",
+      "example": {
+        "packageName": "example_value",
+        "productId": "500123",
+        "basePlanId": "500123",
+        "offerId": "500123",
+        "state": "STATE_UNSPECIFIED",
+        "phases": [
+          {
+            "recurrenceCount": 10,
+            "duration": "example_value",
+            "regionalConfigs": {}
+          }
+        ],
+        "targeting": {
+          "acquisitionRule": {
+            "scope": {
+              "anySubscriptionInApp": "example_value",
+              "specificSubscriptionInApp": "example_value"
+            }
+          },
+          "upgradeRule": {
+            "billingPeriodDuration": "example_value",
+            "oncePerUser": true
+          }
+        },
+        "regionalConfigs": [
+          {
+            "regionCode": "example_value",
+            "newSubscriberAvailability": true
+          }
+        ],
+        "offerTags": [
+          {
+            "tag": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

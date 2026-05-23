@@ -1,0 +1,412 @@
+{
+  "provider": "Android",
+  "providerId": "android",
+  "kind": "json-structure",
+  "description": "Structural overview of the Android API surface; extracted from openapi/.",
+  "schemaCount": 33,
+  "operationCount": 21,
+  "schemas": [
+    {
+      "name": "ProductPurchase",
+      "type": "object",
+      "propertyCount": 15,
+      "required": []
+    },
+    {
+      "name": "ProductPurchasesAcknowledgeRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SubscriptionPurchase",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "SubscriptionPurchasesAcknowledgeRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SubscriptionPurchasesDeferRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "deferralInfo"
+      ]
+    },
+    {
+      "name": "SubscriptionDeferralInfo",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "expectedExpiryTimeMillis",
+        "desiredExpiryTimeMillis"
+      ]
+    },
+    {
+      "name": "SubscriptionPurchasesDeferResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "SubscriptionPurchaseV2",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "SubscriptionPurchaseLineItem",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "IntroductoryPriceInfo",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "VoidedPurchasesListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "VoidedPurchase",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "Subscription",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "BasePlan",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "SubscriptionListing",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "SubscriptionTaxAndComplianceSettings",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "SubscriptionOffer",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "SubscriptionOfferPhase",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ListSubscriptionsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ListSubscriptionOffersResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Review",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Comment",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "UserComment",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "DeveloperComment",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "DeviceMetadata",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "ReviewsListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ReviewsReplyRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "replyText"
+      ]
+    },
+    {
+      "name": "ReviewsReplyResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Money",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Timestamp",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PageInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TokenPagination",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/purchases/products/{productId}/tokens/{token}",
+      "operationId": "getPurchaseProduct",
+      "summary": "Get In-app Product Purchase Status",
+      "tags": [
+        "Purchases"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge",
+      "operationId": "acknowledgePurchaseProduct",
+      "summary": "Acknowledge an In-app Product Purchase",
+      "tags": [
+        "Purchases"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/products/{productId}/tokens/{token}:consume",
+      "operationId": "consumePurchaseProduct",
+      "summary": "Consume an In-app Product Purchase",
+      "tags": [
+        "Purchases"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}",
+      "operationId": "getPurchaseSubscription",
+      "summary": "Get Subscription Purchase Status",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge",
+      "operationId": "acknowledgePurchaseSubscription",
+      "summary": "Acknowledge a Subscription Purchase",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel",
+      "operationId": "cancelPurchaseSubscription",
+      "summary": "Cancel a Subscription Purchase",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer",
+      "operationId": "deferPurchaseSubscription",
+      "summary": "Defer a Subscription Purchase",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:revoke",
+      "operationId": "revokePurchaseSubscription",
+      "summary": "Revoke a Subscription Purchase",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/purchases/subscriptionsv2/tokens/{token}",
+      "operationId": "getSubscriptionPurchaseV2",
+      "summary": "Get Subscription Purchase V2",
+      "tags": [
+        "Purchases",
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/purchases/voidedpurchases",
+      "operationId": "listVoidedPurchases",
+      "summary": "List Voided Purchases",
+      "tags": [
+        "Purchases"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/monetization/subscriptions",
+      "operationId": "listSubscriptions",
+      "summary": "List Subscription Products",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/monetization/subscriptions",
+      "operationId": "createSubscription",
+      "summary": "Create a Subscription Product",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/monetization/subscriptions/{productId}",
+      "operationId": "getSubscription",
+      "summary": "Get a Subscription Product",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/applications/{packageName}/monetization/subscriptions/{productId}",
+      "operationId": "deleteSubscription",
+      "summary": "Delete a Subscription Product",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/applications/{packageName}/monetization/subscriptions/{productId}",
+      "operationId": "updateSubscription",
+      "summary": "Update a Subscription Product",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers",
+      "operationId": "listSubscriptionOffers",
+      "summary": "List Subscription Offers",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers",
+      "operationId": "createSubscriptionOffer",
+      "summary": "Create a Subscription Offer",
+      "tags": [
+        "Subscriptions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/reviews",
+      "operationId": "listReviews",
+      "summary": "List App Reviews",
+      "tags": [
+        "Reviews"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/applications/{packageName}/reviews/{reviewId}",
+      "operationId": "getReview",
+      "summary": "Get a Single Review",
+      "tags": [
+        "Reviews"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/reviews/{reviewId}:reply",
+      "operationId": "replyToReview",
+      "summary": "Reply to a Review",
+      "tags": [
+        "Reviews"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/applications/{packageName}/orders/{orderId}:refund",
+      "operationId": "refundOrder",
+      "summary": "Refund an Order",
+      "tags": [
+        "Orders"
+      ]
+    }
+  ]
+}

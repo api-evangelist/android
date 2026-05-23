@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionPurchase",
+  "title": "SubscriptionPurchase",
+  "type": "object",
+  "description": "Represents a subscription purchase. Contains the subscription state, expiry time, auto-renewal status, and cancellation details.",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier.",
+      "const": "androidpublisher#subscriptionPurchase",
+      "example": "example_value"
+    },
+    "startTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time at which the subscription was granted (milliseconds since Epoch).",
+      "example": "example_value"
+    },
+    "expiryTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time at which the subscription will expire (milliseconds since Epoch). For cancelled subscriptions, this is when access ends.",
+      "example": "example_value"
+    },
+    "userCancellationTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time at which the subscription was canceled by the user (milliseconds since Epoch). Only present if cancelReason is 0.",
+      "example": "example_value"
+    },
+    "autoRenewing": {
+      "type": "boolean",
+      "description": "Whether the subscription will automatically be renewed.",
+      "example": true
+    },
+    "priceCurrencyCode": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the subscription price.",
+      "example": "example_value"
+    },
+    "priceAmountMicros": {
+      "type": "string",
+      "format": "int64",
+      "description": "Price of the subscription in micro-units of the currency. For example, 7990000 represents $7.99.",
+      "example": "example_value"
+    },
+    "introductoryPriceInfo": {
+      "$ref": "#/components/schemas/IntroductoryPriceInfo"
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code of the user at the time the subscription was granted.",
+      "example": "example_value"
+    },
+    "developerPayload": {
+      "type": "string",
+      "description": "Developer-specified string for additional information.",
+      "deprecated": true,
+      "example": "example_value"
+    },
+    "paymentState": {
+      "type": "integer",
+      "description": "The payment state of the subscription. 0 = Payment pending, 1 = Payment received, 2 = Free trial, 3 = Pending deferred upgrade/downgrade.",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "example": 0
+    },
+    "cancelReason": {
+      "type": "integer",
+      "description": "The reason a subscription was cancelled or not auto-renewed. 0 = User cancelled, 1 = System cancelled (billing issue), 2 = Replaced with a new subscription, 3 = Developer cancelled.",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "example": 0
+    },
+    "linkedPurchaseToken": {
+      "type": "string",
+      "description": "The purchase token of the previous subscription if this subscription is a replacement (upgrade/downgrade).",
+      "example": "example_value"
+    },
+    "purchaseType": {
+      "type": "integer",
+      "description": "The type of purchase. 0 = Test (sandbox), 1 = Promo.",
+      "enum": [
+        0,
+        1
+      ],
+      "example": 0
+    },
+    "orderId": {
+      "type": "string",
+      "description": "The order ID of the latest recurring order.",
+      "example": "500123"
+    },
+    "acknowledgementState": {
+      "type": "integer",
+      "description": "The acknowledgement state. 0 = Yet to be acknowledged, 1 = Acknowledged.",
+      "enum": [
+        0,
+        1
+      ],
+      "example": 0
+    },
+    "externalAccountId": {
+      "type": "string",
+      "description": "User account identifier in the third-party service.",
+      "example": "500123"
+    },
+    "promotionType": {
+      "type": "integer",
+      "description": "The type of promotion applied on this purchase. 0 = One-time code, 1 = Vanity code.",
+      "enum": [
+        0,
+        1
+      ],
+      "example": 0
+    },
+    "promotionCode": {
+      "type": "string",
+      "description": "The promotion code applied on this purchase.",
+      "example": "example_value"
+    },
+    "obfuscatedExternalAccountId": {
+      "type": "string",
+      "description": "Obfuscated user account ID in the third-party service.",
+      "example": "500123"
+    },
+    "obfuscatedExternalProfileId": {
+      "type": "string",
+      "description": "Obfuscated user profile ID in the third-party service.",
+      "example": "500123"
+    }
+  }
+}

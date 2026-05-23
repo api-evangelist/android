@@ -1,0 +1,42 @@
+{
+  "operationId": "getSubscription",
+  "method": "GET",
+  "path": "/applications/{packageName}/monetization/subscriptions/{productId}",
+  "summary": "Get a Subscription Product",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsubscription200Example",
+      "example": {
+        "packageName": "example_value",
+        "productId": "500123",
+        "basePlans": [
+          {
+            "basePlanId": "500123",
+            "state": "STATE_UNSPECIFIED",
+            "regionalConfigs": {},
+            "autoRenewingBasePlanType": {},
+            "prepaidBasePlanType": {},
+            "offerTags": {}
+          }
+        ],
+        "listings": [
+          {
+            "languageCode": "example_value",
+            "title": "Example Title",
+            "benefits": {},
+            "description": "A sample description."
+          }
+        ],
+        "archived": true,
+        "taxAndComplianceSettings": {
+          "eeaWithdrawalRightType": "WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED",
+          "taxRateInfoByRegionCode": "example_value",
+          "isTokenizedDigitalAsset": true
+        }
+      }
+    }
+  ]
+}

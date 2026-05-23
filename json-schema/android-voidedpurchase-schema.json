@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoidedPurchase",
+  "title": "VoidedPurchase",
+  "type": "object",
+  "description": "A purchase that has been voided (cancelled, refunded, or charged back).",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier.",
+      "const": "androidpublisher#voidedPurchase",
+      "example": "example_value"
+    },
+    "purchaseToken": {
+      "type": "string",
+      "description": "The token which uniquely identifies the purchase.",
+      "example": "example_value"
+    },
+    "purchaseTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time at which the purchase was made (milliseconds since Epoch).",
+      "example": "example_value"
+    },
+    "voidedTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time at which the purchase was voided (milliseconds since Epoch).",
+      "example": "example_value"
+    },
+    "orderId": {
+      "type": "string",
+      "description": "The order ID associated with the voided purchase.",
+      "example": "500123"
+    },
+    "voidedSource": {
+      "type": "integer",
+      "description": "The source of the voiding. 0 = User, 1 = Developer, 2 = Google.",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "example": 0
+    },
+    "voidedReason": {
+      "type": "integer",
+      "description": "The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "example": 0
+    },
+    "voidedQuantity": {
+      "type": "integer",
+      "description": "The voided quantity as related to multi-quantity purchases.",
+      "example": 10
+    }
+  }
+}

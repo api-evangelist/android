@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProductPurchase",
+  "title": "ProductPurchase",
+  "type": "object",
+  "description": "Represents an in-app product purchase. Contains the purchase state, consumption status, and order information.",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "description": "Resource type identifier.",
+      "const": "androidpublisher#productPurchase",
+      "example": "example_value"
+    },
+    "purchaseTimeMillis": {
+      "type": "string",
+      "format": "int64",
+      "description": "Time the product was purchased (milliseconds since Epoch).",
+      "example": "example_value"
+    },
+    "purchaseState": {
+      "type": "integer",
+      "description": "The purchase state of the order. 0 = Purchased, 1 = Canceled, 2 = Pending.",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "example": 0
+    },
+    "consumptionState": {
+      "type": "integer",
+      "description": "The consumption state of the in-app product. 0 = Yet to be consumed, 1 = Consumed.",
+      "enum": [
+        0,
+        1
+      ],
+      "example": 0
+    },
+    "developerPayload": {
+      "type": "string",
+      "description": "Developer-specified string for additional transaction information.",
+      "deprecated": true,
+      "example": "example_value"
+    },
+    "orderId": {
+      "type": "string",
+      "description": "The order ID associated with the purchase.",
+      "example": "500123"
+    },
+    "purchaseType": {
+      "type": "integer",
+      "description": "The type of purchase. 0 = Test (sandbox), 1 = Promo, 2 = Rewarded.",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "example": 0
+    },
+    "acknowledgementState": {
+      "type": "integer",
+      "description": "The acknowledgement state of the in-app product. 0 = Yet to be acknowledged, 1 = Acknowledged.",
+      "enum": [
+        0,
+        1
+      ],
+      "example": 0
+    },
+    "purchaseToken": {
+      "type": "string",
+      "description": "The purchase token generated at the time of purchase.",
+      "example": "example_value"
+    },
+    "productId": {
+      "type": "string",
+      "description": "The in-app product SKU.",
+      "example": "500123"
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "The quantity associated with the purchase.",
+      "example": 10
+    },
+    "obfuscatedExternalAccountId": {
+      "type": "string",
+      "description": "An obfuscated version of the ID uniquely associated with the user's account in your app.",
+      "example": "500123"
+    },
+    "obfuscatedExternalProfileId": {
+      "type": "string",
+      "description": "An obfuscated version of the ID uniquely associated with the user's profile in your app.",
+      "example": "500123"
+    },
+    "regionCode": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 billing region code of the user.",
+      "example": "example_value"
+    },
+    "refundableQuantity": {
+      "type": "integer",
+      "description": "The quantity eligible for refund.",
+      "example": 10
+    }
+  }
+}
