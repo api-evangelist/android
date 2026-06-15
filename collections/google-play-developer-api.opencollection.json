@@ -1,0 +1,787 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Play Developer API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get In-app Product Purchase Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Checks the purchase and consumption status of an in-app product. Returns the purchase details including the purchase state, consumption state, and order ID."
+        },
+        {
+          "info": {
+            "name": "Acknowledge an In-app Product Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token:acknowledge",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges a purchase of an in-app item. Purchases that are not acknowledged within three days are automatically refunded."
+        },
+        {
+          "info": {
+            "name": "Consume an In-app Product Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token:consume",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Consumes a purchase for an in-app item. Consumed purchases can be purchased again, making this appropriate for consumable items."
+        },
+        {
+          "info": {
+            "name": "Get Subscription Purchase Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Checks whether a user's subscription purchase is valid and returns its expiry time. Includes information about auto-renewal status, payment state, cancellation reason, and linked purchase token."
+        },
+        {
+          "info": {
+            "name": "Acknowledge a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:acknowledge",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges a subscription purchase. Subscriptions that are not acknowledged within three days are automatically refunded."
+        },
+        {
+          "info": {
+            "name": "Cancel a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:cancel",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Cancels a user's subscription purchase. The subscription remains valid until its expiration time and will not be auto-renewed."
+        },
+        {
+          "info": {
+            "name": "Defer a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:defer",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Defers a user's subscription purchase until a specified future expiration time. The user retains access to the subscription content during the deferral period."
+        },
+        {
+          "info": {
+            "name": "Revoke a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:revoke",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Refunds and immediately revokes a user's subscription purchase. Access to the subscription is terminated immediately and a refund is issued. This cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Get Subscription Purchase V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Gets the latest subscription purchase state using the Purchases Subscriptions v2 API. Returns detailed information about the subscription including line items, external account identifiers, and subscription state."
+        },
+        {
+          "info": {
+            "name": "List Voided Purchases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/voidedpurchases",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "startTime",
+                "value": "example_value",
+                "type": "query",
+                "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time."
+              },
+              {
+                "name": "endTime",
+                "value": "example_value",
+                "type": "query",
+                "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return."
+              },
+              {
+                "name": "maxResults",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of results to return. Default and maximum is 1000."
+              },
+              {
+                "name": "startIndex",
+                "value": "10",
+                "type": "query",
+                "description": "Index of the first result to return."
+              },
+              {
+                "name": "token",
+                "value": "example_value",
+                "type": "query",
+                "description": "Continuation token for paging through results."
+              },
+              {
+                "name": "type",
+                "value": "0",
+                "type": "query",
+                "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases."
+              }
+            ]
+          },
+          "docs": "Lists the purchases that were cancelled, refunded, or charged back. Voided purchases include both in-app product purchases and subscription purchases."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Subscription Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of subscriptions to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "example_value",
+                "type": "query",
+                "description": "Page token for pagination."
+              },
+              {
+                "name": "showArchived",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to include archived subscriptions in the response."
+              }
+            ]
+          },
+          "docs": "Lists all subscriptions defined for the specified application. Returns subscription metadata including product IDs, listings, and base plans."
+        },
+        {
+          "info": {
+            "name": "Create a Subscription Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "500123",
+                "type": "query",
+                "description": "The ID to use for the subscription. Must be unique within the app."
+              },
+              {
+                "name": "regionsVersion.version",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version of the available regions being used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscription for an application. The subscription must include at least one base plan and listing."
+        },
+        {
+          "info": {
+            "name": "Get a Subscription Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions/:productId",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              }
+            ]
+          },
+          "docs": "Reads a single subscription product configuration, including its base plans, offers, and regional pricing."
+        },
+        {
+          "info": {
+            "name": "Update a Subscription Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions/:productId",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "updateMask",
+                "value": "example_value",
+                "type": "query",
+                "description": "The list of fields to update in this subscription. Uses FieldMask format."
+              },
+              {
+                "name": "regionsVersion.version",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version of the available regions being used."
+              },
+              {
+                "name": "latencyTolerance",
+                "value": "PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE",
+                "type": "query",
+                "description": "Tolerance for propagation latency. PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE or PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing subscription product configuration. Supports partial updates via the updateMask field."
+        },
+        {
+          "info": {
+            "name": "Delete a Subscription Product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions/:productId",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              }
+            ]
+          },
+          "docs": "Deletes a subscription. A subscription can only be deleted if it has never had a base plan published."
+        },
+        {
+          "info": {
+            "name": "List Subscription Offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions/:productId/basePlans/:basePlanId/offers",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "basePlanId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base plan. Base plans define the billing period and renewal type for a subscription."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of offers to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "example_value",
+                "type": "query",
+                "description": "Page token for pagination."
+              }
+            ]
+          },
+          "docs": "Lists all offers for a given subscription's base plan. Returns offer details including eligibility criteria and pricing phases."
+        },
+        {
+          "info": {
+            "name": "Create a Subscription Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/monetization/subscriptions/:productId/basePlans/:basePlanId/offers",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "basePlanId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the base plan. Base plans define the billing period and renewal type for a subscription."
+              },
+              {
+                "name": "offerId",
+                "value": "500123",
+                "type": "query",
+                "description": "The ID to use for the offer. Must be unique within the base plan."
+              },
+              {
+                "name": "regionsVersion.version",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version of the available regions being used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscription offer. An offer represents special pricing or a free trial for a base plan."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reviews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List App Reviews",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/reviews",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "maxResults",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of reviews to return."
+              },
+              {
+                "name": "startIndex",
+                "value": "10",
+                "type": "query",
+                "description": "Index of the first review to return."
+              },
+              {
+                "name": "token",
+                "value": "example_value",
+                "type": "query",
+                "description": "Continuation token for paging through results."
+              },
+              {
+                "name": "translationLanguage",
+                "value": "example_value",
+                "type": "query",
+                "description": "BCP-47 language tag for translation. If specified, reviews in other languages will be translated to this language."
+              }
+            ]
+          },
+          "docs": "Lists all reviews for the specified application. Returns the latest user comment and any developer reply for each review."
+        },
+        {
+          "info": {
+            "name": "Get a Single Review",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/reviews/:reviewId",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "reviewId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the review."
+              },
+              {
+                "name": "translationLanguage",
+                "value": "example_value",
+                "type": "query",
+                "description": "BCP-47 language tag for translating the review text."
+              }
+            ]
+          },
+          "docs": "Gets a single review by its ID. Returns the user comment, star rating, and any developer reply."
+        },
+        {
+          "info": {
+            "name": "Reply to a Review",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/reviews/:reviewId:reply",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "reviewId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for the review."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replies to a single review or updates an existing reply. Only one reply per review is allowed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refund an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/orders/:orderId:refund",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "orderId",
+                "value": "500123",
+                "type": "path",
+                "description": "The order ID from Google Play."
+              },
+              {
+                "name": "revoke",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately."
+              }
+            ]
+          },
+          "docs": "Refunds a user's subscription or in-app purchase order. This initiates a refund through Google Play and the user retains access until the end of the current billing period for subscriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
