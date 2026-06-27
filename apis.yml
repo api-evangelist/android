@@ -544,7 +544,7 @@ common:
         description: Deploy custom machine learning models on Android devices for real-time inference with hardware acceleration.
   - name: Agent Skills
     url: https://github.com/android/skills
-    type: AgentSkill
+    type: AgentSkills
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
