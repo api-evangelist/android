@@ -486,6 +486,8 @@ apis:
       - FN: Android Support
         url: https://developer.android.com/support
 common:
+  - type: OAuthScopes
+    url: scopes/android-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/showcase/android_by_google
   - type: Portal

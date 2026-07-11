@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/google-play-developer-api.yml
+schemes:
+- name: oauth2
+  source: openapi/google-play-developer-api.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.google.com/o/oauth2/auth
+    tokenUrl: https://oauth2.googleapis.com/token
+  description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires
+    a service account with appropriate permissions in the Google Play Console.
+scopes:
+- scope: androidpublisher
+  description: Full access to Google Play Developer API
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/google-play-developer-api.yml
