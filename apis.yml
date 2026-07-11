@@ -486,6 +486,10 @@ apis:
       - FN: Android Support
         url: https://developer.android.com/support
 common:
+  - type: DomainSecurity
+    url: security/android-domain-security.yml
+  - type: Authentication
+    url: authentication/android-authentication.yml
   - type: OAuthScopes
     url: scopes/android-scopes.yml
   - type: LinkedIn
