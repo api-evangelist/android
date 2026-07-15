@@ -1,0 +1,354 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/google-play-developer-api.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 21
+  by_action_class:
+    connected: 9
+    acting: 12
+  by_consequence:
+    read: 9
+    physical: 6
+    safety-critical: 1
+    write: 5
+  human_in_the_loop_required: 1
+operations:
+- path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}
+  method: get
+  operationId: getPurchaseProduct
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}:acknowledge
+  method: post
+  operationId: acknowledgePurchaseProduct
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/products/{productId}/tokens/{token}:consume
+  method: post
+  operationId: consumePurchaseProduct
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}
+  method: get
+  operationId: getPurchaseSubscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge
+  method: post
+  operationId: acknowledgePurchaseSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel
+  method: post
+  operationId: cancelPurchaseSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer
+  method: post
+  operationId: deferPurchaseSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:revoke
+  method: post
+  operationId: revokePurchaseSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/subscriptionsv2/tokens/{token}
+  method: get
+  operationId: getSubscriptionPurchaseV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/purchases/voidedpurchases
+  method: get
+  operationId: listVoidedPurchases
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions
+  method: get
+  operationId: listSubscriptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions
+  method: post
+  operationId: createSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions/{productId}
+  method: get
+  operationId: getSubscription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions/{productId}
+  method: patch
+  operationId: updateSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions/{productId}
+  method: delete
+  operationId: deleteSubscription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers
+  method: get
+  operationId: listSubscriptionOffers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers
+  method: post
+  operationId: createSubscriptionOffer
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/reviews
+  method: get
+  operationId: listReviews
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/reviews/{reviewId}
+  method: get
+  operationId: getReview
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/reviews/{reviewId}:reply
+  method: post
+  operationId: replyToReview
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher
+- path: /applications/{packageName}/orders/{orderId}:refund
+  method: post
+  operationId: refundOrder
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - androidpublisher

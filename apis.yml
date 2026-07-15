@@ -486,6 +486,8 @@ apis:
       - FN: Android Support
         url: https://developer.android.com/support
 common:
+  - type: AgenticAccess
+    url: agentic-access/android-agentic-access.yml
   - type: DomainSecurity
     url: security/android-domain-security.yml
   - type: Authentication
