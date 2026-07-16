@@ -1,0 +1,44 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://developers.google.com/android-publisher/authorization +
+  openapi/google-play-developer-api.yml (Google API Improvement Proposals / AIP conventions)
+scope: Google Play Developer API (androidpublisher v3)
+authentication:
+  style: OAuth 2.0 Bearer token
+  detail: >-
+    Server-to-server access via a Google Cloud service account granted access in the
+    Google Play Console; token acquired against oauth2.googleapis.com. Single scope
+    https://www.googleapis.com/auth/androidpublisher.
+  cross_ref: authentication/android-authentication.yml
+pagination:
+  style: token-based (Google AIP-158)
+  request_params:
+    - maxResults / pageSize
+    - token / pageToken
+  response_fields:
+    - nextPageToken
+    - pageInfo (totalResults, resultPerPage, startIndex)
+    - tokenPagination (nextPageToken, previousPageToken)
+idempotency:
+  header: none
+  detail: >-
+    No idempotency-key header. Acknowledge/consume operations are naturally idempotent
+    per purchase token; edits use an editId transaction with an explicit commit.
+versioning:
+  style: major version in URI path (/androidpublisher/v3)
+  cross_ref: lifecycle/android-lifecycle.yml
+resource_naming:
+  style: resource-oriented; kind field on resources (e.g. androidpublisher#productPurchase)
+  custom_methods: 'colon-suffixed custom verbs (:acknowledge, :consume, :cancel, :defer, :revoke, :reply, :refund)'
+field_conventions:
+  timestamps: epoch milliseconds as int64 strings (e.g. purchaseTimeMillis) or Timestamp objects
+  money: Money object (currencyCode ISO 4217 + units int64 + nanos int32)
+error_envelope:
+  shape: '{ error: { code, message, status, errors[] } }'
+  cross_ref: errors/android-problem-types.yml
+rate_limiting:
+  detail: Per-project quotas; 429 RESOURCE_EXHAUSTED on exceed. Retry with exponential backoff.
+  cross_ref: rate-limits/android-rate-limits.yml
+notifications:
+  real_time_developer_notifications: Cloud Pub/Sub RTDN for subscription and voided-purchase lifecycle events.

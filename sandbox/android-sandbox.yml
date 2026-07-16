@@ -1,0 +1,31 @@
+generated: '2026-06-20'
+method: searched
+source: https://developer.android.com/google/play/billing/test
+scope: Google Play Billing (in-app purchases and subscriptions), tested end-to-end with the Google Play Developer API
+notes: >-
+  Google Play does not expose a separate sandbox API host. Testing is done against
+  production Google Play using LICENSE TESTERS — Google accounts registered in the
+  Play Console — which unlock non-charging test payment instruments and accelerated
+  subscription timelines. Never charged real money. Test values below are published
+  by Google verbatim; do not invent card numbers.
+license_testers:
+  setup: Play Console > Setup > License testing > add tester Gmail addresses.
+  behavior:
+    - Bypass sideloading restrictions for debug/unsigned builds with a matching package name.
+    - Access to test payment instruments (no real charges).
+    - Accelerated subscription renewal timelines for rapid testing.
+    - Taxes are not computed for test purchases.
+    - Google Play shows a test-purchase notice across the center of the purchase dialog.
+    - Unacknowledged purchases are auto-refunded after 3 minutes (license testers).
+test_instruments:
+  - name: Test instrument, always approves
+    behavior: Completes the purchase immediately with a successful result.
+  - name: Test instrument, always declines
+    behavior: Declines the payment immediately.
+  - name: Slow test card, approves after a few minutes
+    behavior: Simulates a delayed payment that completes after a couple of minutes.
+  - name: Slow test card, declines after a few minutes
+    behavior: Simulates a delayed payment that is cancelled/declined after a couple of minutes.
+related:
+  license_testing: https://support.google.com/googleplay/android-developer/answer/6062777
+  billing_test_docs: https://developer.android.com/google/play/billing/test

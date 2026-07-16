@@ -1,0 +1,84 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/google-play-developer-api.yml
+scope: Google Play Developer API (androidpublisher v3)
+notes: >-
+  Entity graph derived from OpenAPI component schemas ($ref links and id-reference
+  fields). All resources carry a Google 'kind' discriminator (e.g.
+  androidpublisher#productPurchase). Resources are addressed by packageName + a
+  resource id (productId, subscriptionId, purchaseToken, reviewId, orderId).
+entities:
+  - name: ProductPurchase
+    kind: androidpublisher#productPurchase
+    key: purchaseToken
+    relationships: []
+  - name: SubscriptionPurchase
+    kind: androidpublisher#subscriptionPurchase
+    key: purchaseToken
+    relationships:
+      - { type: has_one, target: IntroductoryPriceInfo, via: introductoryPriceInfo }
+  - name: SubscriptionPurchaseV2
+    key: purchaseToken
+    relationships:
+      - { type: has_many, target: SubscriptionPurchaseLineItem, via: lineItems }
+  - name: SubscriptionPurchaseLineItem
+    relationships:
+      - { type: has_one, target: SubscriptionOfferPhase, via: offerDetails }
+  - name: VoidedPurchasesListResponse
+    relationships:
+      - { type: has_many, target: VoidedPurchase, via: voidedPurchases }
+      - { type: has_one, target: PageInfo, via: pageInfo }
+      - { type: has_one, target: TokenPagination, via: tokenPagination }
+  - name: Subscription
+    kind: androidpublisher#subscription
+    key: productId
+    relationships:
+      - { type: has_many, target: BasePlan, via: basePlans }
+      - { type: has_many, target: SubscriptionListing, via: listings }
+      - { type: has_one, target: SubscriptionTaxAndComplianceSettings, via: taxAndComplianceSettings }
+  - name: BasePlan
+    key: basePlanId
+    relationships: []
+  - name: SubscriptionOffer
+    key: offerId
+    relationships:
+      - { type: belongs_to, target: Subscription, via: productId }
+      - { type: belongs_to, target: BasePlan, via: basePlanId }
+      - { type: has_many, target: SubscriptionOfferPhase, via: phases }
+  - name: SubscriptionOfferPhase
+    relationships:
+      - { type: has_one, target: Money, via: price }
+  - name: ListSubscriptionsResponse
+    relationships:
+      - { type: has_many, target: Subscription, via: subscriptions }
+      - { type: has_one, target: TokenPagination, via: nextPageToken }
+  - name: ListSubscriptionOffersResponse
+    relationships:
+      - { type: has_many, target: SubscriptionOffer, via: subscriptionOffers }
+  - name: Review
+    kind: androidpublisher#review
+    key: reviewId
+    relationships:
+      - { type: has_many, target: Comment, via: comments }
+  - name: Comment
+    relationships:
+      - { type: has_one, target: UserComment, via: userComment }
+      - { type: has_one, target: DeveloperComment, via: developerComment }
+  - name: UserComment
+    relationships:
+      - { type: has_one, target: DeviceMetadata, via: deviceMetadata }
+  - name: ReviewsListResponse
+    relationships:
+      - { type: has_many, target: Review, via: reviews }
+      - { type: has_one, target: PageInfo, via: pageInfo }
+      - { type: has_one, target: TokenPagination, via: tokenPagination }
+  - name: ReviewsReplyResponse
+    relationships: []
+value_objects:
+  - Money
+  - Timestamp
+  - IntroductoryPriceInfo
+  - SubscriptionDeferralInfo
+  - PageInfo
+  - TokenPagination
+  - Error

@@ -1,0 +1,43 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/google-play-developer-api.yml + developers.google.com/android-publisher/authorization
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: openapi securitySchemes declares type oauth2 (authorizationCode flow, accounts.google.com)
+  - id: oidc
+    conforms: true
+    evidence: >-
+      OAuth issuer accounts.google.com publishes a valid OpenID Connect discovery
+      document (well-known/android-openid-configuration.json)
+  - id: rest
+    conforms: true
+    evidence: resource-oriented HTTP+JSON API under androidpublisher.googleapis.com/androidpublisher/v3
+  - id: openapi-3-1
+    conforms: true
+    evidence: captured spec is OpenAPI 3.1.0
+  - id: pagination
+    conforms: true
+    evidence: >-
+      list operations use pageToken/maxResults with nextPageToken and PageInfo/TokenPagination
+      response objects (Google AIP-158 style)
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      errors use the Google JSON error envelope ({ error: { code, message, status, errors[] } }),
+      not application/problem+json
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: Google publishes a security.txt at www.google.com (well-known/android-security.txt)
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: json-api
+    conforms: false
+  - id: psd2
+    conforms: false

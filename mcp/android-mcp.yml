@@ -1,0 +1,78 @@
+generated: '2026-06-20'
+method: derived
+status: candidate
+source: openapi/google-play-developer-api.yml
+notes: >-
+  No official hosted/remote MCP server is published for the Google Play Developer
+  API as of this round. Android does publish an agent toolchain (the Android CLI
+  and android/skills for local development), but that is a local devtools surface,
+  not a hosted MCP endpoint for the Publisher REST API. The tool list below is a
+  CANDIDATE derived one-to-one from the OpenAPI operations for the purchases,
+  subscriptions, reviews, and orders resources.
+server:
+  name: android-google-play-developer
+  transport: http
+tools:
+  - name: get_purchase_product
+    description: Get the status of an in-app product purchase.
+    source_operation: openapi/google-play-developer-api.yml#getPurchaseProduct
+  - name: acknowledge_purchase_product
+    description: Acknowledge an in-app product purchase.
+    source_operation: openapi/google-play-developer-api.yml#acknowledgePurchaseProduct
+  - name: consume_purchase_product
+    description: Consume an in-app product purchase.
+    source_operation: openapi/google-play-developer-api.yml#consumePurchaseProduct
+  - name: get_purchase_subscription
+    description: Get the status of a subscription purchase.
+    source_operation: openapi/google-play-developer-api.yml#getPurchaseSubscription
+  - name: acknowledge_purchase_subscription
+    description: Acknowledge a subscription purchase.
+    source_operation: openapi/google-play-developer-api.yml#acknowledgePurchaseSubscription
+  - name: cancel_purchase_subscription
+    description: Cancel a user's subscription purchase.
+    source_operation: openapi/google-play-developer-api.yml#cancelPurchaseSubscription
+  - name: defer_purchase_subscription
+    description: Defer a user's subscription purchase to a future expiry time.
+    source_operation: openapi/google-play-developer-api.yml#deferPurchaseSubscription
+  - name: revoke_purchase_subscription
+    description: Revoke a user's subscription purchase.
+    source_operation: openapi/google-play-developer-api.yml#revokePurchaseSubscription
+  - name: get_subscription_purchase_v2
+    description: Get metadata about a subscription purchase (v2).
+    source_operation: openapi/google-play-developer-api.yml#getSubscriptionPurchaseV2
+  - name: list_voided_purchases
+    description: List the purchases voided/refunded/charged-back for the app.
+    source_operation: openapi/google-play-developer-api.yml#listVoidedPurchases
+  - name: list_subscriptions
+    description: List all subscriptions under a given app.
+    source_operation: openapi/google-play-developer-api.yml#listSubscriptions
+  - name: create_subscription
+    description: Create a new subscription product.
+    source_operation: openapi/google-play-developer-api.yml#createSubscription
+  - name: get_subscription
+    description: Get a single subscription product.
+    source_operation: openapi/google-play-developer-api.yml#getSubscription
+  - name: update_subscription
+    description: Update an existing subscription product.
+    source_operation: openapi/google-play-developer-api.yml#updateSubscription
+  - name: delete_subscription
+    description: Delete a subscription product.
+    source_operation: openapi/google-play-developer-api.yml#deleteSubscription
+  - name: list_subscription_offers
+    description: List all offers under a subscription base plan.
+    source_operation: openapi/google-play-developer-api.yml#listSubscriptionOffers
+  - name: create_subscription_offer
+    description: Create a new subscription offer.
+    source_operation: openapi/google-play-developer-api.yml#createSubscriptionOffer
+  - name: list_reviews
+    description: List user reviews for the app.
+    source_operation: openapi/google-play-developer-api.yml#listReviews
+  - name: get_review
+    description: Get a single user review.
+    source_operation: openapi/google-play-developer-api.yml#getReview
+  - name: reply_to_review
+    description: Post a developer reply to a user review.
+    source_operation: openapi/google-play-developer-api.yml#replyToReview
+  - name: refund_order
+    description: Refund an order placed through Google Play.
+    source_operation: openapi/google-play-developer-api.yml#refundOrder

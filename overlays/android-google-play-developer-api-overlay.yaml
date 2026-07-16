@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Google Play Developer API
+  version: 1.0.0
+extends: openapi/google-play-developer-api.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: android
+      x-apievangelist-api: Google Play Developer API
+      x-apievangelist-artifacts:
+        authentication: authentication/android-authentication.yml
+        scopes: scopes/android-scopes.yml
+        errors: errors/android-problem-types.yml
+        lifecycle: lifecycle/android-lifecycle.yml
+        conventions: conventions/android-conventions.yml
+        data_model: data-model/android-data-model.yml
+        sandbox: sandbox/android-sandbox.yml
+        changelog: changelog/android-changelog.yml
+        packages: packages/android-packages.yml
+        cli: cli/android-cli.yml
+  - target: $.info
+    update:
+      x-agentic-access: agentic-access/android-agentic-access.yml
+  - target: $.tags
+    update:
+      - name: Purchases
+        x-apievangelist-consequence: physical
+        x-apievangelist-note: >-
+          Acknowledge/consume/refund/revoke operations move money and entitlements;
+          treat as financially consequential in agentic contexts.
+  - target: $.components.securitySchemes.oauth2
+    update:
+      x-scope-url: https://www.googleapis.com/auth/androidpublisher
+      x-service-account: >-
+        Server-to-server access uses a Google Cloud service account granted access
+        in the Google Play Console; the authorizationCode flow is documented for
+        interactive apps.

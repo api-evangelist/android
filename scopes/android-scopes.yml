@@ -1,6 +1,7 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/google-play-developer-api.yml
+docs: https://developers.google.com/android-publisher/authorization
 schemes:
 - name: oauth2
   source: openapi/google-play-developer-api.yml
@@ -8,12 +9,21 @@ schemes:
   - flow: authorizationCode
     authorizationUrl: https://accounts.google.com/o/oauth2/auth
     tokenUrl: https://oauth2.googleapis.com/token
-  description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires
-    a service account with appropriate permissions in the Google Play Console.
+  description: >-
+    OAuth 2.0 authentication for the Google Play Developer API. Server-to-server
+    access uses a Google Cloud service account granted access in the Google Play
+    Console; the Web Server (authorizationCode) flow is documented for interactive
+    access. A single coarse-grained scope grants full API access.
 scopes:
-- scope: androidpublisher
-  description: Full access to Google Play Developer API
+- scope: https://www.googleapis.com/auth/androidpublisher
+  short: androidpublisher
+  description: >-
+    View and manage your Google Play Developer account — full access to publishing,
+    purchases, subscriptions, reviews, and orders. This is the only scope the API
+    exposes; per-resource authorization is enforced by Play Console account roles
+    and permissions, not by additional OAuth scopes.
   flows:
   - authorizationCode
   sources:
   - openapi/google-play-developer-api.yml
+  docs: https://developers.google.com/android-publisher/authorization

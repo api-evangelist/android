@@ -1,11 +1,13 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/google-play-developer-api.yml
+docs: https://developers.google.com/android-publisher/authorization
 summary:
   types:
   - oauth2
   oauth2_flows:
   - authorizationCode
+  service_account: true
 schemes:
 - name: oauth2
   type: oauth2
@@ -14,7 +16,14 @@ schemes:
     authorizationUrl: https://accounts.google.com/o/oauth2/auth
     tokenUrl: https://oauth2.googleapis.com/token
     scopes: 1
-  description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires
-    a service account with appropriate permissions in the Google Play Console.
+  description: >-
+    OAuth 2.0 for the Google Play Developer API. The documented pattern is
+    server-to-server: create a Google Cloud service account, grant it access in the
+    Google Play Console (Users & permissions), and mint access tokens against
+    oauth2.googleapis.com — no interactive consent required. The interactive Web
+    Server (authorizationCode) flow via accounts.google.com is also supported. Single
+    scope https://www.googleapis.com/auth/androidpublisher. The OAuth issuer publishes
+    OpenID Connect discovery (well-known/android-openid-configuration.json).
   sources:
   - openapi/google-play-developer-api.yml
+  docs: https://developers.google.com/android-publisher/authorization

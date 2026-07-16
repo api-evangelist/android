@@ -1,0 +1,41 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of Android/Google developer hosts and the API OAuth issuer
+notes: >-
+  The Android/Google developer documentation hosts (developer.android.com,
+  developers.google.com, androidpublisher.googleapis.com, firebase.google.com)
+  do not serve /.well-known/ discovery documents (all 404). The Google Play
+  Developer API delegates OAuth 2.0 to accounts.google.com, whose OpenID Connect
+  discovery document IS published and is the authoritative auth surface for this
+  API. Google's organization-wide security.txt is served at www.google.com.
+hosts:
+  - host: https://developer.android.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://androidpublisher.googleapis.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+  - host: https://accounts.google.com
+    note: OAuth 2.0 / OIDC issuer for the Google Play Developer API (authorizationUrl).
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: android-openid-configuration.json
+  - host: https://www.google.com
+    note: Google organization-wide security.txt (RFC 9116).
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: android-security.txt

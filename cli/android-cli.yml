@@ -1,0 +1,73 @@
+generated: '2026-06-20'
+method: searched
+source: https://developer.android.com/tools/agents/android-cli
+name: Android CLI
+version: '1.0 (stable)'
+description: >-
+  First-party command-line interface for Android development, built for agent-first
+  workflows. Standardizes environment setup, project creation, SDK/emulator management,
+  app deployment, on-device inspection, Android Studio integration, and skills/knowledge
+  access. Reduced LLM token usage for setup by 70%+ and completed tasks ~3x faster in
+  Google's internal experiments.
+binary: android
+install:
+  macos_apple_silicon:
+    curl_local: curl -fsSL https://dl.google.com/android/cli/latest/darwin_arm64/install.sh | bash
+    homebrew: brew tap android/tap && brew install android-cli
+  macos_intel:
+    curl_local: curl -fsSL https://dl.google.com/android/cli/latest/darwin_x86_64/install.sh | bash
+    homebrew: brew tap android/tap && brew install android-cli
+  linux:
+    curl_local: curl -fsSL https://dl.google.com/android/cli/latest/linux_x86_64/install.sh | bash
+    apt: sudo apt-get install android-cli  # after adding dl.google.com/android/cli debian repo
+  windows:
+    curl_local: 'curl.exe -fsSL https://dl.google.com/android/cli/latest/windows_x86_64/install.cmd -o "%TEMP%\i.cmd" && "%TEMP%\i.cmd"'
+    winget: winget install --id Google.AndroidCLI
+  update: android update
+command_groups:
+  - group: project
+    commands:
+      - { name: create, description: Initialize a new project from a template. }
+      - { name: create list, description: List available project templates. }
+      - { name: describe, description: Analyze a project to generate descriptive metadata. }
+  - group: sdk
+    commands:
+      - { name: sdk install, description: Install specified SDK package(s). }
+      - { name: sdk list, description: List installed and available SDK packages. }
+      - { name: sdk remove, description: Remove a package from the SDK. }
+      - { name: sdk update, description: Update one or all packages to the latest version. }
+      - { name: info, description: Display the path to the default Android SDK. }
+  - group: emulator
+    commands:
+      - { name: emulator create, description: Create a virtual device. }
+      - { name: emulator list, description: List available virtual devices. }
+      - { name: emulator start, description: Launch a specified virtual device. }
+      - { name: emulator stop, description: Stop a specified virtual device. }
+  - group: run-and-inspect
+    commands:
+      - { name: run, description: Deploy an app to a connected device or emulator. }
+      - { name: layout, description: Return the UI layout of the active app as JSON. }
+      - { name: screen capture, description: Capture a screenshot of the connected device. }
+      - { name: screen resolve, description: Translate visual labels from annotated screenshots to coordinates. }
+  - group: docs-and-skills
+    commands:
+      - { name: docs, description: Search and fetch from the Android Knowledge Base. }
+      - { name: init, description: Install the android-cli skill to set up the environment for agents. }
+      - { name: skills add, description: Install Android skills for all detected agents. }
+      - { name: skills find, description: Find skills matching a string. }
+      - { name: skills list, description: List available skills. }
+      - { name: skills remove, description: Remove a skill. }
+  - group: studio
+    commands:
+      - { name: studio check, description: Check running Android Studio instances and open projects. }
+      - { name: studio analyze-file, description: Analyze a file for errors, warnings, and lints. }
+      - { name: studio find-declaration, description: Find the declaration site of a symbol. }
+      - { name: studio find-usages, description: Find references and usages of a symbol. }
+      - { name: studio open-file, description: Open a file in Android Studio's active editor. }
+      - { name: studio render-compose-preview, description: Render a Jetpack Compose UI preview. }
+      - { name: studio version-lookup, description: Look up latest versions of common dependencies and tools. }
+docs:
+  overview: https://developer.android.com/tools/agents/android-cli
+  download: https://developer.android.com/tools/agents/android-cli/download
+  release_notes: https://developer.android.com/tools/agents/android-cli/release-notes
+  skills_repo: https://github.com/android/skills

@@ -1,0 +1,51 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/google-play-developer-api.yml
+docs: https://developers.google.com/android-publisher/api-ref/rest
+format: google-json-error
+notes: >-
+  The Google Play Developer API does not use RFC 9457 application/problem+json.
+  Errors are returned in the standard Google JSON error envelope. The captured
+  OpenAPI declares 401 (Unauthorized) and 404 (NotFound) shared responses plus a
+  409 conflict on subscription creation; the wider Google API error status set
+  (400/403/429/500/503) applies at the platform level.
+envelope:
+  field: error
+  shape: '{ error: { code: <int http status>, message: <string>, status: <string enum>, errors: [ { message, domain, reason } ] } }'
+  schema: openapi/google-play-developer-api.yml#/components/schemas/Error
+problems:
+  - status: 401
+    canonical_status: UNAUTHENTICATED
+    title: Unauthorized
+    description: >-
+      Authentication failed. The OAuth 2.0 token is missing, expired, or does not
+      have the required scope (https://www.googleapis.com/auth/androidpublisher).
+    source: openapi/google-play-developer-api.yml#/components/responses/Unauthorized
+  - status: 404
+    canonical_status: NOT_FOUND
+    title: Not Found
+    description: >-
+      The requested resource was not found. The package name, product ID,
+      purchase token, subscription ID, or review ID may be invalid.
+    source: openapi/google-play-developer-api.yml#/components/responses/NotFound
+  - status: 409
+    canonical_status: ALREADY_EXISTS
+    title: Conflict
+    description: A subscription with the given product ID already exists.
+    source_operation: openapi/google-play-developer-api.yml#createSubscription
+platform_statuses:
+  - status: 400
+    canonical_status: INVALID_ARGUMENT
+    description: Malformed request, invalid field value, or unsupported parameter.
+  - status: 403
+    canonical_status: PERMISSION_DENIED
+    description: The service account/caller lacks permission for the app or operation in the Play Console.
+  - status: 429
+    canonical_status: RESOURCE_EXHAUSTED
+    description: Quota exceeded or rate limited (see rate-limits/android-rate-limits.yml).
+  - status: 500
+    canonical_status: INTERNAL
+    description: Internal server error; retry with backoff.
+  - status: 503
+    canonical_status: UNAVAILABLE
+    description: Service temporarily unavailable; retry with exponential backoff.

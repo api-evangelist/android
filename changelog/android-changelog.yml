@@ -1,0 +1,51 @@
+generated: '2026-06-20'
+method: searched
+source: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
+scheme: dated release notes (no semantic version; API major version v3 in path)
+current_version: v3
+notes: Recent window only; the live release-notes page is the source of truth.
+entries:
+  - date: '2026-07-06'
+    title: Updates to chargeback cost responsibility
+    additions:
+      - New RTDN type PendingRefundReviewNotification for chargebacks requiring review.
+      - New method orders.reviewrefund to respond within 24 hours (APPROVE, DECLINE, NEUTRAL) with usage evidence.
+    breaking: false
+  - date: '2026-05-19'
+    title: New subscription API fields
+    additions:
+      - Added onHoldStateContext and inGracePeriodStateContext to SubscriptionPurchaseV2.
+    breaking: false
+    note: Some subscription APIs deprecated (see May 2026 deprecation notice).
+  - date: '2026-01-27'
+    title: Subscription with add-ons deferral & OfferPhase
+    additions:
+      - Deferral for subscriptions with add-ons via purchases.subscriptionsv2.defer.
+      - New OfferPhase field in SubscriptionPurchaseV2.
+    breaking: false
+  - date: '2025-11-19'
+    title: Enhanced Resubscribe handling
+    additions:
+      - New outOfAppPurchaseContext field in SubscriptionPurchaseV2.
+      - purchases.subscriptions.acknowledge accepts optional externalAccountId.
+      - New SubscriptionPurchaseLineItem.itemReplacement; Orders API offerPhaseDetails.
+    breaking: false
+  - date: '2025-09-11'
+    title: SubscriptionPurchaseV2 cancel method & price step-up consent
+    additions:
+      - New method purchases.subscriptionsv2.cancel with cancellationType.
+      - New price_step_up_consent_details field; new RTDN SUBSCRIPTION_PRICE_STEP_UP_CONSENT_UPDATED.
+    breaking: false
+  - date: '2025-06-30'
+    title: ProductPurchaseV2 API launch
+    additions:
+      - New ProductPurchaseV2 API supporting multiple purchase options and offers for one-time products.
+    breaking: false
+  - date: '2025-05-21'
+    title: New fields, deprecations, and Orders API methods
+    additions:
+      - SubscriptionPurchaseLineItem.latest_successful_order_id and PriceChangeState.CANCELED.
+      - subscriptionsv2.revoke supports item_based_refund; Orders API get and batchGet.
+      - subscriptionId parameter now optional in purchases.subscriptions APIs.
+    breaking: false
+    note: Subscription API deprecations announced.

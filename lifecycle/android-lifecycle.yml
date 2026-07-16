@@ -1,0 +1,29 @@
+generated: '2026-06-20'
+method: searched
+source: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
+notes: >-
+  Scope is the Google Play Developer API (androidpublisher), the machine-readable
+  API in this repo. Versioning is major-in-path (v3); Google additionally stamps
+  dated build revisions on client libraries (e.g. v3-rev20260318). Deprecations
+  are announced in the dated release notes with migration guidance rather than
+  RFC 8594 Sunset/Deprecation HTTP headers.
+versioning:
+  scheme: uri-path
+  current: v3
+  revision_scheme: dated client-library revisions (vN-revYYYYMMDD)
+  docs: https://developers.google.com/android-publisher/api-ref/rest
+deprecation:
+  policy: Announced in dated release notes with replacement guidance; no RFC 8594 Sunset header.
+  policy_url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
+  sunset_header: false
+  recent_notices:
+    - date: '2026-05-19'
+      note: Some subscription APIs deprecated alongside new SubscriptionPurchaseV2 state-context fields.
+    - date: '2025-05-21'
+      note: Subscription API deprecations announced with new fields and Orders API get/batchGet.
+sla:
+  url: https://cloud.google.com/terms/sla
+  note: Governed by Google Cloud / Google APIs Terms of Service; no per-endpoint uptime SLA published for this API.
+status_page: https://www.google.com/appsstatus/dashboard/
+terms_of_service: https://developers.google.com/terms
+deprecated_operations: []
