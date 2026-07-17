@@ -583,6 +583,42 @@ common:
   - name: Agent Skills
     url: https://github.com/android/skills
     type: AgentSkills
+  - type: Arazzo
+    url: arazzo/android-audit-update-subscription-workflow.yml
+    name: Android Audit and Update a Subscription Product
+  - type: Arazzo
+    url: arazzo/android-cancel-subscription-purchase-workflow.yml
+    name: Android Cancel a Subscription Purchase
+  - type: Arazzo
+    url: arazzo/android-defer-subscription-renewal-workflow.yml
+    name: Android Defer a Subscription Renewal
+  - type: Arazzo
+    url: arazzo/android-grant-consumable-purchase-workflow.yml
+    name: Android Grant and Consume a Consumable Purchase
+  - type: Arazzo
+    url: arazzo/android-launch-subscription-product-workflow.yml
+    name: Android Launch a Subscription Product with an Introductory Offer
+  - type: Arazzo
+    url: arazzo/android-reconcile-voided-purchases-workflow.yml
+    name: Android Reconcile Voided Purchases
+  - type: Arazzo
+    url: arazzo/android-refund-order-workflow.yml
+    name: Android Refund a Play Order
+  - type: Arazzo
+    url: arazzo/android-retire-subscription-product-workflow.yml
+    name: Android Retire an Unpublished Subscription Product
+  - type: Arazzo
+    url: arazzo/android-review-triage-reply-workflow.yml
+    name: Android Triage and Reply to App Reviews
+  - type: Arazzo
+    url: arazzo/android-revoke-subscription-purchase-workflow.yml
+    name: Android Revoke and Refund a Subscription Purchase
+  - type: Arazzo
+    url: arazzo/android-verify-acknowledge-product-purchase-workflow.yml
+    name: Android Verify and Acknowledge an In-App Product Purchase
+  - type: Arazzo
+    url: arazzo/android-verify-acknowledge-subscription-purchase-workflow.yml
+    name: Android Verify and Acknowledge a Subscription Purchase
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

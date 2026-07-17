@@ -1,0 +1,142 @@
+arazzo: 1.0.1
+info:
+  title: Android Triage and Reply to App Reviews
+  summary: Page the Play Store review feed, read a single review in full, and post or update the developer reply.
+  description: >-
+    The review response loop that app teams run daily. The list endpoint returns
+    the review feed with a continuation token for paging, the get endpoint
+    returns one review in full with its star rating and comment history, and the
+    reply endpoint posts the developer response that appears publicly under the
+    review. Only one reply per review is allowed — replying again updates the
+    existing reply rather than adding a second one, which makes this flow safe
+    to re-run over a review that has already been answered. Translation is
+    handled by the API itself via the translationLanguage parameter, so a
+    single-language support team can triage a global review feed. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: review-triage-reply
+  summary: List reviews, read the first one in full, and reply to it.
+  description: >-
+    Lists the application's reviews (optionally translated into the support
+    team's language), ends cleanly when there is nothing to triage, otherwise
+    reads the first review in full and posts the developer reply, returning the
+    reply text and its last-edited timestamp.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - replyText
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      replyText:
+        type: string
+        description: >-
+          The developer reply to publish under the review. Replacing an existing
+          reply updates it in place.
+      maxResults:
+        type: integer
+        description: Maximum number of reviews to return in the triage page.
+      startIndex:
+        type: integer
+        description: Index of the first review to return, for offset paging.
+      translationLanguage:
+        type: string
+        description: >-
+          BCP-47 language tag (e.g. en) to translate non-matching reviews into
+          before triage.
+  steps:
+  - stepId: listReviews
+    description: >-
+      Page the review feed for the application, optionally translating reviews
+      into the support team's working language.
+    operationId: listReviews
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: maxResults
+      in: query
+      value: $inputs.maxResults
+    - name: startIndex
+      in: query
+      value: $inputs.startIndex
+    - name: translationLanguage
+      in: query
+      value: $inputs.translationLanguage
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reviews: $response.body#/reviews
+      firstReviewId: $response.body#/reviews/0/reviewId
+      firstAuthorName: $response.body#/reviews/0/authorName
+      nextPageToken: $response.body#/tokenPagination/nextPageToken
+      totalResults: $response.body#/pageInfo/totalResults
+    onSuccess:
+    - name: reviewsToTriage
+      type: goto
+      stepId: readReview
+      criteria:
+      - context: $response.body
+        condition: $.reviews.length > 0
+        type: jsonpath
+    - name: noReviews
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.reviews.length == 0
+        type: jsonpath
+  - stepId: readReview
+    description: >-
+      Read the selected review in full, including the user comment, star
+      rating, device metadata, and any existing developer reply.
+    operationId: getReview
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: reviewId
+      in: path
+      value: $steps.listReviews.outputs.firstReviewId
+    - name: translationLanguage
+      in: query
+      value: $inputs.translationLanguage
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      reviewId: $response.body#/reviewId
+      authorName: $response.body#/authorName
+      comments: $response.body#/comments
+  - stepId: replyToReview
+    description: >-
+      Publish the developer reply under the review. Only one reply per review
+      exists, so this creates the reply or updates the existing one.
+    operationId: replyToReview
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: reviewId
+      in: path
+      value: $steps.readReview.outputs.reviewId
+    requestBody:
+      contentType: application/json
+      payload:
+        replyText: $inputs.replyText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishedReplyText: $response.body#/result/replyText
+      lastEdited: $response.body#/result/lastEdited
+  outputs:
+    reviewId: $steps.readReview.outputs.reviewId
+    authorName: $steps.readReview.outputs.authorName
+    publishedReplyText: $steps.replyToReview.outputs.publishedReplyText
+    lastEdited: $steps.replyToReview.outputs.lastEdited

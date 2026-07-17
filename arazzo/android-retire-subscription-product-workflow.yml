@@ -1,0 +1,160 @@
+arazzo: 1.0.1
+info:
+  title: Android Retire an Unpublished Subscription Product
+  summary: Pre-flight a subscription product's base plans and offers, then delete it if it was never published, or archive it if it was.
+  description: >-
+    Google Play only permits deleting a subscription that has never had a base
+    plan published — anything a real subscriber could have bought must be
+    archived instead, so the purchase history survives. That rule is easy to
+    trip over when cleaning up test and abandoned products, and the resulting
+    error is opaque. This workflow does the pre-flight properly: it reads the
+    subscription, inspects the offers hanging off its base plan, and branches
+    between a hard delete for a never-published product and an archive patch for
+    one that was. The archive path uses the same masked update the catalog
+    tooling uses, so nothing outside the archived flag is touched. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: retire-subscription-product
+  summary: Check a subscription's base plans and offers, then delete it if unpublished or archive it if it was ever live.
+  description: >-
+    Reads the subscription and lists its base plan's offers to determine whether
+    the product was ever published. A product with no base plans is deleted
+    outright; a product with base plans is archived via a masked update so its
+    purchase history is preserved.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: The id of the subscription product to retire.
+      basePlanId:
+        type: string
+        description: >-
+          The base plan id to inspect for offers during the pre-flight check.
+      latencyTolerance:
+        type: string
+        description: >-
+          Propagation latency tolerance for the archive update:
+          PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE or
+          PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT.
+  steps:
+  - stepId: readSubscription
+    description: >-
+      Read the subscription to see whether it carries base plans, which decides
+      whether it can legally be deleted or must be archived.
+    operationId: getSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      basePlans: $response.body#/basePlans
+      listings: $response.body#/listings
+      archived: $response.body#/archived
+    onSuccess:
+    - name: neverHadBasePlans
+      type: goto
+      stepId: deleteSubscription
+      criteria:
+      - context: $response.body
+        condition: $.basePlans.length == 0
+        type: jsonpath
+    - name: hasBasePlans
+      type: goto
+      stepId: inspectOffers
+      criteria:
+      - context: $response.body
+        condition: $.basePlans.length > 0
+        type: jsonpath
+  - stepId: inspectOffers
+    description: >-
+      List the offers on the base plan. Offers are evidence the product was
+      merchandised to real users, so the product must be archived rather than
+      deleted.
+    operationId: listSubscriptionOffers
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: basePlanId
+      in: path
+      value: $inputs.basePlanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscriptionOffers: $response.body#/subscriptionOffers
+    onSuccess:
+    - name: archiveInstead
+      type: goto
+      stepId: archiveSubscription
+  - stepId: archiveSubscription
+    description: >-
+      Archive the published subscription with a masked update that touches only
+      the archived flag, preserving base plans, listings, and purchase history.
+    operationId: updateSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: updateMask
+      in: query
+      value: archived
+    - name: latencyTolerance
+      in: query
+      value: $inputs.latencyTolerance
+    requestBody:
+      contentType: application/json
+      payload:
+        packageName: $inputs.packageName
+        productId: $inputs.productId
+        archived: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      archivedProductId: $response.body#/productId
+      archivedFlag: $response.body#/archived
+    onSuccess:
+    - name: archived
+      type: end
+  - stepId: deleteSubscription
+    description: >-
+      Delete the subscription outright. Only reachable when the product never
+      had a base plan, which is the sole condition Google Play permits deletion
+      under.
+    operationId: deleteSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    archivedProductId: $steps.archiveSubscription.outputs.archivedProductId
+    archivedFlag: $steps.archiveSubscription.outputs.archivedFlag
+    inspectedOffers: $steps.inspectOffers.outputs.subscriptionOffers

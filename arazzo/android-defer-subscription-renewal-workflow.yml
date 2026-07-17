@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Android Defer a Subscription Renewal
+  summary: Read a subscriber's current expiry time and push it forward as a goodwill credit or service-outage make-good.
+  description: >-
+    Deferral is how you give a subscriber free extra time without refunding or
+    re-billing them — the retention lever for goodwill credits, service outage
+    compensation, and support-desk saves. The defer endpoint requires the
+    caller to pass the subscription's current expiry time as
+    expectedExpiryTimeMillis, and it rejects the request if that value does not
+    match what Google Play holds. This workflow therefore reads the live expiry
+    first and feeds it straight into the defer call, which removes the race that
+    makes hand-rolled deferral code fail. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: defer-subscription-renewal
+  summary: Read the current subscription expiry, defer it to a desired future time, and confirm the new expiry.
+  description: >-
+    Fetches the subscription purchase to obtain the authoritative
+    expiryTimeMillis, defers the subscription to the caller's desired expiry
+    using that value as the expected expiry, and reads the purchase back to
+    confirm the new expiry time took effect.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - subscriptionId
+    - purchaseToken
+    - desiredExpiryTimeMillis
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      subscriptionId:
+        type: string
+        description: The subscription product id the purchase relates to.
+      purchaseToken:
+        type: string
+        description: The subscription purchase token supplied to the app by Google Play.
+      desiredExpiryTimeMillis:
+        type: string
+        description: >-
+          The new expiry time in milliseconds since the Epoch. Must be later
+          than the subscription's current expiry time.
+  steps:
+  - stepId: readSubscription
+    description: >-
+      Read the subscription purchase to obtain the authoritative current expiry
+      time, which the defer call requires as its expected expiry.
+    operationId: getPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentExpiryTimeMillis: $response.body#/expiryTimeMillis
+      autoRenewing: $response.body#/autoRenewing
+      paymentState: $response.body#/paymentState
+      orderId: $response.body#/orderId
+      startTimeMillis: $response.body#/startTimeMillis
+      priceAmountMicros: $response.body#/priceAmountMicros
+      priceCurrencyCode: $response.body#/priceCurrencyCode
+  - stepId: deferSubscription
+    description: >-
+      Defer the subscription to the desired expiry time. The expected expiry is
+      taken from the live read so Google Play can confirm no renewal or
+      cancellation slipped in between the two calls.
+    operationId: deferPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    requestBody:
+      contentType: application/json
+      payload:
+        deferralInfo:
+          expectedExpiryTimeMillis: $steps.readSubscription.outputs.currentExpiryTimeMillis
+          desiredExpiryTimeMillis: $inputs.desiredExpiryTimeMillis
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newExpiryTimeMillis: $response.body#/newExpiryTimeMillis
+  - stepId: confirmDeferral
+    description: >-
+      Read the subscription back to confirm the deferral landed and the
+      subscriber now holds the extended expiry time.
+    operationId: getPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedExpiryTimeMillis: $response.body#/expiryTimeMillis
+      confirmedAutoRenewing: $response.body#/autoRenewing
+  outputs:
+    previousExpiryTimeMillis: $steps.readSubscription.outputs.currentExpiryTimeMillis
+    newExpiryTimeMillis: $steps.deferSubscription.outputs.newExpiryTimeMillis
+    confirmedExpiryTimeMillis: $steps.confirmDeferral.outputs.confirmedExpiryTimeMillis

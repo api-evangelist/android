@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Android Refund a Play Order
+  summary: Resolve a purchase token to its Google Play order id, refund that order, and optionally revoke the entitlement.
+  description: >-
+    Support desks work in purchase tokens, but the refund endpoint works in
+    order ids. This workflow closes that gap: it verifies the in-app product
+    purchase, reads the authoritative orderId out of the response, and refunds
+    that order — so the refund is always issued against an order that was just
+    confirmed to exist rather than an id pasted from a support ticket. The
+    revoke query flag decides whether the user loses access immediately or keeps
+    it, which is the difference between a goodwill refund and an enforcement
+    action. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: refund-order
+  summary: Verify an in-app purchase, refund its order, and confirm the resulting purchase state.
+  description: >-
+    Reads the product purchase to resolve its order id and confirm it is in the
+    purchased state, refunds that order with the caller's chosen revoke
+    behaviour, and reads the purchase back to observe the post-refund state.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: The in-app product SKU the purchase relates to.
+      purchaseToken:
+        type: string
+        description: The purchase token for the order being refunded.
+      revoke:
+        type: boolean
+        description: >-
+          Whether to revoke the purchased item as part of the refund. True
+          terminates access immediately; false refunds while leaving the
+          entitlement in place.
+  steps:
+  - stepId: verifyPurchase
+    description: >-
+      Verify the purchase token and resolve the Google Play order id that the
+      refund must be issued against.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.purchaseState == 0
+      type: jsonpath
+    outputs:
+      orderId: $response.body#/orderId
+      purchaseState: $response.body#/purchaseState
+      purchaseTimeMillis: $response.body#/purchaseTimeMillis
+      quantity: $response.body#/quantity
+      refundableQuantity: $response.body#/refundableQuantity
+      regionCode: $response.body#/regionCode
+  - stepId: refundOrder
+    description: >-
+      Refund the resolved order through Google Play. When revoke is true the
+      user's access to the item is terminated immediately.
+    operationId: refundOrder
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: orderId
+      in: path
+      value: $steps.verifyPurchase.outputs.orderId
+    - name: revoke
+      in: query
+      value: $inputs.revoke
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmRefundState
+    description: >-
+      Read the purchase back to observe the post-refund purchase state, which
+      reflects the cancellation once Google Play has processed the refund.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      postRefundPurchaseState: $response.body#/purchaseState
+      postRefundRefundableQuantity: $response.body#/refundableQuantity
+  outputs:
+    refundedOrderId: $steps.verifyPurchase.outputs.orderId
+    purchaseStateAfterRefund: $steps.confirmRefundState.outputs.postRefundPurchaseState

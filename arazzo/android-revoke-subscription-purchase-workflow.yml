@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Android Revoke and Refund a Subscription Purchase
+  summary: Immediately terminate a subscriber's access and issue a refund, with a pre-flight read and a post-revoke state confirmation.
+  description: >-
+    Revoking is the destructive counterpart to cancelling: it refunds the
+    subscriber and cuts their access off immediately rather than letting the
+    paid period run out, and it cannot be undone. It is the right tool for
+    fraud, chargeback prevention, and abuse enforcement — and the wrong tool for
+    an ordinary "please cancel" request. Because it is irreversible, this
+    workflow deliberately reads the subscription state before the revoke so the
+    decision is made against live data, and confirms the terminal state through
+    the v2 API afterwards for the audit trail. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: revoke-subscription-purchase
+  summary: Verify a subscription, revoke and refund it immediately, then confirm the terminal subscription state.
+  description: >-
+    Reads the subscription purchase for the audit record, revokes it (which
+    refunds the subscriber and terminates access at once), and reads the
+    resulting state back through the Subscriptions v2 API.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - subscriptionId
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      subscriptionId:
+        type: string
+        description: The subscription product id the purchase relates to.
+      purchaseToken:
+        type: string
+        description: >-
+          The subscription purchase token to revoke. Revocation is immediate and
+          irreversible.
+  steps:
+  - stepId: readSubscriptionBeforeRevoke
+    description: >-
+      Capture the subscription state, order id, and price before revoking, so
+      the irreversible action is recorded against known-good live data.
+    operationId: getPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      orderId: $response.body#/orderId
+      expiryTimeMillis: $response.body#/expiryTimeMillis
+      autoRenewing: $response.body#/autoRenewing
+      priceAmountMicros: $response.body#/priceAmountMicros
+      priceCurrencyCode: $response.body#/priceCurrencyCode
+      countryCode: $response.body#/countryCode
+      obfuscatedExternalAccountId: $response.body#/obfuscatedExternalAccountId
+  - stepId: revokeSubscription
+    description: >-
+      Refund and immediately revoke the subscription. Access is terminated at
+      once and the refund is issued. This cannot be undone.
+    operationId: revokePurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmRevocation
+    description: >-
+      Read the subscription through the v2 API to confirm it now reports a
+      terminal state and to capture the cancellation context for the audit log.
+    operationId: getSubscriptionPurchaseV2
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscriptionState: $response.body#/subscriptionState
+      canceledStateContext: $response.body#/canceledStateContext
+      latestOrderId: $response.body#/latestOrderId
+  outputs:
+    revokedOrderId: $steps.readSubscriptionBeforeRevoke.outputs.orderId
+    refundedAmountMicros: $steps.readSubscriptionBeforeRevoke.outputs.priceAmountMicros
+    finalSubscriptionState: $steps.confirmRevocation.outputs.subscriptionState

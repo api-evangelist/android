@@ -1,0 +1,163 @@
+arazzo: 1.0.1
+info:
+  title: Android Grant and Consume a Consumable Purchase
+  summary: Verify a consumable in-app purchase, acknowledge it, then consume it so the user can buy the item again.
+  description: >-
+    Consumable items — coins, gems, extra lives, refills — must be consumed
+    after the entitlement is granted, otherwise the user cannot repurchase them.
+    This workflow runs the full consumable lifecycle on the server: verify the
+    purchase token, acknowledge the purchase so Google Play does not auto-refund
+    it within three days, then consume it to release the SKU for repurchase.
+    Consuming a purchase also implicitly acknowledges it, but acknowledging
+    first keeps the entitlement grant and the consumption as separate, auditable
+    steps. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: grant-consumable-purchase
+  summary: Verify, acknowledge, and consume a consumable in-app product purchase.
+  description: >-
+    Validates the purchase token, acknowledges the purchase when it is still
+    unacknowledged, consumes it, and reads the purchase back to confirm the
+    consumption state flipped to consumed.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: The consumable in-app product SKU (e.g. com.example.myapp.coins100).
+      purchaseToken:
+        type: string
+        description: The purchase token supplied to the app by Google Play at purchase time.
+      developerPayload:
+        type: string
+        description: >-
+          Optional developer-specified string recorded against the purchase when
+          acknowledging, typically an internal grant reference.
+  steps:
+  - stepId: verifyPurchase
+    description: >-
+      Validate the consumable purchase token and read its purchase and
+      consumption state before granting anything to the user.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.purchaseState == 0
+      type: jsonpath
+    outputs:
+      purchaseState: $response.body#/purchaseState
+      consumptionState: $response.body#/consumptionState
+      acknowledgementState: $response.body#/acknowledgementState
+      orderId: $response.body#/orderId
+      quantity: $response.body#/quantity
+    onSuccess:
+    - name: needsAcknowledgement
+      type: goto
+      stepId: acknowledgePurchase
+      criteria:
+      - context: $response.body
+        condition: $.acknowledgementState == 0
+        type: jsonpath
+    - name: alreadyAcknowledgedNotConsumed
+      type: goto
+      stepId: consumePurchase
+      criteria:
+      - context: $response.body
+        condition: $.acknowledgementState == 1
+        type: jsonpath
+      - context: $response.body
+        condition: $.consumptionState == 0
+        type: jsonpath
+    - name: alreadyConsumed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.consumptionState == 1
+        type: jsonpath
+  - stepId: acknowledgePurchase
+    description: >-
+      Acknowledge the purchase after the in-game currency or consumable
+      entitlement has been credited to the user's account.
+    operationId: acknowledgePurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    requestBody:
+      contentType: application/json
+      payload:
+        developerPayload: $inputs.developerPayload
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: consumePurchase
+    description: >-
+      Consume the purchase so the SKU becomes available for the user to buy
+      again. Only call this once the entitlement has actually been granted.
+    operationId: consumePurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmConsumption
+    description: >-
+      Read the purchase back to confirm Google Play now reports the item as
+      consumed and therefore repurchasable.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.consumptionState == 1
+      type: jsonpath
+    outputs:
+      finalConsumptionState: $response.body#/consumptionState
+      finalAcknowledgementState: $response.body#/acknowledgementState
+  outputs:
+    orderId: $steps.verifyPurchase.outputs.orderId
+    quantity: $steps.verifyPurchase.outputs.quantity
+    consumptionState: $steps.confirmConsumption.outputs.finalConsumptionState

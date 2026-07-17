@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Android Cancel a Subscription Purchase
+  summary: Cancel a subscriber's auto-renewal from your own support tooling while leaving their paid access intact until expiry.
+  description: >-
+    The support-desk cancellation flow. Cancelling a Google Play subscription
+    through the Developer API stops auto-renewal but deliberately does not
+    revoke access — the subscriber keeps what they paid for until the current
+    expiry time passes. This is the correct, non-destructive way to honour a
+    "cancel my subscription" request, and it is distinct from revoking, which
+    refunds and cuts access immediately. The workflow reads the subscription
+    first so the operator can see what they are about to cancel, skips the
+    write when auto-renewal is already off, and reads back afterwards to prove
+    the cancellation registered. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: cancel-subscription-purchase
+  summary: Stop auto-renewal on a subscription while preserving access until the paid period ends.
+  description: >-
+    Reads the subscription purchase, cancels it only when it is still
+    auto-renewing, and confirms that autoRenewing has flipped to false and the
+    expiry time the subscriber retains access until.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - subscriptionId
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      subscriptionId:
+        type: string
+        description: The subscription product id the purchase relates to.
+      purchaseToken:
+        type: string
+        description: The subscription purchase token supplied to the app by Google Play.
+  steps:
+  - stepId: readSubscription
+    description: >-
+      Read the subscription purchase so the operator can confirm the
+      subscriber, the price, and the expiry before cancelling anything.
+    operationId: getPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      autoRenewing: $response.body#/autoRenewing
+      expiryTimeMillis: $response.body#/expiryTimeMillis
+      orderId: $response.body#/orderId
+      paymentState: $response.body#/paymentState
+      priceAmountMicros: $response.body#/priceAmountMicros
+      priceCurrencyCode: $response.body#/priceCurrencyCode
+      countryCode: $response.body#/countryCode
+    onSuccess:
+    - name: stillRenewing
+      type: goto
+      stepId: cancelSubscription
+      criteria:
+      - context: $response.body
+        condition: $.autoRenewing == true
+        type: jsonpath
+    - name: alreadyCancelled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.autoRenewing == false
+        type: jsonpath
+  - stepId: cancelSubscription
+    description: >-
+      Cancel the subscription. Auto-renewal stops immediately; the subscriber
+      keeps access until the expiry time read in the previous step.
+    operationId: cancelPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmCancellation
+    description: >-
+      Read the subscription back to confirm auto-renewal is off and to capture
+      the cancellation reason and the date access actually ends.
+    operationId: getPurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $inputs.subscriptionId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.autoRenewing == false
+      type: jsonpath
+    outputs:
+      confirmedAutoRenewing: $response.body#/autoRenewing
+      cancelReason: $response.body#/cancelReason
+      userCancellationTimeMillis: $response.body#/userCancellationTimeMillis
+      accessEndsAtMillis: $response.body#/expiryTimeMillis
+  outputs:
+    orderId: $steps.readSubscription.outputs.orderId
+    cancelReason: $steps.confirmCancellation.outputs.cancelReason
+    accessEndsAtMillis: $steps.confirmCancellation.outputs.accessEndsAtMillis

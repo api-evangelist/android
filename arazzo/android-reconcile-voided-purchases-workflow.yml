@@ -1,0 +1,133 @@
+arazzo: 1.0.1
+info:
+  title: Android Reconcile Voided Purchases
+  summary: Poll the voided purchases feed for refunds and chargebacks, then re-verify each token so revoked entitlements can be clawed back.
+  description: >-
+    Refunds and chargebacks that happen outside your app — through Google Play
+    support, the user's own refund request, or a card chargeback — never reach
+    your backend as a client event. The voided purchases feed is the only way to
+    learn about them, and failing to poll it is how apps end up granting
+    permanent entitlements to users who were fully refunded. This workflow reads
+    the voided feed for a time window, then re-verifies the first voided token
+    against the product purchase endpoint so the entitlement can be revoked in
+    your own system with confirmation from Google Play rather than on the
+    strength of the feed alone. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: reconcile-voided-purchases
+  summary: List voided purchases for a window and re-verify a voided token before clawing back its entitlement.
+  description: >-
+    Lists purchases that were cancelled, refunded, or charged back within the
+    supplied window, ends cleanly when the window is empty, and otherwise reads
+    the first voided purchase token back through the product purchase endpoint
+    to confirm its current state before revoking access internally.
+  inputs:
+    type: object
+    required:
+    - packageName
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      startTime:
+        type: string
+        description: >-
+          Milliseconds since the Epoch of the oldest voided purchase to return.
+          Defaults to 30 days before now when omitted.
+      endTime:
+        type: string
+        description: >-
+          Milliseconds since the Epoch of the newest voided purchase to return.
+      maxResults:
+        type: integer
+        description: Maximum number of voided purchases to return. Maximum is 1000.
+      type:
+        type: integer
+        description: >-
+          Which voided purchases to return: 0 for voided in-app product
+          purchases, 1 for voided subscription purchases.
+      productId:
+        type: string
+        description: >-
+          The in-app product SKU used to re-verify a voided token in the second
+          step.
+  steps:
+  - stepId: listVoided
+    description: >-
+      Read the voided purchases feed for the requested window. This is the
+      authoritative source for refunds and chargebacks that your app never saw.
+    operationId: listVoidedPurchases
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: startTime
+      in: query
+      value: $inputs.startTime
+    - name: endTime
+      in: query
+      value: $inputs.endTime
+    - name: maxResults
+      in: query
+      value: $inputs.maxResults
+    - name: type
+      in: query
+      value: $inputs.type
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      voidedPurchases: $response.body#/voidedPurchases
+      firstVoidedToken: $response.body#/voidedPurchases/0/purchaseToken
+      firstVoidedOrderId: $response.body#/voidedPurchases/0/orderId
+      firstVoidedReason: $response.body#/voidedPurchases/0/voidedReason
+      firstVoidedSource: $response.body#/voidedPurchases/0/voidedSource
+      nextPageToken: $response.body#/tokenPagination/nextPageToken
+      totalResults: $response.body#/pageInfo/totalResults
+    onSuccess:
+    - name: voidedPurchasesFound
+      type: goto
+      stepId: verifyVoidedPurchase
+      criteria:
+      - context: $response.body
+        condition: $.voidedPurchases.length > 0
+        type: jsonpath
+    - name: nothingVoided
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.voidedPurchases.length == 0
+        type: jsonpath
+  - stepId: verifyVoidedPurchase
+    description: >-
+      Re-read the first voided purchase token against the product purchase
+      endpoint to confirm Google Play's current view of it before revoking the
+      user's entitlement in your own system.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $steps.listVoided.outputs.firstVoidedToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      purchaseState: $response.body#/purchaseState
+      consumptionState: $response.body#/consumptionState
+      orderId: $response.body#/orderId
+      obfuscatedExternalAccountId: $response.body#/obfuscatedExternalAccountId
+  outputs:
+    voidedPurchases: $steps.listVoided.outputs.voidedPurchases
+    totalResults: $steps.listVoided.outputs.totalResults
+    nextPageToken: $steps.listVoided.outputs.nextPageToken
+    verifiedVoidedOrderId: $steps.verifyVoidedPurchase.outputs.orderId

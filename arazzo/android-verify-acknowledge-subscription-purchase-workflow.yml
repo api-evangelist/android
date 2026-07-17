@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: Android Verify and Acknowledge a Subscription Purchase
+  summary: Validate a new subscription purchase with the Subscriptions v2 API and acknowledge it before the three-day auto-refund window closes.
+  description: >-
+    The server-side flow every subscription app must run when a new subscriber
+    signs up. The Purchases Subscriptions v2 endpoint resolves a bare purchase
+    token into the full subscription state, including the line items that name
+    the subscribed product. Because the acknowledge endpoint is a v1 route that
+    requires the subscription product id in its path, this workflow reads the
+    product id out of the v2 response line item rather than asking the caller to
+    supply it twice. Subscriptions left unacknowledged for three days are
+    automatically refunded and revoked by Google Play. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: verify-acknowledge-subscription-purchase
+  summary: Resolve a subscription purchase token via v2, then acknowledge it using the derived product id.
+  description: >-
+    Reads the subscription purchase with getSubscriptionPurchaseV2, branches on
+    the reported acknowledgement state, acknowledges the purchase with the
+    product id taken from the first line item, and confirms the acknowledgement
+    stuck.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      purchaseToken:
+        type: string
+        description: The subscription purchase token supplied to the app by Google Play.
+      developerPayload:
+        type: string
+        description: >-
+          Optional developer-specified string to record against the subscription
+          when acknowledging it, typically an internal account reference.
+  steps:
+  - stepId: resolveSubscription
+    description: >-
+      Resolve the purchase token into the full subscription state using the
+      Subscriptions v2 API, which returns the subscription state, line items,
+      and external account identifiers.
+    operationId: getSubscriptionPurchaseV2
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscriptionState: $response.body#/subscriptionState
+      acknowledgementState: $response.body#/acknowledgementState
+      subscriptionProductId: $response.body#/lineItems/0/productId
+      expiryTime: $response.body#/lineItems/0/expiryTime
+      latestOrderId: $response.body#/latestOrderId
+      startTime: $response.body#/startTime
+      regionCode: $response.body#/regionCode
+      obfuscatedExternalAccountId: $response.body#/externalAccountIdentifiers/obfuscatedExternalAccountId
+    onSuccess:
+    - name: pendingAcknowledgement
+      type: goto
+      stepId: acknowledgeSubscription
+      criteria:
+      - context: $response.body
+        condition: $.acknowledgementState == 'ACKNOWLEDGEMENT_STATE_PENDING'
+        type: jsonpath
+    - name: alreadyAcknowledged
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.acknowledgementState == 'ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED'
+        type: jsonpath
+  - stepId: acknowledgeSubscription
+    description: >-
+      Acknowledge the subscription purchase using the product id resolved from
+      the v2 line item, so Google Play does not automatically refund and revoke
+      it after three days. Provision the subscriber's access first.
+    operationId: acknowledgePurchaseSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: subscriptionId
+      in: path
+      value: $steps.resolveSubscription.outputs.subscriptionProductId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    requestBody:
+      contentType: application/json
+      payload:
+        developerPayload: $inputs.developerPayload
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmAcknowledgement
+    description: >-
+      Read the subscription back through the v2 API to confirm Google Play now
+      reports it as acknowledged.
+    operationId: getSubscriptionPurchaseV2
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalAcknowledgementState: $response.body#/acknowledgementState
+      finalSubscriptionState: $response.body#/subscriptionState
+  outputs:
+    subscriptionProductId: $steps.resolveSubscription.outputs.subscriptionProductId
+    latestOrderId: $steps.resolveSubscription.outputs.latestOrderId
+    expiryTime: $steps.resolveSubscription.outputs.expiryTime
+    acknowledgementState: $steps.confirmAcknowledgement.outputs.finalAcknowledgementState

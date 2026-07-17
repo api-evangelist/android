@@ -1,0 +1,147 @@
+arazzo: 1.0.1
+info:
+  title: Android Verify and Acknowledge an In-App Product Purchase
+  summary: Validate a Google Play in-app product purchase token and acknowledge it before the three-day auto-refund window closes.
+  description: >-
+    The foundational Google Play Billing server-side flow. A client app sends a
+    purchase token to your backend; the backend must verify that token against
+    the Google Play Developer API before granting entitlement, then acknowledge
+    the purchase. Purchases that are not acknowledged within three days are
+    automatically refunded by Google Play, so this flow is not optional for any
+    app that sells in-app products. The workflow verifies the token, branches on
+    the reported purchase and acknowledgement state, and only acknowledges a
+    purchase that is actually in the purchased-but-unacknowledged state. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: verify-acknowledge-product-purchase
+  summary: Verify an in-app product purchase token and acknowledge it if it is still unacknowledged.
+  description: >-
+    Reads the purchase status for a product token, then acknowledges the
+    purchase only when it is in purchaseState 0 (purchased) and
+    acknowledgementState 0 (yet to be acknowledged). Already-acknowledged and
+    cancelled or pending purchases short-circuit without a write.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    - purchaseToken
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: The in-app product SKU the purchase relates to.
+      purchaseToken:
+        type: string
+        description: The purchase token supplied to the app by Google Play at purchase time.
+      developerPayload:
+        type: string
+        description: >-
+          Optional developer-specified string to attach to the purchase when
+          acknowledging it, typically an internal order or user reference.
+  steps:
+  - stepId: verifyPurchase
+    description: >-
+      Check the purchase and consumption status of the in-app product token.
+      This is the authoritative server-side validation that the token is real
+      and that Google Play considers the purchase complete.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      purchaseState: $response.body#/purchaseState
+      acknowledgementState: $response.body#/acknowledgementState
+      consumptionState: $response.body#/consumptionState
+      orderId: $response.body#/orderId
+      purchaseTimeMillis: $response.body#/purchaseTimeMillis
+      quantity: $response.body#/quantity
+      regionCode: $response.body#/regionCode
+    onSuccess:
+    - name: purchasedAndUnacknowledged
+      type: goto
+      stepId: acknowledgePurchase
+      criteria:
+      - context: $response.body
+        condition: $.purchaseState == 0
+        type: jsonpath
+      - context: $response.body
+        condition: $.acknowledgementState == 0
+        type: jsonpath
+    - name: alreadyAcknowledged
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.acknowledgementState == 1
+        type: jsonpath
+    - name: notPurchased
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.purchaseState != 0
+        type: jsonpath
+  - stepId: acknowledgePurchase
+    description: >-
+      Acknowledge the verified purchase so Google Play does not automatically
+      refund it after three days. Grant the user their entitlement before or
+      alongside this call.
+    operationId: acknowledgePurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    requestBody:
+      contentType: application/json
+      payload:
+        developerPayload: $inputs.developerPayload
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: confirmAcknowledgement
+    description: >-
+      Read the purchase back to confirm Google Play now reports it as
+      acknowledged, closing the loop on the entitlement grant.
+    operationId: getPurchaseProduct
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: token
+      in: path
+      value: $inputs.purchaseToken
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.acknowledgementState == 1
+      type: jsonpath
+    outputs:
+      finalAcknowledgementState: $response.body#/acknowledgementState
+  outputs:
+    orderId: $steps.verifyPurchase.outputs.orderId
+    purchaseState: $steps.verifyPurchase.outputs.purchaseState
+    acknowledgementState: $steps.confirmAcknowledgement.outputs.finalAcknowledgementState

@@ -1,0 +1,159 @@
+arazzo: 1.0.1
+info:
+  title: Android Audit and Update a Subscription Product
+  summary: Find a subscription in the catalog, read its current configuration, patch it with a field mask, and verify the change.
+  description: >-
+    The safe way to change a live subscription product. The update endpoint is a
+    partial patch driven by an updateMask field mask — omit the mask or get it
+    wrong and you can blank out listings or base plans you never intended to
+    touch. This workflow reads the catalog, fetches the current configuration so
+    the caller is patching against known state rather than a stale local copy,
+    applies the masked update, and reads the product back to confirm the change.
+    The latencyTolerance parameter lets bulk price and listing updates run in
+    latency-tolerant mode, which Google Play propagates more efficiently. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: audit-update-subscription
+  summary: List the subscription catalog, read one product, patch it with a field mask, and confirm the result.
+  description: >-
+    Lists the application's subscriptions for the audit record, reads the target
+    subscription's live configuration, patches only the fields named in the
+    update mask, and reads the product back to verify the update landed.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    - updateMask
+    - subscriptionPatch
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: The id of the subscription product to update.
+      updateMask:
+        type: string
+        description: >-
+          FieldMask naming exactly which fields to update (e.g. listings). Only
+          the named fields are written.
+      subscriptionPatch:
+        type: object
+        description: >-
+          The Subscription body carrying the new values for the fields named in
+          the update mask.
+      showArchived:
+        type: boolean
+        description: Whether the catalog listing should include archived subscriptions.
+      pageSize:
+        type: integer
+        description: Maximum number of subscriptions to return in the audit listing.
+      latencyTolerance:
+        type: string
+        description: >-
+          Propagation latency tolerance:
+          PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE or
+          PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT.
+      regionsVersion:
+        type: string
+        description: The version of the available regions being used for pricing.
+  steps:
+  - stepId: listCatalog
+    description: >-
+      List the application's subscription products to establish what the
+      catalog looks like before any change is made.
+    operationId: listSubscriptions
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: pageSize
+      in: query
+      value: $inputs.pageSize
+    - name: showArchived
+      in: query
+      value: $inputs.showArchived
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscriptions: $response.body#/subscriptions
+      nextPageToken: $response.body#/nextPageToken
+  - stepId: readCurrentConfig
+    description: >-
+      Read the target subscription's live configuration so the patch is applied
+      against current state rather than a stale local copy.
+    operationId: getSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentBasePlans: $response.body#/basePlans
+      currentListings: $response.body#/listings
+      currentArchived: $response.body#/archived
+      currentTaxSettings: $response.body#/taxAndComplianceSettings
+  - stepId: applyUpdate
+    description: >-
+      Patch the subscription, writing only the fields named in the update mask.
+      Fields outside the mask are left exactly as they were.
+    operationId: updateSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $inputs.productId
+    - name: updateMask
+      in: query
+      value: $inputs.updateMask
+    - name: regionsVersion.version
+      in: query
+      value: $inputs.regionsVersion
+    - name: latencyTolerance
+      in: query
+      value: $inputs.latencyTolerance
+    requestBody:
+      contentType: application/json
+      payload: $inputs.subscriptionPatch
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedProductId: $response.body#/productId
+      updatedBasePlans: $response.body#/basePlans
+      updatedListings: $response.body#/listings
+  - stepId: verifyUpdate
+    description: >-
+      Read the subscription back to confirm the masked update persisted and
+      nothing outside the mask was disturbed.
+    operationId: getSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $steps.applyUpdate.outputs.updatedProductId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedListings: $response.body#/listings
+      verifiedBasePlans: $response.body#/basePlans
+      verifiedArchived: $response.body#/archived
+  outputs:
+    productId: $steps.applyUpdate.outputs.updatedProductId
+    previousListings: $steps.readCurrentConfig.outputs.currentListings
+    verifiedListings: $steps.verifyUpdate.outputs.verifiedListings
+    verifiedBasePlans: $steps.verifyUpdate.outputs.verifiedBasePlans

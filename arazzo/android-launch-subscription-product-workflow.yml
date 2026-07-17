@@ -1,0 +1,201 @@
+arazzo: 1.0.1
+info:
+  title: Android Launch a Subscription Product with an Introductory Offer
+  summary: Create a subscription product with its base plan and listing, then attach an introductory offer and verify it landed.
+  description: >-
+    The full product-launch flow for Google Play monetization, run as code
+    rather than by clicking through Play Console. A subscription is created with
+    at least one base plan and one localized listing, then an offer — a free
+    trial or introductory price attached to that base plan — is created against
+    it. Offers cannot exist without a base plan to hang from, which is why the
+    ordering here matters and why the workflow reads the subscription back
+    between the two writes to confirm the base plan is really there before
+    attaching the offer. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: googlePlayDeveloperApi
+  url: ../openapi/google-play-developer-api.yml
+  type: openapi
+workflows:
+- workflowId: launch-subscription-product
+  summary: Create a subscription, confirm its base plan, attach an introductory offer, and list the offers back.
+  description: >-
+    Creates the subscription product with its base plans and listings, reads it
+    back to confirm the configuration persisted, creates a subscription offer
+    against the named base plan, and lists the base plan's offers to verify the
+    new offer is present.
+  inputs:
+    type: object
+    required:
+    - packageName
+    - productId
+    - basePlanId
+    - offerId
+    - basePlans
+    - listings
+    - offerPhases
+    properties:
+      packageName:
+        type: string
+        description: The package name of the application (e.g. com.example.myapp).
+      productId:
+        type: string
+        description: >-
+          The id to use for the new subscription. Must be unique within the app
+          (e.g. premium_monthly).
+      basePlanId:
+        type: string
+        description: >-
+          The id of the base plan defined in basePlans that the offer attaches
+          to (e.g. monthly-autorenewing).
+      offerId:
+        type: string
+        description: >-
+          The id to use for the new offer. Must be unique within the base plan
+          (e.g. freetrial7d).
+      basePlans:
+        type: array
+        description: >-
+          The base plans to create on the subscription, each with its
+          basePlanId, state, regionalConfigs, and renewal type.
+      listings:
+        type: array
+        description: >-
+          The localized store listings for the subscription, each with a
+          languageCode, title, benefits, and description.
+      offerPhases:
+        type: array
+        description: >-
+          The pricing phases for the introductory offer, each with a duration,
+          recurrenceCount, and regionalConfigs.
+      offerRegionalConfigs:
+        type: array
+        description: >-
+          Per-region availability configuration for the offer, each with a
+          regionCode and newSubscriberAvailability.
+      offerTags:
+        type: array
+        description: Offer tags exposed to the app at purchase time.
+      taxAndComplianceSettings:
+        type: object
+        description: >-
+          Tax and legal compliance settings for the subscription, including EEA
+          withdrawal right type and per-region tax rate info.
+      regionsVersion:
+        type: string
+        description: The version of the available regions being used for pricing.
+  steps:
+  - stepId: createSubscription
+    description: >-
+      Create the subscription product with its base plans and localized
+      listings. The product id travels as a query parameter, not in the body.
+    operationId: createSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: query
+      value: $inputs.productId
+    - name: regionsVersion.version
+      in: query
+      value: $inputs.regionsVersion
+    requestBody:
+      contentType: application/json
+      payload:
+        packageName: $inputs.packageName
+        productId: $inputs.productId
+        basePlans: $inputs.basePlans
+        listings: $inputs.listings
+        archived: false
+        taxAndComplianceSettings: $inputs.taxAndComplianceSettings
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdProductId: $response.body#/productId
+      createdBasePlans: $response.body#/basePlans
+      createdListings: $response.body#/listings
+  - stepId: confirmSubscription
+    description: >-
+      Read the subscription back to confirm the base plan the offer will attach
+      to actually exists before attempting to create the offer.
+    operationId: getSubscription
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $steps.createSubscription.outputs.createdProductId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.basePlans.length > 0
+      type: jsonpath
+    outputs:
+      confirmedProductId: $response.body#/productId
+      confirmedBasePlanId: $response.body#/basePlans/0/basePlanId
+      archived: $response.body#/archived
+  - stepId: createOffer
+    description: >-
+      Create the introductory offer — a free trial or discounted price — against
+      the confirmed base plan. The offer id travels as a query parameter.
+    operationId: createSubscriptionOffer
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $steps.confirmSubscription.outputs.confirmedProductId
+    - name: basePlanId
+      in: path
+      value: $inputs.basePlanId
+    - name: offerId
+      in: query
+      value: $inputs.offerId
+    - name: regionsVersion.version
+      in: query
+      value: $inputs.regionsVersion
+    requestBody:
+      contentType: application/json
+      payload:
+        packageName: $inputs.packageName
+        productId: $inputs.productId
+        basePlanId: $inputs.basePlanId
+        offerId: $inputs.offerId
+        phases: $inputs.offerPhases
+        regionalConfigs: $inputs.offerRegionalConfigs
+        offerTags: $inputs.offerTags
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdOfferId: $response.body#/offerId
+      offerState: $response.body#/state
+  - stepId: verifyOffers
+    description: >-
+      List the base plan's offers to verify the new introductory offer is
+      present and to capture its state before it is rolled out to subscribers.
+    operationId: listSubscriptionOffers
+    parameters:
+    - name: packageName
+      in: path
+      value: $inputs.packageName
+    - name: productId
+      in: path
+      value: $steps.confirmSubscription.outputs.confirmedProductId
+    - name: basePlanId
+      in: path
+      value: $inputs.basePlanId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      subscriptionOffers: $response.body#/subscriptionOffers
+      nextPageToken: $response.body#/nextPageToken
+  outputs:
+    productId: $steps.confirmSubscription.outputs.confirmedProductId
+    basePlanId: $steps.confirmSubscription.outputs.confirmedBasePlanId
+    offerId: $steps.createOffer.outputs.createdOfferId
+    subscriptionOffers: $steps.verifyOffers.outputs.subscriptionOffers
