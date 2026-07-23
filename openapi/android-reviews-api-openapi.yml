@@ -1,0 +1,460 @@
+openapi: 3.1.0
+info:
+  title: Google Play Developer Orders Reviews API
+  description: The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.
+  version: '3.0'
+  termsOfService: https://developers.google.com/terms
+  contact:
+    name: Google Play Developer Support
+    url: https://support.google.com/googleplay/android-developer
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  x-logo:
+    url: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+    altText: Google Play
+servers:
+- url: https://androidpublisher.googleapis.com/androidpublisher/v3
+  description: Google Play Developer API v3 production endpoint
+security:
+- oauth2:
+  - androidpublisher
+tags:
+- name: Reviews
+  description: Retrieve user reviews from the Google Play Store and post developer replies to those reviews.
+  externalDocs:
+    url: https://developers.google.com/android-publisher/api-ref/rest/v3/reviews
+paths:
+  /applications/{packageName}/reviews:
+    get:
+      operationId: listReviews
+      summary: List App Reviews
+      description: Lists all reviews for the specified application. Returns the latest user comment and any developer reply for each review.
+      tags:
+      - Reviews
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - name: maxResults
+        in: query
+        description: Maximum number of reviews to return.
+        schema:
+          type: integer
+        example: 10
+      - name: startIndex
+        in: query
+        description: Index of the first review to return.
+        schema:
+          type: integer
+        example: 10
+      - name: token
+        in: query
+        description: Continuation token for paging through results.
+        schema:
+          type: string
+        example: example_value
+      - name: translationLanguage
+        in: query
+        description: BCP-47 language tag for translation. If specified, reviews in other languages will be translated to this language.
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Successful response with list of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewsListResponse'
+              examples:
+                Listreviews200Example:
+                  summary: Default listReviews 200 response
+                  x-microcks-default: true
+                  value:
+                    pageInfo:
+                      totalResults: 10
+                      resultPerPage: 10
+                      startIndex: 10
+                    tokenPagination:
+                      nextPageToken: example_value
+                      previousPageToken: example_value
+                    reviews:
+                    - reviewId: '500123'
+                      authorName: example_value
+                      comments: {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/reviews/{reviewId}:
+    get:
+      operationId: getReview
+      summary: Get a Single Review
+      description: Gets a single review by its ID. Returns the user comment, star rating, and any developer reply.
+      tags:
+      - Reviews
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/reviewId'
+      - name: translationLanguage
+        in: query
+        description: BCP-47 language tag for translating the review text.
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Successful response with review details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+              examples:
+                Getreview200Example:
+                  summary: Default getReview 200 response
+                  x-microcks-default: true
+                  value:
+                    reviewId: '500123'
+                    authorName: example_value
+                    comments:
+                    - {}
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/reviews/{reviewId}:reply:
+    post:
+      operationId: replyToReview
+      summary: Reply to a Review
+      description: Replies to a single review or updates an existing reply. Only one reply per review is allowed.
+      tags:
+      - Reviews
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/reviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewsReplyRequest'
+            examples:
+              ReplytoreviewRequestExample:
+                summary: Default replyToReview request
+                x-microcks-default: true
+                value:
+                  replyText: example_value
+      responses:
+        '200':
+          description: Reply posted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewsReplyResponse'
+              examples:
+                Replytoreview200Example:
+                  summary: Default replyToReview 200 response
+                  x-microcks-default: true
+                  value:
+                    result:
+                      replyText: example_value
+                      lastEdited:
+                        seconds: example_value
+                        nanos: 10
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ReviewsReplyResponse:
+      type: object
+      description: Response from posting a reply to a review.
+      properties:
+        result:
+          type: object
+          description: The result of the reply.
+          properties:
+            replyText:
+              type: string
+              description: The reply text that was posted.
+            lastEdited:
+              $ref: '#/components/schemas/Timestamp'
+          example: example_value
+    PageInfo:
+      type: object
+      description: Pagination information for list responses.
+      properties:
+        totalResults:
+          type: integer
+          description: Total number of results available.
+          example: 10
+        resultPerPage:
+          type: integer
+          description: Maximum number of results per page.
+          example: 10
+        startIndex:
+          type: integer
+          description: Index of the first result returned.
+          example: 10
+    DeveloperComment:
+      type: object
+      description: A reply from the developer to a user review.
+      properties:
+        text:
+          type: string
+          description: The text content of the developer reply.
+          example: example_value
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+    Timestamp:
+      type: object
+      description: A timestamp in seconds and nanoseconds.
+      properties:
+        seconds:
+          type: string
+          format: int64
+          description: Seconds since Unix Epoch.
+          example: example_value
+        nanos:
+          type: integer
+          description: Non-negative fractions of a second at nanosecond resolution.
+          example: 10
+    Review:
+      type: object
+      description: An individual review of an app on Google Play, containing the user comment and optional developer reply.
+      properties:
+        reviewId:
+          type: string
+          description: Unique identifier for the review.
+          example: '500123'
+        authorName:
+          type: string
+          description: The name of the user who wrote the review.
+          example: example_value
+        comments:
+          type: array
+          description: A list of comments for this review. Contains the user comment and optionally the developer reply.
+          items:
+            $ref: '#/components/schemas/Comment'
+          example: []
+    ReviewsListResponse:
+      type: object
+      description: Response containing a paginated list of reviews.
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        reviews:
+          type: array
+          description: List of reviews.
+          items:
+            $ref: '#/components/schemas/Review'
+          example: []
+    DeviceMetadata:
+      type: object
+      description: Metadata about the device used to write a review.
+      properties:
+        manufacturer:
+          type: string
+          description: Device manufacturer (e.g., Samsung, Google).
+          example: example_value
+        deviceClass:
+          type: string
+          description: Device class (e.g., phone, tablet).
+          example: example_value
+        screenWidthPx:
+          type: integer
+          description: Screen width in pixels.
+          example: 10
+        screenHeightPx:
+          type: integer
+          description: Screen height in pixels.
+          example: 10
+        nativePlatform:
+          type: string
+          description: Comma-separated list of native platforms (e.g., armeabi-v7a, arm64-v8a).
+          example: example_value
+        productName:
+          type: string
+          description: Device product name.
+          example: example_value
+        screenDensityDpi:
+          type: integer
+          description: Screen density in DPI.
+          example: 10
+        glEsVersion:
+          type: integer
+          description: OpenGL ES version.
+          example: 10
+        cpuModel:
+          type: string
+          description: CPU model identifier.
+          example: example_value
+        cpuMake:
+          type: string
+          description: CPU manufacturer.
+          example: example_value
+        ramMb:
+          type: integer
+          description: Device RAM in megabytes.
+          example: 10
+    Comment:
+      type: object
+      description: A comment associated with a review, either a user comment or a developer comment (reply).
+      properties:
+        userComment:
+          $ref: '#/components/schemas/UserComment'
+        developerComment:
+          $ref: '#/components/schemas/DeveloperComment'
+    ReviewsReplyRequest:
+      type: object
+      description: Request body for replying to a review.
+      properties:
+        replyText:
+          type: string
+          description: The text of the reply. The reply will replace any existing reply. Maximum length is 350 characters.
+          maxLength: 350
+          example: example_value
+      required:
+      - replyText
+    TokenPagination:
+      type: object
+      description: Token-based pagination for large result sets.
+      properties:
+        nextPageToken:
+          type: string
+          description: Token to retrieve the next page of results.
+          example: example_value
+        previousPageToken:
+          type: string
+          description: Token to retrieve the previous page of results.
+          example: example_value
+    UserComment:
+      type: object
+      description: A comment from a user reviewing the app.
+      properties:
+        text:
+          type: string
+          description: The text content of the review.
+          example: example_value
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
+        starRating:
+          type: integer
+          description: The star rating (1-5) given by the user.
+          minimum: 1
+          maximum: 5
+          example: 10
+        reviewerLanguage:
+          type: string
+          description: BCP-47 language tag of the reviewer's language.
+          example: example_value
+        device:
+          type: string
+          description: Information about the device used to write the review.
+          example: example_value
+        androidOsVersion:
+          type: integer
+          description: The Android OS version of the user's device.
+          example: 10
+        appVersionCode:
+          type: integer
+          description: The version code of the app installed when the review was written.
+          example: 10
+        appVersionName:
+          type: string
+          description: The version name of the app installed when the review was written.
+          example: example_value
+        thumbsUpCount:
+          type: integer
+          description: Number of users who found this review helpful.
+          example: 10
+        thumbsDownCount:
+          type: integer
+          description: Number of users who found this review unhelpful.
+          example: 10
+        deviceMetadata:
+          $ref: '#/components/schemas/DeviceMetadata'
+        originalText:
+          type: string
+          description: The untranslated text of the review, if a translation was requested.
+          example: example_value
+    Error:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+            message:
+              type: string
+              description: A human-readable error message.
+            status:
+              type: string
+              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
+            errors:
+              type: array
+              description: Detailed list of errors.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  domain:
+                    type: string
+                  reason:
+                    type: string
+          example: example_value
+  responses:
+    NotFound:
+      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      description: The unique identifier for the review.
+      schema:
+        type: string
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires a service account with appropriate permissions in the Google Play Console.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            androidpublisher: Full access to Google Play Developer API
+externalDocs:
+  description: Google Play Developer API documentation
+  url: https://developers.google.com/android-publisher

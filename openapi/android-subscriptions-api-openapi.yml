@@ -1,0 +1,1434 @@
+openapi: 3.1.0
+info:
+  title: Google Play Developer Orders Subscriptions API
+  description: The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.
+  version: '3.0'
+  termsOfService: https://developers.google.com/terms
+  contact:
+    name: Google Play Developer Support
+    url: https://support.google.com/googleplay/android-developer
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  x-logo:
+    url: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+    altText: Google Play
+servers:
+- url: https://androidpublisher.googleapis.com/androidpublisher/v3
+  description: Google Play Developer API v3 production endpoint
+security:
+- oauth2:
+  - androidpublisher
+tags:
+- name: Subscriptions
+  description: Create, manage, and query subscription products and their base plans, offers, and purchase entitlements.
+  externalDocs:
+    url: https://developers.google.com/android-publisher/api-ref/rest/v3/monetization.subscriptions
+paths:
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:
+    get:
+      operationId: getPurchaseSubscription
+      summary: Get Subscription Purchase Status
+      description: Checks whether a user's subscription purchase is valid and returns its expiry time. Includes information about auto-renewal status, payment state, cancellation reason, and linked purchase token.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/subscriptionId'
+      - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '200':
+          description: Successful response with subscription purchase details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchase'
+              examples:
+                Getpurchasesubscription200Example:
+                  summary: Default getPurchaseSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    kind: example_value
+                    startTimeMillis: example_value
+                    expiryTimeMillis: example_value
+                    userCancellationTimeMillis: example_value
+                    autoRenewing: true
+                    priceCurrencyCode: example_value
+                    priceAmountMicros: example_value
+                    introductoryPriceInfo:
+                      introductoryPriceCurrencyCode: example_value
+                      introductoryPriceAmountMicros: example_value
+                      introductoryPricePeriod: example_value
+                      introductoryPriceCycles: 10
+                    countryCode: example_value
+                    developerPayload: example_value
+                    paymentState: 0
+                    cancelReason: 0
+                    linkedPurchaseToken: example_value
+                    purchaseType: 0
+                    orderId: '500123'
+                    acknowledgementState: 0
+                    externalAccountId: '500123'
+                    promotionType: 0
+                    promotionCode: example_value
+                    obfuscatedExternalAccountId: '500123'
+                    obfuscatedExternalProfileId: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:acknowledge:
+    post:
+      operationId: acknowledgePurchaseSubscription
+      summary: Acknowledge a Subscription Purchase
+      description: Acknowledges a subscription purchase. Subscriptions that are not acknowledged within three days are automatically refunded.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/subscriptionId'
+      - $ref: '#/components/parameters/purchaseToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPurchasesAcknowledgeRequest'
+            examples:
+              AcknowledgepurchasesubscriptionRequestExample:
+                summary: Default acknowledgePurchaseSubscription request
+                x-microcks-default: true
+                value:
+                  developerPayload: example_value
+      responses:
+        '204':
+          description: Subscription purchase acknowledged successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:cancel:
+    post:
+      operationId: cancelPurchaseSubscription
+      summary: Cancel a Subscription Purchase
+      description: Cancels a user's subscription purchase. The subscription remains valid until its expiration time and will not be auto-renewed.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/subscriptionId'
+      - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '204':
+          description: Subscription cancelled successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:defer:
+    post:
+      operationId: deferPurchaseSubscription
+      summary: Defer a Subscription Purchase
+      description: Defers a user's subscription purchase until a specified future expiration time. The user retains access to the subscription content during the deferral period.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/subscriptionId'
+      - $ref: '#/components/parameters/purchaseToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionPurchasesDeferRequest'
+            examples:
+              DeferpurchasesubscriptionRequestExample:
+                summary: Default deferPurchaseSubscription request
+                x-microcks-default: true
+                value:
+                  deferralInfo:
+                    expectedExpiryTimeMillis: example_value
+                    desiredExpiryTimeMillis: example_value
+      responses:
+        '200':
+          description: Subscription deferred successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchasesDeferResponse'
+              examples:
+                Deferpurchasesubscription200Example:
+                  summary: Default deferPurchaseSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    newExpiryTimeMillis: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}:revoke:
+    post:
+      operationId: revokePurchaseSubscription
+      summary: Revoke a Subscription Purchase
+      description: Refunds and immediately revokes a user's subscription purchase. Access to the subscription is terminated immediately and a refund is issued. This cannot be undone.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/subscriptionId'
+      - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '204':
+          description: Subscription revoked and refunded successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/purchases/subscriptionsv2/tokens/{token}:
+    get:
+      operationId: getSubscriptionPurchaseV2
+      summary: Get Subscription Purchase V2
+      description: Gets the latest subscription purchase state using the Purchases Subscriptions v2 API. Returns detailed information about the subscription including line items, external account identifiers, and subscription state.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/purchaseToken'
+      responses:
+        '200':
+          description: Successful response with subscription purchase v2 details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionPurchaseV2'
+              examples:
+                Getsubscriptionpurchasev2200Example:
+                  summary: Default getSubscriptionPurchaseV2 200 response
+                  x-microcks-default: true
+                  value:
+                    kind: example_value
+                    regionCode: example_value
+                    latestOrderId: '500123'
+                    lineItems:
+                    - productId: '500123'
+                      expiryTime: '2026-01-15T10:30:00Z'
+                      autoRenewingPlan: {}
+                      prepaidPlan: {}
+                      offerDetails: {}
+                    startTime: '2026-01-15T10:30:00Z'
+                    subscriptionState: SUBSCRIPTION_STATE_UNSPECIFIED
+                    linkedPurchaseToken: example_value
+                    pausedStateContext:
+                      autoResumeTime: '2026-01-15T10:30:00Z'
+                    canceledStateContext:
+                      userInitiatedCancellation:
+                        finishTime: '2026-01-15T10:30:00Z'
+                      systemInitiatedCancellation: example_value
+                      developerInitiatedCancellation: example_value
+                      replacementCancellation: example_value
+                    acknowledgementState: ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+                    externalAccountIdentifiers:
+                      externalAccountId: '500123'
+                      obfuscatedExternalAccountId: '500123'
+                      obfuscatedExternalProfileId: '500123'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/monetization/subscriptions:
+    get:
+      operationId: listSubscriptions
+      summary: List Subscription Products
+      description: Lists all subscriptions defined for the specified application. Returns subscription metadata including product IDs, listings, and base plans.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - name: pageSize
+        in: query
+        description: Maximum number of subscriptions to return.
+        schema:
+          type: integer
+          maximum: 100
+        example: 10
+      - name: pageToken
+        in: query
+        description: Page token for pagination.
+        schema:
+          type: string
+        example: example_value
+      - name: showArchived
+        in: query
+        description: Whether to include archived subscriptions in the response.
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: Successful response with list of subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionsResponse'
+              examples:
+                Listsubscriptions200Example:
+                  summary: Default listSubscriptions 200 response
+                  x-microcks-default: true
+                  value:
+                    subscriptions:
+                    - packageName: example_value
+                      productId: '500123'
+                      basePlans: {}
+                      listings: {}
+                      archived: true
+                    nextPageToken: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSubscription
+      summary: Create a Subscription Product
+      description: Creates a new subscription for an application. The subscription must include at least one base plan and listing.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - name: productId
+        in: query
+        required: true
+        description: The ID to use for the subscription. Must be unique within the app.
+        schema:
+          type: string
+        example: '500123'
+      - name: regionsVersion.version
+        in: query
+        description: The version of the available regions being used.
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+            examples:
+              CreatesubscriptionRequestExample:
+                summary: Default createSubscription request
+                x-microcks-default: true
+                value:
+                  packageName: example_value
+                  productId: '500123'
+                  basePlans:
+                  - basePlanId: '500123'
+                    state: STATE_UNSPECIFIED
+                    regionalConfigs: {}
+                    autoRenewingBasePlanType: {}
+                    prepaidBasePlanType: {}
+                    offerTags: {}
+                  listings:
+                  - languageCode: example_value
+                    title: Example Title
+                    benefits: {}
+                    description: A sample description.
+                  archived: true
+                  taxAndComplianceSettings:
+                    eeaWithdrawalRightType: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+                    taxRateInfoByRegionCode: example_value
+                    isTokenizedDigitalAsset: true
+      responses:
+        '200':
+          description: Subscription created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+              examples:
+                Createsubscription200Example:
+                  summary: Default createSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    packageName: example_value
+                    productId: '500123'
+                    basePlans:
+                    - basePlanId: '500123'
+                      state: STATE_UNSPECIFIED
+                      regionalConfigs: {}
+                      autoRenewingBasePlanType: {}
+                      prepaidBasePlanType: {}
+                      offerTags: {}
+                    listings:
+                    - languageCode: example_value
+                      title: Example Title
+                      benefits: {}
+                      description: A sample description.
+                    archived: true
+                    taxAndComplianceSettings:
+                      eeaWithdrawalRightType: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+                      taxRateInfoByRegionCode: example_value
+                      isTokenizedDigitalAsset: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Conflict - subscription with this ID already exists
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/monetization/subscriptions/{productId}:
+    get:
+      operationId: getSubscription
+      summary: Get a Subscription Product
+      description: Reads a single subscription product configuration, including its base plans, offers, and regional pricing.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/productId'
+      responses:
+        '200':
+          description: Successful response with subscription details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+              examples:
+                Getsubscription200Example:
+                  summary: Default getSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    packageName: example_value
+                    productId: '500123'
+                    basePlans:
+                    - basePlanId: '500123'
+                      state: STATE_UNSPECIFIED
+                      regionalConfigs: {}
+                      autoRenewingBasePlanType: {}
+                      prepaidBasePlanType: {}
+                      offerTags: {}
+                    listings:
+                    - languageCode: example_value
+                      title: Example Title
+                      benefits: {}
+                      description: A sample description.
+                    archived: true
+                    taxAndComplianceSettings:
+                      eeaWithdrawalRightType: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+                      taxRateInfoByRegionCode: example_value
+                      isTokenizedDigitalAsset: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    patch:
+      operationId: updateSubscription
+      summary: Update a Subscription Product
+      description: Updates an existing subscription product configuration. Supports partial updates via the updateMask field.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/productId'
+      - name: updateMask
+        in: query
+        description: The list of fields to update in this subscription. Uses FieldMask format.
+        schema:
+          type: string
+        example: example_value
+      - name: regionsVersion.version
+        in: query
+        description: The version of the available regions being used.
+        schema:
+          type: string
+        example: example_value
+      - name: latencyTolerance
+        in: query
+        description: Tolerance for propagation latency. PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE or PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT.
+        schema:
+          type: string
+          enum:
+          - PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE
+          - PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_TOLERANT
+        example: PRODUCT_UPDATE_LATENCY_TOLERANCE_LATENCY_SENSITIVE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subscription'
+            examples:
+              UpdatesubscriptionRequestExample:
+                summary: Default updateSubscription request
+                x-microcks-default: true
+                value:
+                  packageName: example_value
+                  productId: '500123'
+                  basePlans:
+                  - basePlanId: '500123'
+                    state: STATE_UNSPECIFIED
+                    regionalConfigs: {}
+                    autoRenewingBasePlanType: {}
+                    prepaidBasePlanType: {}
+                    offerTags: {}
+                  listings:
+                  - languageCode: example_value
+                    title: Example Title
+                    benefits: {}
+                    description: A sample description.
+                  archived: true
+                  taxAndComplianceSettings:
+                    eeaWithdrawalRightType: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+                    taxRateInfoByRegionCode: example_value
+                    isTokenizedDigitalAsset: true
+      responses:
+        '200':
+          description: Subscription updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+              examples:
+                Updatesubscription200Example:
+                  summary: Default updateSubscription 200 response
+                  x-microcks-default: true
+                  value:
+                    packageName: example_value
+                    productId: '500123'
+                    basePlans:
+                    - basePlanId: '500123'
+                      state: STATE_UNSPECIFIED
+                      regionalConfigs: {}
+                      autoRenewingBasePlanType: {}
+                      prepaidBasePlanType: {}
+                      offerTags: {}
+                    listings:
+                    - languageCode: example_value
+                      title: Example Title
+                      benefits: {}
+                      description: A sample description.
+                    archived: true
+                    taxAndComplianceSettings:
+                      eeaWithdrawalRightType: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+                      taxRateInfoByRegionCode: example_value
+                      isTokenizedDigitalAsset: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteSubscription
+      summary: Delete a Subscription Product
+      description: Deletes a subscription. A subscription can only be deleted if it has never had a base plan published.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/productId'
+      responses:
+        '204':
+          description: Subscription deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /applications/{packageName}/monetization/subscriptions/{productId}/basePlans/{basePlanId}/offers:
+    get:
+      operationId: listSubscriptionOffers
+      summary: List Subscription Offers
+      description: Lists all offers for a given subscription's base plan. Returns offer details including eligibility criteria and pricing phases.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/productId'
+      - $ref: '#/components/parameters/basePlanId'
+      - name: pageSize
+        in: query
+        description: Maximum number of offers to return.
+        schema:
+          type: integer
+        example: 10
+      - name: pageToken
+        in: query
+        description: Page token for pagination.
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Successful response with list of subscription offers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionOffersResponse'
+              examples:
+                Listsubscriptionoffers200Example:
+                  summary: Default listSubscriptionOffers 200 response
+                  x-microcks-default: true
+                  value:
+                    subscriptionOffers:
+                    - packageName: example_value
+                      productId: '500123'
+                      basePlanId: '500123'
+                      offerId: '500123'
+                      state: STATE_UNSPECIFIED
+                      phases: {}
+                      targeting: {}
+                      regionalConfigs: {}
+                      offerTags: {}
+                    nextPageToken: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createSubscriptionOffer
+      summary: Create a Subscription Offer
+      description: Creates a new subscription offer. An offer represents special pricing or a free trial for a base plan.
+      tags:
+      - Subscriptions
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - $ref: '#/components/parameters/productId'
+      - $ref: '#/components/parameters/basePlanId'
+      - name: offerId
+        in: query
+        required: true
+        description: The ID to use for the offer. Must be unique within the base plan.
+        schema:
+          type: string
+        example: '500123'
+      - name: regionsVersion.version
+        in: query
+        description: The version of the available regions being used.
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionOffer'
+            examples:
+              CreatesubscriptionofferRequestExample:
+                summary: Default createSubscriptionOffer request
+                x-microcks-default: true
+                value:
+                  packageName: example_value
+                  productId: '500123'
+                  basePlanId: '500123'
+                  offerId: '500123'
+                  state: STATE_UNSPECIFIED
+                  phases:
+                  - recurrenceCount: 10
+                    duration: example_value
+                    regionalConfigs: {}
+                  targeting:
+                    acquisitionRule:
+                      scope:
+                        anySubscriptionInApp: example_value
+                        specificSubscriptionInApp: example_value
+                    upgradeRule:
+                      billingPeriodDuration: example_value
+                      oncePerUser: true
+                  regionalConfigs:
+                  - regionCode: example_value
+                    newSubscriberAvailability: true
+                  offerTags:
+                  - tag: example_value
+      responses:
+        '200':
+          description: Subscription offer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionOffer'
+              examples:
+                Createsubscriptionoffer200Example:
+                  summary: Default createSubscriptionOffer 200 response
+                  x-microcks-default: true
+                  value:
+                    packageName: example_value
+                    productId: '500123'
+                    basePlanId: '500123'
+                    offerId: '500123'
+                    state: STATE_UNSPECIFIED
+                    phases:
+                    - recurrenceCount: 10
+                      duration: example_value
+                      regionalConfigs: {}
+                    targeting:
+                      acquisitionRule:
+                        scope:
+                          anySubscriptionInApp: example_value
+                          specificSubscriptionInApp: example_value
+                      upgradeRule:
+                        billingPeriodDuration: example_value
+                        oncePerUser: true
+                    regionalConfigs:
+                    - regionCode: example_value
+                      newSubscriberAvailability: true
+                    offerTags:
+                    - tag: example_value
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
+    purchaseToken:
+      name: token
+      in: path
+      required: true
+      description: The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase.
+      schema:
+        type: string
+    basePlanId:
+      name: basePlanId
+      in: path
+      required: true
+      description: The unique identifier of the base plan. Base plans define the billing period and renewal type for a subscription.
+      schema:
+        type: string
+        example: monthly
+    subscriptionId:
+      name: subscriptionId
+      in: path
+      required: true
+      description: The subscription ID (e.g., monthly_sub).
+      schema:
+        type: string
+        example: monthly_sub
+    productId:
+      name: productId
+      in: path
+      required: true
+      description: The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub).
+      schema:
+        type: string
+        example: premium_upgrade
+  schemas:
+    ListSubscriptionOffersResponse:
+      type: object
+      description: Response containing a list of subscription offers.
+      properties:
+        subscriptionOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionOffer'
+          example: []
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+          example: example_value
+    ListSubscriptionsResponse:
+      type: object
+      description: Response containing a list of subscriptions.
+      properties:
+        subscriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+          example: []
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+          example: example_value
+    SubscriptionDeferralInfo:
+      type: object
+      description: Contains the new desired expiry time for a subscription deferral.
+      properties:
+        expectedExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.
+          example: example_value
+        desiredExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The desired next expiry time to assign to the subscription. Must be later than the current expiry time.
+          example: example_value
+      required:
+      - expectedExpiryTimeMillis
+      - desiredExpiryTimeMillis
+    SubscriptionOffer:
+      type: object
+      description: A subscription offer represents special pricing for a subscription, such as a free trial or introductory price.
+      properties:
+        packageName:
+          type: string
+          description: The package name of the parent app.
+          readOnly: true
+          example: example_value
+        productId:
+          type: string
+          description: The product ID of the parent subscription.
+          readOnly: true
+          example: '500123'
+        basePlanId:
+          type: string
+          description: The base plan ID the offer is associated with.
+          readOnly: true
+          example: '500123'
+        offerId:
+          type: string
+          description: The unique identifier for this offer.
+          readOnly: true
+          example: '500123'
+        state:
+          type: string
+          description: The current state of the offer.
+          enum:
+          - STATE_UNSPECIFIED
+          - DRAFT
+          - ACTIVE
+          - INACTIVE
+          readOnly: true
+          example: STATE_UNSPECIFIED
+        phases:
+          type: array
+          description: The pricing phases for this offer. Each phase defines a pricing period with its own duration and price.
+          items:
+            $ref: '#/components/schemas/SubscriptionOfferPhase'
+          example: []
+        targeting:
+          type: object
+          description: Targeting rules for the offer.
+          properties:
+            acquisitionRule:
+              type: object
+              description: Offer available to users who have never had this subscription.
+              properties:
+                scope:
+                  type: object
+                  properties:
+                    anySubscriptionInApp:
+                      type: object
+                    specificSubscriptionInApp:
+                      type: string
+            upgradeRule:
+              type: object
+              description: Offer available to users upgrading from another plan.
+              properties:
+                billingPeriodDuration:
+                  type: string
+                oncePerUser:
+                  type: boolean
+          example: example_value
+        regionalConfigs:
+          type: array
+          description: Regional configuration for this offer.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+              newSubscriberAvailability:
+                type: boolean
+          example: []
+        offerTags:
+          type: array
+          description: Custom tags for this offer.
+          items:
+            type: object
+            properties:
+              tag:
+                type: string
+          example: []
+    SubscriptionListing:
+      type: object
+      description: Localized listing information for a subscription.
+      properties:
+        languageCode:
+          type: string
+          description: BCP-47 language tag (e.g., en-US).
+          example: example_value
+        title:
+          type: string
+          description: The title of the subscription in this locale.
+          example: Example Title
+        benefits:
+          type: array
+          description: A list of benefits shown to the user on platforms such as the Play Store. Limited to four benefits.
+          items:
+            type: string
+          maxItems: 4
+          example: []
+        description:
+          type: string
+          description: The description of the subscription in this locale.
+          example: A sample description.
+    SubscriptionPurchaseLineItem:
+      type: object
+      description: An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.
+      properties:
+        productId:
+          type: string
+          description: The product ID of the subscription.
+          example: '500123'
+        expiryTime:
+          type: string
+          format: date-time
+          description: Time at which the subscription line item will expire.
+          example: '2026-01-15T10:30:00Z'
+        autoRenewingPlan:
+          type: object
+          description: Details for auto-renewing plans.
+          properties:
+            autoRenewEnabled:
+              type: boolean
+          example: example_value
+        prepaidPlan:
+          type: object
+          description: Details for prepaid plans.
+          properties:
+            allowExtendAfterTime:
+              type: string
+              format: date-time
+          example: example_value
+        offerDetails:
+          type: object
+          description: Details of the offer applied to this line item.
+          properties:
+            offerTags:
+              type: array
+              items:
+                type: string
+            basePlanId:
+              type: string
+            offerId:
+              type: string
+          example: example_value
+    SubscriptionOfferPhase:
+      type: object
+      description: A single phase of a subscription offer. Defines pricing for a specific period.
+      properties:
+        recurrenceCount:
+          type: integer
+          description: The number of times this phase repeats. If 0, the phase repeats indefinitely.
+          example: 10
+        duration:
+          type: string
+          description: Duration of a single period in ISO 8601 format.
+          example: example_value
+        regionalConfigs:
+          type: array
+          description: Regional pricing for this phase.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+              price:
+                $ref: '#/components/schemas/Money'
+              absoluteDiscount:
+                $ref: '#/components/schemas/Money'
+              relativeDiscount:
+                type: number
+                format: double
+                description: Fraction of the base plan price as a discount.
+              free:
+                type: object
+                description: The phase is free.
+          example: []
+    Money:
+      type: object
+      description: Represents a monetary amount with currency.
+      properties:
+        currencyCode:
+          type: string
+          description: ISO 4217 three-letter currency code (e.g., USD, EUR).
+          example: example_value
+        units:
+          type: string
+          format: int64
+          description: The whole units of the amount.
+          example: example_value
+        nanos:
+          type: integer
+          description: Number of nano units (10^-9) of the amount. Must be between -999,999,999 and +999,999,999.
+          example: 10
+    IntroductoryPriceInfo:
+      type: object
+      description: Contains the introductory price information for a subscription.
+      properties:
+        introductoryPriceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the introductory price.
+          example: example_value
+        introductoryPriceAmountMicros:
+          type: string
+          format: int64
+          description: Introductory price in micro-units of the currency.
+          example: example_value
+        introductoryPricePeriod:
+          type: string
+          description: Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month).
+          example: example_value
+        introductoryPriceCycles:
+          type: integer
+          description: Number of billing periods the introductory price applies for.
+          example: 10
+    BasePlan:
+      type: object
+      description: A base plan specifies the billing period and renewal type for a subscription. A subscription must have at least one base plan.
+      properties:
+        basePlanId:
+          type: string
+          description: The unique identifier for this base plan.
+          example: '500123'
+        state:
+          type: string
+          description: The state of the base plan.
+          enum:
+          - STATE_UNSPECIFIED
+          - DRAFT
+          - ACTIVE
+          - INACTIVE
+          readOnly: true
+          example: STATE_UNSPECIFIED
+        regionalConfigs:
+          type: array
+          description: Regional pricing configurations.
+          items:
+            type: object
+            properties:
+              regionCode:
+                type: string
+                description: ISO 3166-1 alpha-2 region code.
+              price:
+                $ref: '#/components/schemas/Money'
+          example: []
+        autoRenewingBasePlanType:
+          type: object
+          description: Details for auto-renewing base plans.
+          properties:
+            billingPeriodDuration:
+              type: string
+              description: Subscription period in ISO 8601 format (e.g., P1M for monthly, P1Y for yearly, P3M for quarterly).
+            gracePeriodDuration:
+              type: string
+              description: Grace period after a failed payment in ISO 8601 format.
+            accountHoldDuration:
+              type: string
+              description: Account hold duration in ISO 8601 format.
+            resubscribeState:
+              type: string
+              enum:
+              - RESUBSCRIBE_STATE_UNSPECIFIED
+              - RESUBSCRIBE_STATE_ACTIVE
+              - RESUBSCRIBE_STATE_INACTIVE
+            prorationMode:
+              type: string
+              description: Proration mode for mid-cycle price changes.
+              enum:
+              - SUBSCRIPTION_PRORATION_MODE_UNSPECIFIED
+              - SUBSCRIPTION_PRORATION_MODE_CHARGE_ON_NEXT_BILLING_DATE
+              - SUBSCRIPTION_PRORATION_MODE_CHARGE_FULL_PRICE_IMMEDIATELY
+          example: example_value
+        prepaidBasePlanType:
+          type: object
+          description: Details for prepaid base plans.
+          properties:
+            billingPeriodDuration:
+              type: string
+              description: Subscription period in ISO 8601 format.
+            timeExtension:
+              type: string
+              enum:
+              - TIME_EXTENSION_UNSPECIFIED
+              - TIME_EXTENSION_ACTIVE
+              - TIME_EXTENSION_INACTIVE
+          example: example_value
+        offerTags:
+          type: array
+          description: List of up to 20 custom tags for this base plan.
+          items:
+            type: object
+            properties:
+              tag:
+                type: string
+          example: []
+    SubscriptionPurchasesDeferResponse:
+      type: object
+      description: Response from deferring a subscription purchase.
+      properties:
+        newExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The new expiry time for the subscription.
+          example: example_value
+    SubscriptionPurchase:
+      type: object
+      description: Represents a subscription purchase. Contains the subscription state, expiry time, auto-renewal status, and cancellation details.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#subscriptionPurchase
+          example: example_value
+        startTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the subscription was granted (milliseconds since Epoch).
+          example: example_value
+        expiryTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the subscription will expire (milliseconds since Epoch). For cancelled subscriptions, this is when access ends.
+          example: example_value
+        userCancellationTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the subscription was canceled by the user (milliseconds since Epoch). Only present if cancelReason is 0.
+          example: example_value
+        autoRenewing:
+          type: boolean
+          description: Whether the subscription will automatically be renewed.
+          example: true
+        priceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the subscription price.
+          example: example_value
+        priceAmountMicros:
+          type: string
+          format: int64
+          description: Price of the subscription in micro-units of the currency. For example, 7990000 represents $7.99.
+          example: example_value
+        introductoryPriceInfo:
+          $ref: '#/components/schemas/IntroductoryPriceInfo'
+        countryCode:
+          type: string
+          description: ISO 3166-1 alpha-2 country code of the user at the time the subscription was granted.
+          example: example_value
+        developerPayload:
+          type: string
+          description: Developer-specified string for additional information.
+          deprecated: true
+          example: example_value
+        paymentState:
+          type: integer
+          description: The payment state of the subscription. 0 = Payment pending, 1 = Payment received, 2 = Free trial, 3 = Pending deferred upgrade/downgrade.
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          example: 0
+        cancelReason:
+          type: integer
+          description: The reason a subscription was cancelled or not auto-renewed. 0 = User cancelled, 1 = System cancelled (billing issue), 2 = Replaced with a new subscription, 3 = Developer cancelled.
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          example: 0
+        linkedPurchaseToken:
+          type: string
+          description: The purchase token of the previous subscription if this subscription is a replacement (upgrade/downgrade).
+          example: example_value
+        purchaseType:
+          type: integer
+          description: The type of purchase. 0 = Test (sandbox), 1 = Promo.
+          enum:
+          - 0
+          - 1
+          example: 0
+        orderId:
+          type: string
+          description: The order ID of the latest recurring order.
+          example: '500123'
+        acknowledgementState:
+          type: integer
+          description: The acknowledgement state. 0 = Yet to be acknowledged, 1 = Acknowledged.
+          enum:
+          - 0
+          - 1
+          example: 0
+        externalAccountId:
+          type: string
+          description: User account identifier in the third-party service.
+          example: '500123'
+        promotionType:
+          type: integer
+          description: The type of promotion applied on this purchase. 0 = One-time code, 1 = Vanity code.
+          enum:
+          - 0
+          - 1
+          example: 0
+        promotionCode:
+          type: string
+          description: The promotion code applied on this purchase.
+          example: example_value
+        obfuscatedExternalAccountId:
+          type: string
+          description: Obfuscated user account ID in the third-party service.
+          example: '500123'
+        obfuscatedExternalProfileId:
+          type: string
+          description: Obfuscated user profile ID in the third-party service.
+          example: '500123'
+    SubscriptionTaxAndComplianceSettings:
+      type: object
+      description: Tax and compliance settings for a subscription.
+      properties:
+        eeaWithdrawalRightType:
+          type: string
+          description: Digital content or service classification for EEA withdrawal right.
+          enum:
+          - WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+          - WITHDRAWAL_RIGHT_DIGITAL_CONTENT
+          - WITHDRAWAL_RIGHT_SERVICE
+          example: WITHDRAWAL_RIGHT_TYPE_UNSPECIFIED
+        taxRateInfoByRegionCode:
+          type: object
+          description: Tax rate information keyed by region code.
+          additionalProperties:
+            type: object
+            properties:
+              eligibleForStreamingServiceTaxRate:
+                type: boolean
+              taxTier:
+                type: string
+          example: example_value
+        isTokenizedDigitalAsset:
+          type: boolean
+          description: Whether the subscription represents a tokenized digital asset.
+          example: true
+    Subscription:
+      type: object
+      description: A subscription product defined in the Google Play Console. Contains base plans, listings, and tax and compliance settings.
+      properties:
+        packageName:
+          type: string
+          description: The package name of the parent app.
+          readOnly: true
+          example: example_value
+        productId:
+          type: string
+          description: The unique product ID of the subscription.
+          readOnly: true
+          example: '500123'
+        basePlans:
+          type: array
+          description: The set of base plans for this subscription. A subscription must have at least one base plan.
+          items:
+            $ref: '#/components/schemas/BasePlan'
+          example: []
+        listings:
+          type: array
+          description: The localized listings for this subscription. Must have at least one listing.
+          items:
+            $ref: '#/components/schemas/SubscriptionListing'
+          example: []
+        archived:
+          type: boolean
+          description: Whether this subscription is archived.
+          readOnly: true
+          example: true
+        taxAndComplianceSettings:
+          $ref: '#/components/schemas/SubscriptionTaxAndComplianceSettings'
+    SubscriptionPurchasesAcknowledgeRequest:
+      type: object
+      description: Request body for acknowledging a subscription purchase.
+      properties:
+        developerPayload:
+          type: string
+          description: Payload to attach to the purchase after acknowledgement.
+          deprecated: true
+          example: example_value
+    SubscriptionPurchasesDeferRequest:
+      type: object
+      description: Request body for deferring a subscription purchase.
+      properties:
+        deferralInfo:
+          $ref: '#/components/schemas/SubscriptionDeferralInfo'
+      required:
+      - deferralInfo
+    SubscriptionPurchaseV2:
+      type: object
+      description: Indicates the v2 subscription purchase details, including subscription state, line items, and external account information.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#subscriptionPurchaseV2
+          example: example_value
+        regionCode:
+          type: string
+          description: ISO 3166-1 alpha-2 billing region code.
+          example: example_value
+        latestOrderId:
+          type: string
+          description: The order ID of the latest order associated with this subscription.
+          example: '500123'
+        lineItems:
+          type: array
+          description: Item-level info for a subscription purchase. Each line item corresponds to a base plan or offer.
+          items:
+            $ref: '#/components/schemas/SubscriptionPurchaseLineItem'
+          example: []
+        startTime:
+          type: string
+          format: date-time
+          description: Time at which the subscription was granted.
+          example: '2026-01-15T10:30:00Z'
+        subscriptionState:
+          type: string
+          description: The current state of the subscription.
+          enum:
+          - SUBSCRIPTION_STATE_UNSPECIFIED
+          - SUBSCRIPTION_STATE_PENDING
+          - SUBSCRIPTION_STATE_ACTIVE
+          - SUBSCRIPTION_STATE_PAUSED
+          - SUBSCRIPTION_STATE_IN_GRACE_PERIOD
+          - SUBSCRIPTION_STATE_ON_HOLD
+          - SUBSCRIPTION_STATE_CANCELED
+          - SUBSCRIPTION_STATE_EXPIRED
+          - SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED
+          example: SUBSCRIPTION_STATE_UNSPECIFIED
+        linkedPurchaseToken:
+          type: string
+          description: The purchase token of the old subscription if replaced.
+          example: example_value
+        pausedStateContext:
+          type: object
+          description: Additional context around paused subscriptions.
+          properties:
+            autoResumeTime:
+              type: string
+              format: date-time
+              description: Time at which the subscription will auto-resume.
+          example: example_value
+        canceledStateContext:
+          type: object
+          description: Additional context around canceled subscriptions.
+          properties:
+            userInitiatedCancellation:
+              type: object
+              properties:
+                finishTime:
+                  type: string
+                  format: date-time
+            systemInitiatedCancellation:
+              type: object
+            developerInitiatedCancellation:
+              type: object
+            replacementCancellation:
+              type: object
+          example: example_value
+        acknowledgementState:
+          type: string
+          description: The acknowledgement state of the subscription.
+          enum:
+          - ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+          - ACKNOWLEDGEMENT_STATE_PENDING
+          - ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED
+          example: ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+        externalAccountIdentifiers:
+          type: object
+          description: User account identification in third-party services.
+          properties:
+            externalAccountId:
+              type: string
+            obfuscatedExternalAccountId:
+              type: string
+            obfuscatedExternalProfileId:
+              type: string
+          example: example_value
+    Error:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+            message:
+              type: string
+              description: A human-readable error message.
+            status:
+              type: string
+              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
+            errors:
+              type: array
+              description: Detailed list of errors.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  domain:
+                    type: string
+                  reason:
+                    type: string
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires a service account with appropriate permissions in the Google Play Console.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            androidpublisher: Full access to Google Play Developer API
+externalDocs:
+  description: Google Play Developer API documentation
+  url: https://developers.google.com/android-publisher

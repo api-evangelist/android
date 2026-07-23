@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Google Play Developer Orders API
+  description: The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.
+  version: '3.0'
+  termsOfService: https://developers.google.com/terms
+  contact:
+    name: Google Play Developer Support
+    url: https://support.google.com/googleplay/android-developer
+  license:
+    name: Creative Commons Attribution 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  x-logo:
+    url: https://www.gstatic.com/android/market_images/web/favicon_v2.ico
+    altText: Google Play
+servers:
+- url: https://androidpublisher.googleapis.com/androidpublisher/v3
+  description: Google Play Developer API v3 production endpoint
+security:
+- oauth2:
+  - androidpublisher
+tags:
+- name: Orders
+  description: Refund orders placed through Google Play for in-app products and subscriptions.
+  externalDocs:
+    url: https://developers.google.com/android-publisher/api-ref/rest/v3/orders
+paths:
+  /applications/{packageName}/orders/{orderId}:refund:
+    post:
+      operationId: refundOrder
+      summary: Refund an Order
+      description: Refunds a user's subscription or in-app purchase order. This initiates a refund through Google Play and the user retains access until the end of the current billing period for subscriptions.
+      tags:
+      - Orders
+      parameters:
+      - $ref: '#/components/parameters/packageName'
+      - name: orderId
+        in: path
+        required: true
+        description: The order ID from Google Play.
+        schema:
+          type: string
+        example: '500123'
+      - name: revoke
+        in: query
+        description: Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately.
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '204':
+          description: Order refunded successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+            message:
+              type: string
+              description: A human-readable error message.
+            status:
+              type: string
+              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
+            errors:
+              type: array
+              description: Detailed list of errors.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  domain:
+                    type: string
+                  reason:
+                    type: string
+          example: example_value
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0 authentication for accessing the Google Play Developer API. Requires a service account with appropriate permissions in the Google Play Console.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            androidpublisher: Full access to Google Play Developer API
+externalDocs:
+  description: Google Play Developer API documentation
+  url: https://developers.google.com/android-publisher
