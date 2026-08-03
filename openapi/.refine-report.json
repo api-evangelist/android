@@ -1,0 +1,20 @@
+{
+  "provider": "android",
+  "sources": [
+    "android-orders-api-openapi.yml",
+    "android-purchases-api-openapi.yml",
+    "android-reviews-api-openapi.yml",
+    "android-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "android-orders-api-openapi.yml",
+    "android-purchases-api-openapi.yml",
+    "android-reviews-api-openapi.yml",
+    "android-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

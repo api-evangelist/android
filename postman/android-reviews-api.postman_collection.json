@@ -1,0 +1,782 @@
+{
+  "info": {
+    "_postman_id": "fbcdfdee-956f-4ef7-b581-6cd672a14570",
+    "name": "Google Play Developer Orders Reviews API",
+    "description": "The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.\n\nContact Support:\n Name: Google Play Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:00:51.000Z",
+    "updatedAt": "2026-07-28T01:00:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fbcdfdee-956f-4ef7-b581-6cd672a14570"
+  },
+  "item": [
+    {
+      "name": "applications",
+      "item": [
+        {
+          "name": "{packageName}",
+          "item": [
+            {
+              "name": "reviews",
+              "item": [
+                {
+                  "name": "{reviewId}",
+                  "item": [
+                    {
+                      "name": "Get a Single Review",
+                      "id": "06529a50-72fb-4115-a3f0-2f58775be1c0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/reviews/:reviewId?translationLanguage=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "reviews",
+                            ":reviewId"
+                          ],
+                          "query": [
+                            {
+                              "description": "BCP-47 language tag for translating the review text.",
+                              "key": "translationLanguage",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "c5b95f69-0c6d-4f04-a079-16824d9aabfd",
+                              "key": "packageName",
+                              "value": "<string>",
+                              "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                            },
+                            {
+                              "id": "36d7fe13-298e-455b-8776-eb3e4f06e46d",
+                              "key": "reviewId",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier for the review."
+                            }
+                          ]
+                        },
+                        "description": "Gets a single review by its ID. Returns the user comment, star rating, and any developer reply."
+                      },
+                      "response": [
+                        {
+                          "id": "06cad9ad-703b-4401-93a1-44ec33d444f5",
+                          "name": "Successful response with review details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/:reviewId?translationLanguage=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                ":reviewId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BCP-47 language tag for translating the review text.",
+                                  "key": "translationLanguage",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                },
+                                {
+                                  "key": "reviewId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"reviewId\": \"<string>\",\n  \"authorName\": \"<string>\",\n  \"comments\": [\n    {\n      \"userComment\": {\n        \"text\": \"<string>\",\n        \"lastModified\": {\n          \"seconds\": \"<int64>\",\n          \"nanos\": \"<integer>\"\n        },\n        \"starRating\": \"<integer>\",\n        \"reviewerLanguage\": \"<string>\",\n        \"device\": \"<string>\",\n        \"androidOsVersion\": \"<integer>\",\n        \"appVersionCode\": \"<integer>\",\n        \"appVersionName\": \"<string>\",\n        \"thumbsUpCount\": \"<integer>\",\n        \"thumbsDownCount\": \"<integer>\",\n        \"deviceMetadata\": {\n          \"manufacturer\": \"<string>\",\n          \"deviceClass\": \"<string>\",\n          \"screenWidthPx\": \"<integer>\",\n          \"screenHeightPx\": \"<integer>\",\n          \"nativePlatform\": \"<string>\",\n          \"productName\": \"<string>\",\n          \"screenDensityDpi\": \"<integer>\",\n          \"glEsVersion\": \"<integer>\",\n          \"cpuModel\": \"<string>\",\n          \"cpuMake\": \"<string>\",\n          \"ramMb\": \"<integer>\"\n        },\n        \"originalText\": \"<string>\"\n      },\n      \"developerComment\": {\n        \"text\": \"<string>\",\n        \"lastModified\": {\n          \"seconds\": \"<int64>\",\n          \"nanos\": \"<integer>\"\n        }\n      }\n    },\n    {\n      \"userComment\": {\n        \"text\": \"<string>\",\n        \"lastModified\": {\n          \"seconds\": \"<int64>\",\n          \"nanos\": \"<integer>\"\n        },\n        \"starRating\": \"<integer>\",\n        \"reviewerLanguage\": \"<string>\",\n        \"device\": \"<string>\",\n        \"androidOsVersion\": \"<integer>\",\n        \"appVersionCode\": \"<integer>\",\n        \"appVersionName\": \"<string>\",\n        \"thumbsUpCount\": \"<integer>\",\n        \"thumbsDownCount\": \"<integer>\",\n        \"deviceMetadata\": {\n          \"manufacturer\": \"<string>\",\n          \"deviceClass\": \"<string>\",\n          \"screenWidthPx\": \"<integer>\",\n          \"screenHeightPx\": \"<integer>\",\n          \"nativePlatform\": \"<string>\",\n          \"productName\": \"<string>\",\n          \"screenDensityDpi\": \"<integer>\",\n          \"glEsVersion\": \"<integer>\",\n          \"cpuModel\": \"<string>\",\n          \"cpuMake\": \"<string>\",\n          \"ramMb\": \"<integer>\"\n        },\n        \"originalText\": \"<string>\"\n      },\n      \"developerComment\": {\n        \"text\": \"<string>\",\n        \"lastModified\": {\n          \"seconds\": \"<int64>\",\n          \"nanos\": \"<integer>\"\n        }\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-06cad9ad-703b-4401-93a1-44ec33d444f5"
+                        },
+                        {
+                          "id": "6d3b6a90-a522-4899-bc6f-1b821436826f",
+                          "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/:reviewId?translationLanguage=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                ":reviewId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BCP-47 language tag for translating the review text.",
+                                  "key": "translationLanguage",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                },
+                                {
+                                  "key": "reviewId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-6d3b6a90-a522-4899-bc6f-1b821436826f"
+                        },
+                        {
+                          "id": "0282b384-ab42-4997-8569-a9e36024de5d",
+                          "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/:reviewId?translationLanguage=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                ":reviewId"
+                              ],
+                              "query": [
+                                {
+                                  "description": "BCP-47 language tag for translating the review text.",
+                                  "key": "translationLanguage",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                },
+                                {
+                                  "key": "reviewId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-0282b384-ab42-4997-8569-a9e36024de5d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:00:52.000Z",
+                      "updatedAt": "2026-07-28T01:00:52.000Z",
+                      "uid": "35240-06529a50-72fb-4115-a3f0-2f58775be1c0"
+                    }
+                  ],
+                  "id": "730309cd-34f7-4f82-ad1e-28bd06758906",
+                  "createdAt": "2026-07-28T01:00:52.000Z",
+                  "updatedAt": "2026-07-28T01:00:52.000Z",
+                  "uid": "35240-730309cd-34f7-4f82-ad1e-28bd06758906"
+                },
+                {
+                  "name": "{reviewId}:reply",
+                  "item": [
+                    {
+                      "name": "Reply to a Review",
+                      "id": "255af352-9631-4703-bd8b-d4612c12a212",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"replyText\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/reviews/{{reviewId}}:reply",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "reviews",
+                            "{{reviewId}}:reply"
+                          ],
+                          "variable": [
+                            {
+                              "id": "36942d75-4160-4598-b150-008cfcad2991",
+                              "key": "packageName",
+                              "value": "<string>",
+                              "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                            }
+                          ]
+                        },
+                        "description": "Replies to a single review or updates an existing reply. Only one reply per review is allowed."
+                      },
+                      "response": [
+                        {
+                          "id": "7fcb0b92-dda8-4c7d-b3b1-4ce30a627766",
+                          "name": "Reply posted successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"replyText\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/{{reviewId}}:reply",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                "{{reviewId}}:reply"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"result\": {\n    \"replyText\": \"<string>\",\n    \"lastEdited\": {\n      \"seconds\": \"<int64>\",\n      \"nanos\": \"<integer>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-7fcb0b92-dda8-4c7d-b3b1-4ce30a627766"
+                        },
+                        {
+                          "id": "7245e6c3-b6b4-4bf7-b924-462eb57b9496",
+                          "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"replyText\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/{{reviewId}}:reply",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                "{{reviewId}}:reply"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-7245e6c3-b6b4-4bf7-b924-462eb57b9496"
+                        },
+                        {
+                          "id": "af4fd3f8-f07b-4904-8e5c-3270ebd8b7ce",
+                          "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"replyText\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/reviews/{{reviewId}}:reply",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "reviews",
+                                "{{reviewId}}:reply"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:52.000Z",
+                          "updatedAt": "2026-07-28T01:00:52.000Z",
+                          "uid": "35240-af4fd3f8-f07b-4904-8e5c-3270ebd8b7ce"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:00:52.000Z",
+                      "updatedAt": "2026-07-28T01:00:52.000Z",
+                      "uid": "35240-255af352-9631-4703-bd8b-d4612c12a212"
+                    }
+                  ],
+                  "id": "ea711c5f-7bb6-477c-9b22-0e6159d40877",
+                  "createdAt": "2026-07-28T01:00:52.000Z",
+                  "updatedAt": "2026-07-28T01:00:52.000Z",
+                  "uid": "35240-ea711c5f-7bb6-477c-9b22-0e6159d40877"
+                },
+                {
+                  "name": "List App Reviews",
+                  "id": "0b958c07-030c-4002-99b1-fdf2201c0034",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:packageName/reviews?maxResults=<integer>&startIndex=<integer>&token=<string>&translationLanguage=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":packageName",
+                        "reviews"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of reviews to return.",
+                          "key": "maxResults",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Index of the first review to return.",
+                          "key": "startIndex",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Continuation token for paging through results.",
+                          "key": "token",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "BCP-47 language tag for translation. If specified, reviews in other languages will be translated to this language.",
+                          "key": "translationLanguage",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "0fc02bc1-907b-40ec-a2b7-52b423dec06d",
+                          "key": "packageName",
+                          "value": "<string>",
+                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                        }
+                      ]
+                    },
+                    "description": "Lists all reviews for the specified application. Returns the latest user comment and any developer reply for each review."
+                  },
+                  "response": [
+                    {
+                      "id": "4e098f65-fd17-4c40-8360-5768349f131e",
+                      "name": "Successful response with list of reviews",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/reviews?maxResults=<integer>&startIndex=<integer>&token=<string>&translationLanguage=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of reviews to return.",
+                              "key": "maxResults",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Index of the first review to return.",
+                              "key": "startIndex",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Continuation token for paging through results.",
+                              "key": "token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "BCP-47 language tag for translation. If specified, reviews in other languages will be translated to this language.",
+                              "key": "translationLanguage",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "packageName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"pageInfo\": {\n    \"totalResults\": \"<integer>\",\n    \"resultPerPage\": \"<integer>\",\n    \"startIndex\": \"<integer>\"\n  },\n  \"tokenPagination\": {\n    \"nextPageToken\": \"<string>\",\n    \"previousPageToken\": \"<string>\"\n  },\n  \"reviews\": [\n    {\n      \"reviewId\": \"<string>\",\n      \"authorName\": \"<string>\",\n      \"comments\": [\n        {\n          \"userComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            },\n            \"starRating\": \"<integer>\",\n            \"reviewerLanguage\": \"<string>\",\n            \"device\": \"<string>\",\n            \"androidOsVersion\": \"<integer>\",\n            \"appVersionCode\": \"<integer>\",\n            \"appVersionName\": \"<string>\",\n            \"thumbsUpCount\": \"<integer>\",\n            \"thumbsDownCount\": \"<integer>\",\n            \"deviceMetadata\": {\n              \"manufacturer\": \"<string>\",\n              \"deviceClass\": \"<string>\",\n              \"screenWidthPx\": \"<integer>\",\n              \"screenHeightPx\": \"<integer>\",\n              \"nativePlatform\": \"<string>\",\n              \"productName\": \"<string>\",\n              \"screenDensityDpi\": \"<integer>\",\n              \"glEsVersion\": \"<integer>\",\n              \"cpuModel\": \"<string>\",\n              \"cpuMake\": \"<string>\",\n              \"ramMb\": \"<integer>\"\n            },\n            \"originalText\": \"<string>\"\n          },\n          \"developerComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            }\n          }\n        },\n        {\n          \"userComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            },\n            \"starRating\": \"<integer>\",\n            \"reviewerLanguage\": \"<string>\",\n            \"device\": \"<string>\",\n            \"androidOsVersion\": \"<integer>\",\n            \"appVersionCode\": \"<integer>\",\n            \"appVersionName\": \"<string>\",\n            \"thumbsUpCount\": \"<integer>\",\n            \"thumbsDownCount\": \"<integer>\",\n            \"deviceMetadata\": {\n              \"manufacturer\": \"<string>\",\n              \"deviceClass\": \"<string>\",\n              \"screenWidthPx\": \"<integer>\",\n              \"screenHeightPx\": \"<integer>\",\n              \"nativePlatform\": \"<string>\",\n              \"productName\": \"<string>\",\n              \"screenDensityDpi\": \"<integer>\",\n              \"glEsVersion\": \"<integer>\",\n              \"cpuModel\": \"<string>\",\n              \"cpuMake\": \"<string>\",\n              \"ramMb\": \"<integer>\"\n            },\n            \"originalText\": \"<string>\"\n          },\n          \"developerComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"reviewId\": \"<string>\",\n      \"authorName\": \"<string>\",\n      \"comments\": [\n        {\n          \"userComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            },\n            \"starRating\": \"<integer>\",\n            \"reviewerLanguage\": \"<string>\",\n            \"device\": \"<string>\",\n            \"androidOsVersion\": \"<integer>\",\n            \"appVersionCode\": \"<integer>\",\n            \"appVersionName\": \"<string>\",\n            \"thumbsUpCount\": \"<integer>\",\n            \"thumbsDownCount\": \"<integer>\",\n            \"deviceMetadata\": {\n              \"manufacturer\": \"<string>\",\n              \"deviceClass\": \"<string>\",\n              \"screenWidthPx\": \"<integer>\",\n              \"screenHeightPx\": \"<integer>\",\n              \"nativePlatform\": \"<string>\",\n              \"productName\": \"<string>\",\n              \"screenDensityDpi\": \"<integer>\",\n              \"glEsVersion\": \"<integer>\",\n              \"cpuModel\": \"<string>\",\n              \"cpuMake\": \"<string>\",\n              \"ramMb\": \"<integer>\"\n            },\n            \"originalText\": \"<string>\"\n          },\n          \"developerComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            }\n          }\n        },\n        {\n          \"userComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            },\n            \"starRating\": \"<integer>\",\n            \"reviewerLanguage\": \"<string>\",\n            \"device\": \"<string>\",\n            \"androidOsVersion\": \"<integer>\",\n            \"appVersionCode\": \"<integer>\",\n            \"appVersionName\": \"<string>\",\n            \"thumbsUpCount\": \"<integer>\",\n            \"thumbsDownCount\": \"<integer>\",\n            \"deviceMetadata\": {\n              \"manufacturer\": \"<string>\",\n              \"deviceClass\": \"<string>\",\n              \"screenWidthPx\": \"<integer>\",\n              \"screenHeightPx\": \"<integer>\",\n              \"nativePlatform\": \"<string>\",\n              \"productName\": \"<string>\",\n              \"screenDensityDpi\": \"<integer>\",\n              \"glEsVersion\": \"<integer>\",\n              \"cpuModel\": \"<string>\",\n              \"cpuMake\": \"<string>\",\n              \"ramMb\": \"<integer>\"\n            },\n            \"originalText\": \"<string>\"\n          },\n          \"developerComment\": {\n            \"text\": \"<string>\",\n            \"lastModified\": {\n              \"seconds\": \"<int64>\",\n              \"nanos\": \"<integer>\"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:00:52.000Z",
+                      "updatedAt": "2026-07-28T01:00:52.000Z",
+                      "uid": "35240-4e098f65-fd17-4c40-8360-5768349f131e"
+                    },
+                    {
+                      "id": "ba0724ef-e1f6-43fe-8308-090b29417368",
+                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/reviews?maxResults=<integer>&startIndex=<integer>&token=<string>&translationLanguage=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of reviews to return.",
+                              "key": "maxResults",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Index of the first review to return.",
+                              "key": "startIndex",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Continuation token for paging through results.",
+                              "key": "token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "BCP-47 language tag for translation. If specified, reviews in other languages will be translated to this language.",
+                              "key": "translationLanguage",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "packageName"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:00:52.000Z",
+                      "updatedAt": "2026-07-28T01:00:52.000Z",
+                      "uid": "35240-ba0724ef-e1f6-43fe-8308-090b29417368"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:00:52.000Z",
+                  "updatedAt": "2026-07-28T01:00:52.000Z",
+                  "uid": "35240-0b958c07-030c-4002-99b1-fdf2201c0034"
+                }
+              ],
+              "id": "bf4e07f4-983d-4819-9025-9944a23d7c81",
+              "createdAt": "2026-07-28T01:00:52.000Z",
+              "updatedAt": "2026-07-28T01:00:52.000Z",
+              "uid": "35240-bf4e07f4-983d-4819-9025-9944a23d7c81"
+            }
+          ],
+          "id": "55b469f8-ebaf-4089-ae21-fe78ea8704d7",
+          "createdAt": "2026-07-28T01:00:52.000Z",
+          "updatedAt": "2026-07-28T01:00:52.000Z",
+          "uid": "35240-55b469f8-ebaf-4089-ae21-fe78ea8704d7"
+        }
+      ],
+      "id": "35ca96c1-ba9e-4a15-8b10-947546799e29",
+      "createdAt": "2026-07-28T01:00:52.000Z",
+      "updatedAt": "2026-07-28T01:00:52.000Z",
+      "uid": "35240-35ca96c1-ba9e-4a15-8b10-947546799e29"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "androidpublisher",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://androidpublisher.googleapis.com/androidpublisher/v3"
+    },
+    {
+      "key": "reviewId",
+      "value": "<string>"
+    }
+  ]
+}

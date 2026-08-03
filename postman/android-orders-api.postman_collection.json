@@ -1,0 +1,296 @@
+{
+  "info": {
+    "_postman_id": "ab584092-2902-4024-b1c1-7a46cc249f56",
+    "name": "Google Play Developer Orders API",
+    "description": "The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.\n\nContact Support:\n Name: Google Play Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:00:49.000Z",
+    "updatedAt": "2026-07-28T01:00:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ab584092-2902-4024-b1c1-7a46cc249f56"
+  },
+  "item": [
+    {
+      "name": "applications",
+      "item": [
+        {
+          "name": "{packageName}",
+          "item": [
+            {
+              "name": "orders",
+              "item": [
+                {
+                  "name": "{orderId}:refund",
+                  "item": [
+                    {
+                      "name": "Refund an Order",
+                      "id": "d0de67ae-31ce-4a30-9727-fae32159c1f9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/orders/{{orderId}}:refund?revoke=<boolean>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "orders",
+                            "{{orderId}}:refund"
+                          ],
+                          "query": [
+                            {
+                              "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately.",
+                              "key": "revoke",
+                              "value": "<boolean>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "e7c7bdf0-1ab1-42bd-8309-0ee797ec503d",
+                              "key": "packageName",
+                              "value": "<string>",
+                              "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                            }
+                          ]
+                        },
+                        "description": "Refunds a user's subscription or in-app purchase order. This initiates a refund through Google Play and the user retains access until the end of the current billing period for subscriptions."
+                      },
+                      "response": [
+                        {
+                          "id": "9979b72d-045f-4f1b-b1b3-440a4656a5c5",
+                          "name": "Order refunded successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/orders/{{orderId}}:refund?revoke=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "orders",
+                                "{{orderId}}:refund"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately.",
+                                  "key": "revoke",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:00:49.000Z",
+                          "updatedAt": "2026-07-28T01:00:49.000Z",
+                          "uid": "35240-9979b72d-045f-4f1b-b1b3-440a4656a5c5"
+                        },
+                        {
+                          "id": "283d68cb-a33b-4b97-8fba-b22ddfcb38d4",
+                          "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/orders/{{orderId}}:refund?revoke=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "orders",
+                                "{{orderId}}:refund"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately.",
+                                  "key": "revoke",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:49.000Z",
+                          "updatedAt": "2026-07-28T01:00:49.000Z",
+                          "uid": "35240-283d68cb-a33b-4b97-8fba-b22ddfcb38d4"
+                        },
+                        {
+                          "id": "9a899677-de7a-47e6-aaf5-3c7d63d9ddbe",
+                          "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/orders/{{orderId}}:refund?revoke=<boolean>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "orders",
+                                "{{orderId}}:refund"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately.",
+                                  "key": "revoke",
+                                  "value": "<boolean>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:49.000Z",
+                          "updatedAt": "2026-07-28T01:00:49.000Z",
+                          "uid": "35240-9a899677-de7a-47e6-aaf5-3c7d63d9ddbe"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:00:49.000Z",
+                      "updatedAt": "2026-07-28T01:00:49.000Z",
+                      "uid": "35240-d0de67ae-31ce-4a30-9727-fae32159c1f9"
+                    }
+                  ],
+                  "id": "96bd5020-c1cb-4b49-81f9-a20deb0daf23",
+                  "createdAt": "2026-07-28T01:00:49.000Z",
+                  "updatedAt": "2026-07-28T01:00:49.000Z",
+                  "uid": "35240-96bd5020-c1cb-4b49-81f9-a20deb0daf23"
+                }
+              ],
+              "id": "e68e85d7-3b2f-44ee-a9d2-59303be226a8",
+              "createdAt": "2026-07-28T01:00:49.000Z",
+              "updatedAt": "2026-07-28T01:00:49.000Z",
+              "uid": "35240-e68e85d7-3b2f-44ee-a9d2-59303be226a8"
+            }
+          ],
+          "id": "92bb3264-70ce-4e7d-86d7-ff6dbface9c1",
+          "createdAt": "2026-07-28T01:00:49.000Z",
+          "updatedAt": "2026-07-28T01:00:49.000Z",
+          "uid": "35240-92bb3264-70ce-4e7d-86d7-ff6dbface9c1"
+        }
+      ],
+      "id": "141a127f-e6fb-4732-ba8d-f3d2a08e8188",
+      "createdAt": "2026-07-28T01:00:49.000Z",
+      "updatedAt": "2026-07-28T01:00:49.000Z",
+      "uid": "35240-141a127f-e6fb-4732-ba8d-f3d2a08e8188"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "androidpublisher",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://androidpublisher.googleapis.com/androidpublisher/v3"
+    },
+    {
+      "key": "orderId",
+      "value": "<string>"
+    }
+  ]
+}

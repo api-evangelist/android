@@ -1,0 +1,2596 @@
+{
+  "info": {
+    "_postman_id": "de2c7f56-007d-4a6e-b7fb-a658d6df6595",
+    "name": "Google Play Developer Orders Purchases API",
+    "description": "The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.\n\nContact Support:\n Name: Google Play Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:00:50.000Z",
+    "updatedAt": "2026-07-28T01:00:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-de2c7f56-007d-4a6e-b7fb-a658d6df6595"
+  },
+  "item": [
+    {
+      "name": "applications",
+      "item": [
+        {
+          "name": "{packageName}",
+          "item": [
+            {
+              "name": "purchases",
+              "item": [
+                {
+                  "name": "products",
+                  "item": [
+                    {
+                      "name": "{productId}",
+                      "item": [
+                        {
+                          "name": "tokens",
+                          "item": [
+                            {
+                              "name": "{token}",
+                              "item": [
+                                {
+                                  "name": "Get In-app Product Purchase Status",
+                                  "id": "9f7bb159-4559-4095-8b91-196de389079d",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/:token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "products",
+                                        ":productId",
+                                        "tokens",
+                                        ":token"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "90ffa829-8036-4d87-aaa7-74afd47f65b2",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "da61694b-f259-423b-bcb1-85efe2482b5d",
+                                          "key": "productId",
+                                          "value": "<string>",
+                                          "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                                        },
+                                        {
+                                          "id": "b92dfddb-97eb-423e-b1a0-9bfe13696d7e",
+                                          "key": "token",
+                                          "value": "<string>",
+                                          "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Checks the purchase and consumption status of an in-app product. Returns the purchase details including the purchase state, consumption state, and order ID."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "126bb04b-ff94-4f4a-ab7e-1cfb4942813a",
+                                      "name": "Successful response with product purchase details",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"kind\": \"<string>\",\n  \"purchaseTimeMillis\": \"<int64>\",\n  \"purchaseState\": 1,\n  \"consumptionState\": 1,\n  \"developerPayload\": \"<string>\",\n  \"orderId\": \"<string>\",\n  \"purchaseType\": 1,\n  \"acknowledgementState\": 1,\n  \"purchaseToken\": \"<string>\",\n  \"productId\": \"<string>\",\n  \"quantity\": \"<integer>\",\n  \"obfuscatedExternalAccountId\": \"<string>\",\n  \"obfuscatedExternalProfileId\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"refundableQuantity\": \"<integer>\"\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-126bb04b-ff94-4f4a-ab7e-1cfb4942813a"
+                                    },
+                                    {
+                                      "id": "c5362403-32aa-4e25-bd52-cc903253e4b2",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-c5362403-32aa-4e25-bd52-cc903253e4b2"
+                                    },
+                                    {
+                                      "id": "f7e001fc-4d8f-45fd-9f38-3c5909e3f5bd",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-f7e001fc-4d8f-45fd-9f38-3c5909e3f5bd"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-9f7bb159-4559-4095-8b91-196de389079d"
+                                }
+                              ],
+                              "id": "0b00eff3-10d8-49fd-a3cb-192489c174e9",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-0b00eff3-10d8-49fd-a3cb-192489c174e9"
+                            },
+                            {
+                              "name": "{token}:acknowledge",
+                              "item": [
+                                {
+                                  "name": "Acknowledge an In-app Product Purchase",
+                                  "id": "95d086a0-6b7c-4794-9229-d65bf1b17d2c",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:acknowledge",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "products",
+                                        ":productId",
+                                        "tokens",
+                                        "{{token}}:acknowledge"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "a8d548ca-8e44-4932-8bee-6f8071cc2d8e",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "e9a490dc-c170-49ea-b707-796b0f6a790f",
+                                          "key": "productId",
+                                          "value": "<string>",
+                                          "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Acknowledges a purchase of an in-app item. Purchases that are not acknowledged within three days are automatically refunded."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "a6e58063-a090-4a45-9a82-07704194ddd4",
+                                      "name": "Purchase acknowledged successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-a6e58063-a090-4a45-9a82-07704194ddd4"
+                                    },
+                                    {
+                                      "id": "2e65c15b-93e9-4004-a09e-2eea2d4bd593",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-2e65c15b-93e9-4004-a09e-2eea2d4bd593"
+                                    },
+                                    {
+                                      "id": "cf36a93c-93bf-422b-bdb6-f00057a676e2",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-cf36a93c-93bf-422b-bdb6-f00057a676e2"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-95d086a0-6b7c-4794-9229-d65bf1b17d2c"
+                                }
+                              ],
+                              "id": "3a18e069-e7f3-4825-a6c9-48397e6028df",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-3a18e069-e7f3-4825-a6c9-48397e6028df"
+                            },
+                            {
+                              "name": "{token}:consume",
+                              "item": [
+                                {
+                                  "name": "Consume an In-app Product Purchase",
+                                  "id": "b99bef59-7d77-47b9-84e4-ee9819bb7d95",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:consume",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "products",
+                                        ":productId",
+                                        "tokens",
+                                        "{{token}}:consume"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "85252d13-38d3-4da4-b1fc-6c730b1deb79",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "0ae611a8-472a-43ba-8733-29dd60b29ab3",
+                                          "key": "productId",
+                                          "value": "<string>",
+                                          "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Consumes a purchase for an in-app item. Consumed purchases can be purchased again, making this appropriate for consumable items."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "3782c870-40de-4283-86c1-011b06e08125",
+                                      "name": "Purchase consumed successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:consume",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:consume"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-3782c870-40de-4283-86c1-011b06e08125"
+                                    },
+                                    {
+                                      "id": "16a9ab8d-dc25-4332-bce1-b123cc815664",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:consume",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:consume"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-16a9ab8d-dc25-4332-bce1-b123cc815664"
+                                    },
+                                    {
+                                      "id": "7c8407d4-6824-4fac-8419-fab108924533",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/products/:productId/tokens/{{token}}:consume",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "products",
+                                            ":productId",
+                                            "tokens",
+                                            "{{token}}:consume"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "productId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-7c8407d4-6824-4fac-8419-fab108924533"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-b99bef59-7d77-47b9-84e4-ee9819bb7d95"
+                                }
+                              ],
+                              "id": "6e1db6a3-aead-450a-8861-b3a846151cd0",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-6e1db6a3-aead-450a-8861-b3a846151cd0"
+                            }
+                          ],
+                          "id": "a96ec319-8828-4602-b7b5-3603160b9fc0",
+                          "createdAt": "2026-07-28T01:00:50.000Z",
+                          "updatedAt": "2026-07-28T01:00:50.000Z",
+                          "uid": "35240-a96ec319-8828-4602-b7b5-3603160b9fc0"
+                        }
+                      ],
+                      "id": "c35efb0a-b614-4930-a9c0-5b9fd33d754a",
+                      "createdAt": "2026-07-28T01:00:50.000Z",
+                      "updatedAt": "2026-07-28T01:00:50.000Z",
+                      "uid": "35240-c35efb0a-b614-4930-a9c0-5b9fd33d754a"
+                    }
+                  ],
+                  "id": "63c301c6-6b1c-4d45-a560-80f4432db906",
+                  "createdAt": "2026-07-28T01:00:50.000Z",
+                  "updatedAt": "2026-07-28T01:00:50.000Z",
+                  "uid": "35240-63c301c6-6b1c-4d45-a560-80f4432db906"
+                },
+                {
+                  "name": "subscriptions",
+                  "item": [
+                    {
+                      "name": "{subscriptionId}",
+                      "item": [
+                        {
+                          "name": "tokens",
+                          "item": [
+                            {
+                              "name": "{token}",
+                              "item": [
+                                {
+                                  "name": "Get Subscription Purchase Status",
+                                  "id": "7e801196-c23c-47fd-95da-2ffe18f5c276",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptions",
+                                        ":subscriptionId",
+                                        "tokens",
+                                        ":token"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "6d86482c-db8c-4aff-bcf5-0a60b0bfdc3e",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "36ca0abd-6246-4e93-8464-9b0f879d44fb",
+                                          "key": "subscriptionId",
+                                          "value": "<string>",
+                                          "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                                        },
+                                        {
+                                          "id": "28e29a8a-3a9b-4fe1-86cc-2788c2359f7e",
+                                          "key": "token",
+                                          "value": "<string>",
+                                          "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Checks whether a user's subscription purchase is valid and returns its expiry time. Includes information about auto-renewal status, payment state, cancellation reason, and linked purchase token."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "5e481206-cab0-491c-a459-52e4333c9555",
+                                      "name": "Successful response with subscription purchase details",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"kind\": \"<string>\",\n  \"startTimeMillis\": \"<int64>\",\n  \"expiryTimeMillis\": \"<int64>\",\n  \"userCancellationTimeMillis\": \"<int64>\",\n  \"autoRenewing\": \"<boolean>\",\n  \"priceCurrencyCode\": \"<string>\",\n  \"priceAmountMicros\": \"<int64>\",\n  \"introductoryPriceInfo\": {\n    \"introductoryPriceCurrencyCode\": \"<string>\",\n    \"introductoryPriceAmountMicros\": \"<int64>\",\n    \"introductoryPricePeriod\": \"<string>\",\n    \"introductoryPriceCycles\": \"<integer>\"\n  },\n  \"countryCode\": \"<string>\",\n  \"developerPayload\": \"<string>\",\n  \"paymentState\": 3,\n  \"cancelReason\": 1,\n  \"linkedPurchaseToken\": \"<string>\",\n  \"purchaseType\": 1,\n  \"orderId\": \"<string>\",\n  \"acknowledgementState\": 1,\n  \"externalAccountId\": \"<string>\",\n  \"promotionType\": 0,\n  \"promotionCode\": \"<string>\",\n  \"obfuscatedExternalAccountId\": \"<string>\",\n  \"obfuscatedExternalProfileId\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-5e481206-cab0-491c-a459-52e4333c9555"
+                                    },
+                                    {
+                                      "id": "8ab1558b-cf5f-4ecf-9ad9-d30f4f85b7c1",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-8ab1558b-cf5f-4ecf-9ad9-d30f4f85b7c1"
+                                    },
+                                    {
+                                      "id": "15d53173-cad5-4eb2-aa87-7a3f304be7e5",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            ":token"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            },
+                                            {
+                                              "key": "token"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-15d53173-cad5-4eb2-aa87-7a3f304be7e5"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-7e801196-c23c-47fd-95da-2ffe18f5c276"
+                                }
+                              ],
+                              "id": "0697ef85-f9ff-4c7f-8cd4-7e20150c79a5",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-0697ef85-f9ff-4c7f-8cd4-7e20150c79a5"
+                            },
+                            {
+                              "name": "{token}:acknowledge",
+                              "item": [
+                                {
+                                  "name": "Acknowledge a Subscription Purchase",
+                                  "id": "a94c38c0-5e19-419b-9902-c014d3336a86",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:acknowledge",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptions",
+                                        ":subscriptionId",
+                                        "tokens",
+                                        "{{token}}:acknowledge"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "a98b7a66-3921-4715-ad53-2dc385516f46",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "7bb13841-05cc-4597-b3c1-c7f7f6dec86f",
+                                          "key": "subscriptionId",
+                                          "value": "<string>",
+                                          "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Acknowledges a subscription purchase. Subscriptions that are not acknowledged within three days are automatically refunded."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "08147307-cfcc-4f34-b255-0a71b53dc894",
+                                      "name": "Subscription purchase acknowledged successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-08147307-cfcc-4f34-b255-0a71b53dc894"
+                                    },
+                                    {
+                                      "id": "9b12a835-1eaf-4d3e-9c68-001be631c1cc",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-9b12a835-1eaf-4d3e-9c68-001be631c1cc"
+                                    },
+                                    {
+                                      "id": "e91b4be1-f48d-4be1-96a5-2c23a45ef811",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:acknowledge",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:acknowledge"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-e91b4be1-f48d-4be1-96a5-2c23a45ef811"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-a94c38c0-5e19-419b-9902-c014d3336a86"
+                                }
+                              ],
+                              "id": "deb835be-8fde-4c33-aca6-5817818b0cf6",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-deb835be-8fde-4c33-aca6-5817818b0cf6"
+                            },
+                            {
+                              "name": "{token}:cancel",
+                              "item": [
+                                {
+                                  "name": "Cancel a Subscription Purchase",
+                                  "id": "fedd309a-8632-485b-ae3f-c0336d32e033",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:cancel",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptions",
+                                        ":subscriptionId",
+                                        "tokens",
+                                        "{{token}}:cancel"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "85e25921-c9f6-4d54-8b94-4802c5f6ac92",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "ccd07f1b-0c04-4651-b854-0f3945455753",
+                                          "key": "subscriptionId",
+                                          "value": "<string>",
+                                          "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Cancels a user's subscription purchase. The subscription remains valid until its expiration time and will not be auto-renewed."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "b16c1236-62f3-4341-9904-a2c16d83d431",
+                                      "name": "Subscription cancelled successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:cancel",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:cancel"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-b16c1236-62f3-4341-9904-a2c16d83d431"
+                                    },
+                                    {
+                                      "id": "eeec0e12-b164-455b-9c7e-81a1af54a341",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:cancel",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:cancel"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-eeec0e12-b164-455b-9c7e-81a1af54a341"
+                                    },
+                                    {
+                                      "id": "ddc23996-8ac2-403e-9cbb-b1c6596df1c2",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:cancel",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:cancel"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-ddc23996-8ac2-403e-9cbb-b1c6596df1c2"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-fedd309a-8632-485b-ae3f-c0336d32e033"
+                                }
+                              ],
+                              "id": "b851f4b8-2f5e-4f84-b8d5-c3742ca3b4dc",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-b851f4b8-2f5e-4f84-b8d5-c3742ca3b4dc"
+                            },
+                            {
+                              "name": "{token}:defer",
+                              "item": [
+                                {
+                                  "name": "Defer a Subscription Purchase",
+                                  "id": "61c42752-971c-4b0a-bb4b-7510583a0b12",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"<int64>\",\n    \"desiredExpiryTimeMillis\": \"<int64>\"\n  }\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:defer",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptions",
+                                        ":subscriptionId",
+                                        "tokens",
+                                        "{{token}}:defer"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "73fa9cf0-e7f1-461e-b459-c2548bb378a3",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "ac5da7ab-8172-4e1b-b588-a546812e3122",
+                                          "key": "subscriptionId",
+                                          "value": "<string>",
+                                          "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Defers a user's subscription purchase until a specified future expiration time. The user retains access to the subscription content during the deferral period."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "c1c495df-8fa9-426a-a065-608a2036177a",
+                                      "name": "Subscription deferred successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"<int64>\",\n    \"desiredExpiryTimeMillis\": \"<int64>\"\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:defer",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:defer"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"newExpiryTimeMillis\": \"<int64>\"\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-c1c495df-8fa9-426a-a065-608a2036177a"
+                                    },
+                                    {
+                                      "id": "ce752b3f-bf4d-48c1-9e91-ed31f4d750aa",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"<int64>\",\n    \"desiredExpiryTimeMillis\": \"<int64>\"\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:defer",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:defer"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-ce752b3f-bf4d-48c1-9e91-ed31f4d750aa"
+                                    },
+                                    {
+                                      "id": "ad4e93dc-106b-41f6-947f-2d5de9a865e3",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"<int64>\",\n    \"desiredExpiryTimeMillis\": \"<int64>\"\n  }\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:defer",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:defer"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-ad4e93dc-106b-41f6-947f-2d5de9a865e3"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-61c42752-971c-4b0a-bb4b-7510583a0b12"
+                                }
+                              ],
+                              "id": "81c52cbd-881f-412f-943a-47cf8846ca1d",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-81c52cbd-881f-412f-943a-47cf8846ca1d"
+                            },
+                            {
+                              "name": "{token}:revoke",
+                              "item": [
+                                {
+                                  "name": "Revoke a Subscription Purchase",
+                                  "id": "3dd6aea7-76b8-43c0-a2c2-0e7d989a5698",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:revoke",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptions",
+                                        ":subscriptionId",
+                                        "tokens",
+                                        "{{token}}:revoke"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "ec706938-a578-4a75-a36b-0a72f0974dc7",
+                                          "key": "packageName",
+                                          "value": "<string>",
+                                          "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                        },
+                                        {
+                                          "id": "67ae3abb-a05d-4646-9d3b-42e5a0cfca3a",
+                                          "key": "subscriptionId",
+                                          "value": "<string>",
+                                          "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Refunds and immediately revokes a user's subscription purchase. Access to the subscription is terminated immediately and a refund is issued. This cannot be undone."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "4175eec3-6cb4-4391-8b96-10641b65709c",
+                                      "name": "Subscription revoked and refunded successfully",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:revoke",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:revoke"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "No Content",
+                                      "code": 204,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-4175eec3-6cb4-4391-8b96-10641b65709c"
+                                    },
+                                    {
+                                      "id": "1aea6174-b563-4ce6-ba98-4fcd188ee098",
+                                      "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:revoke",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:revoke"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unauthorized",
+                                      "code": 401,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-1aea6174-b563-4ce6-ba98-4fcd188ee098"
+                                    },
+                                    {
+                                      "id": "8193594a-7297-440c-a061-83ef8a9e93f4",
+                                      "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: oauth2",
+                                            "key": "Authorization",
+                                            "value": "<token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/{{token}}:revoke",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "applications",
+                                            ":packageName",
+                                            "purchases",
+                                            "subscriptions",
+                                            ":subscriptionId",
+                                            "tokens",
+                                            "{{token}}:revoke"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "packageName"
+                                            },
+                                            {
+                                              "key": "subscriptionId"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T01:00:51.000Z",
+                                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                                      "uid": "35240-8193594a-7297-440c-a061-83ef8a9e93f4"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-3dd6aea7-76b8-43c0-a2c2-0e7d989a5698"
+                                }
+                              ],
+                              "id": "9ce55c70-e770-4749-b273-2b6ec95efe17",
+                              "createdAt": "2026-07-28T01:00:50.000Z",
+                              "updatedAt": "2026-07-28T01:00:50.000Z",
+                              "uid": "35240-9ce55c70-e770-4749-b273-2b6ec95efe17"
+                            }
+                          ],
+                          "id": "42121088-646f-4107-86ff-70ec1285565b",
+                          "createdAt": "2026-07-28T01:00:50.000Z",
+                          "updatedAt": "2026-07-28T01:00:50.000Z",
+                          "uid": "35240-42121088-646f-4107-86ff-70ec1285565b"
+                        }
+                      ],
+                      "id": "87b8f181-03e9-4206-845c-db4c58ef1a77",
+                      "createdAt": "2026-07-28T01:00:50.000Z",
+                      "updatedAt": "2026-07-28T01:00:50.000Z",
+                      "uid": "35240-87b8f181-03e9-4206-845c-db4c58ef1a77"
+                    }
+                  ],
+                  "id": "0d4219df-3fff-4e98-87ce-6b2f64466c56",
+                  "createdAt": "2026-07-28T01:00:50.000Z",
+                  "updatedAt": "2026-07-28T01:00:50.000Z",
+                  "uid": "35240-0d4219df-3fff-4e98-87ce-6b2f64466c56"
+                },
+                {
+                  "name": "subscriptionsv2",
+                  "item": [
+                    {
+                      "name": "tokens",
+                      "item": [
+                        {
+                          "name": "{token}",
+                          "item": [
+                            {
+                              "name": "Get Subscription Purchase V2",
+                              "id": "f36cce19-e910-436d-9e7c-0b1db403e513",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "applications",
+                                    ":packageName",
+                                    "purchases",
+                                    "subscriptionsv2",
+                                    "tokens",
+                                    ":token"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "804a53aa-0c8e-4220-b082-58e6225b0121",
+                                      "key": "packageName",
+                                      "value": "<string>",
+                                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                                    },
+                                    {
+                                      "id": "d348205b-1874-4463-8f2f-535ccc65fcbd",
+                                      "key": "token",
+                                      "value": "<string>",
+                                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                                    }
+                                  ]
+                                },
+                                "description": "Gets the latest subscription purchase state using the Purchases Subscriptions v2 API. Returns detailed information about the subscription including line items, external account identifiers, and subscription state."
+                              },
+                              "response": [
+                                {
+                                  "id": "37efd285-ace1-42b0-ba57-b74f5289f21a",
+                                  "name": "Successful response with subscription purchase v2 details",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptionsv2",
+                                        "tokens",
+                                        ":token"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "packageName"
+                                        },
+                                        {
+                                          "key": "token"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"kind\": \"<string>\",\n  \"regionCode\": \"<string>\",\n  \"latestOrderId\": \"<string>\",\n  \"lineItems\": [\n    {\n      \"productId\": \"<string>\",\n      \"expiryTime\": \"<dateTime>\",\n      \"autoRenewingPlan\": {\n        \"autoRenewEnabled\": \"<boolean>\"\n      },\n      \"prepaidPlan\": {\n        \"allowExtendAfterTime\": \"<dateTime>\"\n      },\n      \"offerDetails\": {\n        \"offerTags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"basePlanId\": \"<string>\",\n        \"offerId\": \"<string>\"\n      }\n    },\n    {\n      \"productId\": \"<string>\",\n      \"expiryTime\": \"<dateTime>\",\n      \"autoRenewingPlan\": {\n        \"autoRenewEnabled\": \"<boolean>\"\n      },\n      \"prepaidPlan\": {\n        \"allowExtendAfterTime\": \"<dateTime>\"\n      },\n      \"offerDetails\": {\n        \"offerTags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"basePlanId\": \"<string>\",\n        \"offerId\": \"<string>\"\n      }\n    }\n  ],\n  \"startTime\": \"<dateTime>\",\n  \"subscriptionState\": \"SUBSCRIPTION_STATE_ON_HOLD\",\n  \"linkedPurchaseToken\": \"<string>\",\n  \"pausedStateContext\": {\n    \"autoResumeTime\": \"<dateTime>\"\n  },\n  \"canceledStateContext\": {\n    \"userInitiatedCancellation\": {\n      \"finishTime\": \"<dateTime>\"\n    },\n    \"systemInitiatedCancellation\": {},\n    \"developerInitiatedCancellation\": {},\n    \"replacementCancellation\": {}\n  },\n  \"acknowledgementState\": \"ACKNOWLEDGEMENT_STATE_UNSPECIFIED\",\n  \"externalAccountIdentifiers\": {\n    \"externalAccountId\": \"<string>\",\n    \"obfuscatedExternalAccountId\": \"<string>\",\n    \"obfuscatedExternalProfileId\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-37efd285-ace1-42b0-ba57-b74f5289f21a"
+                                },
+                                {
+                                  "id": "18d233fc-efe1-41aa-a808-51b700ce8bcf",
+                                  "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptionsv2",
+                                        "tokens",
+                                        ":token"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "packageName"
+                                        },
+                                        {
+                                          "key": "token"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unauthorized",
+                                  "code": 401,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-18d233fc-efe1-41aa-a808-51b700ce8bcf"
+                                },
+                                {
+                                  "id": "d24e788c-deb1-4379-be34-54b16b5dec01",
+                                  "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: oauth2",
+                                        "key": "Authorization",
+                                        "value": "<token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "applications",
+                                        ":packageName",
+                                        "purchases",
+                                        "subscriptionsv2",
+                                        "tokens",
+                                        ":token"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "packageName"
+                                        },
+                                        {
+                                          "key": "token"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                                  "createdAt": "2026-07-28T01:00:51.000Z",
+                                  "updatedAt": "2026-07-28T01:00:51.000Z",
+                                  "uid": "35240-d24e788c-deb1-4379-be34-54b16b5dec01"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:00:51.000Z",
+                              "updatedAt": "2026-07-28T01:00:51.000Z",
+                              "uid": "35240-f36cce19-e910-436d-9e7c-0b1db403e513"
+                            }
+                          ],
+                          "id": "e38bcfbd-e11e-4a0b-9a2e-b0a7dd9f2aa4",
+                          "createdAt": "2026-07-28T01:00:50.000Z",
+                          "updatedAt": "2026-07-28T01:00:50.000Z",
+                          "uid": "35240-e38bcfbd-e11e-4a0b-9a2e-b0a7dd9f2aa4"
+                        }
+                      ],
+                      "id": "0bd3349f-c5f2-4528-b90b-752198b6b130",
+                      "createdAt": "2026-07-28T01:00:50.000Z",
+                      "updatedAt": "2026-07-28T01:00:50.000Z",
+                      "uid": "35240-0bd3349f-c5f2-4528-b90b-752198b6b130"
+                    }
+                  ],
+                  "id": "3c171c32-3c15-4d89-9769-2753280c9b26",
+                  "createdAt": "2026-07-28T01:00:50.000Z",
+                  "updatedAt": "2026-07-28T01:00:50.000Z",
+                  "uid": "35240-3c171c32-3c15-4d89-9769-2753280c9b26"
+                },
+                {
+                  "name": "voidedpurchases",
+                  "item": [
+                    {
+                      "name": "List Voided Purchases",
+                      "id": "7efe5e68-e23b-4a18-a5b9-00819bb80d44",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:packageName/purchases/voidedpurchases?startTime=<int64>&endTime=<int64>&maxResults=<integer>&startIndex=<integer>&token=<string>&type=1",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":packageName",
+                            "purchases",
+                            "voidedpurchases"
+                          ],
+                          "query": [
+                            {
+                              "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time.",
+                              "key": "startTime",
+                              "value": "<int64>"
+                            },
+                            {
+                              "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return.",
+                              "key": "endTime",
+                              "value": "<int64>"
+                            },
+                            {
+                              "description": "Maximum number of results to return. Default and maximum is 1000.",
+                              "key": "maxResults",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Index of the first result to return.",
+                              "key": "startIndex",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Continuation token for paging through results.",
+                              "key": "token",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases.",
+                              "key": "type",
+                              "value": "1"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "b3efc444-a603-4a4c-8e18-2ca3f42aafcc",
+                              "key": "packageName",
+                              "value": "<string>",
+                              "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                            }
+                          ]
+                        },
+                        "description": "Lists the purchases that were cancelled, refunded, or charged back. Voided purchases include both in-app product purchases and subscription purchases."
+                      },
+                      "response": [
+                        {
+                          "id": "0e40a6d5-c6c7-4532-9a77-91c62ccff3f9",
+                          "name": "Successful response with list of voided purchases",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/purchases/voidedpurchases?startTime=<int64>&endTime=<int64>&maxResults=<integer>&startIndex=<integer>&token=<string>&type=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "purchases",
+                                "voidedpurchases"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time.",
+                                  "key": "startTime",
+                                  "value": "<int64>"
+                                },
+                                {
+                                  "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return.",
+                                  "key": "endTime",
+                                  "value": "<int64>"
+                                },
+                                {
+                                  "description": "Maximum number of results to return. Default and maximum is 1000.",
+                                  "key": "maxResults",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Index of the first result to return.",
+                                  "key": "startIndex",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Continuation token for paging through results.",
+                                  "key": "token",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases.",
+                                  "key": "type",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"pageInfo\": {\n    \"totalResults\": \"<integer>\",\n    \"resultPerPage\": \"<integer>\",\n    \"startIndex\": \"<integer>\"\n  },\n  \"tokenPagination\": {\n    \"nextPageToken\": \"<string>\",\n    \"previousPageToken\": \"<string>\"\n  },\n  \"voidedPurchases\": [\n    {\n      \"kind\": \"<string>\",\n      \"purchaseToken\": \"<string>\",\n      \"purchaseTimeMillis\": \"<int64>\",\n      \"voidedTimeMillis\": \"<int64>\",\n      \"orderId\": \"<string>\",\n      \"voidedSource\": 2,\n      \"voidedReason\": 3,\n      \"voidedQuantity\": \"<integer>\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"purchaseToken\": \"<string>\",\n      \"purchaseTimeMillis\": \"<int64>\",\n      \"voidedTimeMillis\": \"<int64>\",\n      \"orderId\": \"<string>\",\n      \"voidedSource\": 1,\n      \"voidedReason\": 6,\n      \"voidedQuantity\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:00:51.000Z",
+                          "updatedAt": "2026-07-28T01:00:51.000Z",
+                          "uid": "35240-0e40a6d5-c6c7-4532-9a77-91c62ccff3f9"
+                        },
+                        {
+                          "id": "55f49c21-5a2f-4162-982b-7dfdce77e209",
+                          "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/applications/:packageName/purchases/voidedpurchases?startTime=<int64>&endTime=<int64>&maxResults=<integer>&startIndex=<integer>&token=<string>&type=1",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "applications",
+                                ":packageName",
+                                "purchases",
+                                "voidedpurchases"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time.",
+                                  "key": "startTime",
+                                  "value": "<int64>"
+                                },
+                                {
+                                  "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return.",
+                                  "key": "endTime",
+                                  "value": "<int64>"
+                                },
+                                {
+                                  "description": "Maximum number of results to return. Default and maximum is 1000.",
+                                  "key": "maxResults",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Index of the first result to return.",
+                                  "key": "startIndex",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Continuation token for paging through results.",
+                                  "key": "token",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases.",
+                                  "key": "type",
+                                  "value": "1"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "packageName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": {\n    \"code\": \"<integer>\",\n    \"message\": \"<string>\",\n    \"status\": \"<string>\",\n    \"errors\": [\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      },\n      {\n        \"message\": \"<string>\",\n        \"domain\": \"<string>\",\n        \"reason\": \"<string>\"\n      }\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T01:00:51.000Z",
+                          "updatedAt": "2026-07-28T01:00:51.000Z",
+                          "uid": "35240-55f49c21-5a2f-4162-982b-7dfdce77e209"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:00:51.000Z",
+                      "updatedAt": "2026-07-28T01:00:51.000Z",
+                      "uid": "35240-7efe5e68-e23b-4a18-a5b9-00819bb80d44"
+                    }
+                  ],
+                  "id": "3de9db0b-0e8d-4b6a-a4d2-18d14233e8f3",
+                  "createdAt": "2026-07-28T01:00:50.000Z",
+                  "updatedAt": "2026-07-28T01:00:50.000Z",
+                  "uid": "35240-3de9db0b-0e8d-4b6a-a4d2-18d14233e8f3"
+                }
+              ],
+              "id": "3c7e9c45-8bc0-40c8-9391-4adeae8777e4",
+              "createdAt": "2026-07-28T01:00:50.000Z",
+              "updatedAt": "2026-07-28T01:00:50.000Z",
+              "uid": "35240-3c7e9c45-8bc0-40c8-9391-4adeae8777e4"
+            }
+          ],
+          "id": "e0f7ac07-8fc1-4f67-9327-701d3723cea5",
+          "createdAt": "2026-07-28T01:00:50.000Z",
+          "updatedAt": "2026-07-28T01:00:50.000Z",
+          "uid": "35240-e0f7ac07-8fc1-4f67-9327-701d3723cea5"
+        }
+      ],
+      "id": "18436c4f-fb5f-4f93-8016-21306959a45a",
+      "createdAt": "2026-07-28T01:00:50.000Z",
+      "updatedAt": "2026-07-28T01:00:50.000Z",
+      "uid": "35240-18436c4f-fb5f-4f93-8016-21306959a45a"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "androidpublisher",
+        "type": "string"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth",
+        "type": "string"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://androidpublisher.googleapis.com/androidpublisher/v3"
+    },
+    {
+      "key": "token",
+      "value": "<string>"
+    }
+  ]
+}
