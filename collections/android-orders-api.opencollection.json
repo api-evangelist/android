@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Play Developer Orders API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refund an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/orders/:orderId:refund",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "orderId",
+                "value": "500123",
+                "type": "path",
+                "description": "The order ID from Google Play."
+              },
+              {
+                "name": "revoke",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to revoke the purchased item. If true, access to the subscription or in-app product is terminated immediately."
+              }
+            ]
+          },
+          "docs": "Refunds a user's subscription or in-app purchase order. This initiates a refund through Google Play and the user retains access until the end of the current billing period for subscriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

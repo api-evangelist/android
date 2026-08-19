@@ -1,0 +1,370 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Play Developer Orders Purchases API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get In-app Product Purchase Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Checks the purchase and consumption status of an in-app product. Returns the purchase details including the purchase state, consumption state, and order ID."
+        },
+        {
+          "info": {
+            "name": "Acknowledge an In-app Product Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token:acknowledge",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges a purchase of an in-app item. Purchases that are not acknowledged within three days are automatically refunded."
+        },
+        {
+          "info": {
+            "name": "Consume an In-app Product Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/products/:productId/tokens/:token:consume",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Consumes a purchase for an in-app item. Consumed purchases can be purchased again, making this appropriate for consumable items."
+        },
+        {
+          "info": {
+            "name": "Get Subscription Purchase Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Checks whether a user's subscription purchase is valid and returns its expiry time. Includes information about auto-renewal status, payment state, cancellation reason, and linked purchase token."
+        },
+        {
+          "info": {
+            "name": "Acknowledge a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:acknowledge",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Acknowledges a subscription purchase. Subscriptions that are not acknowledged within three days are automatically refunded."
+        },
+        {
+          "info": {
+            "name": "Cancel a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:cancel",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Cancels a user's subscription purchase. The subscription remains valid until its expiration time and will not be auto-renewed."
+        },
+        {
+          "info": {
+            "name": "Defer a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:defer",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Defers a user's subscription purchase until a specified future expiration time. The user retains access to the subscription content during the deferral period."
+        },
+        {
+          "info": {
+            "name": "Revoke a Subscription Purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptions/:subscriptionId/tokens/:token:revoke",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The subscription ID (e.g., monthly_sub)."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Refunds and immediately revokes a user's subscription purchase. Access to the subscription is terminated immediately and a refund is issued. This cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Get Subscription Purchase V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/subscriptionsv2/tokens/:token",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+              }
+            ]
+          },
+          "docs": "Gets the latest subscription purchase state using the Purchases Subscriptions v2 API. Returns detailed information about the subscription including line items, external account identifiers, and subscription state."
+        },
+        {
+          "info": {
+            "name": "List Voided Purchases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://androidpublisher.googleapis.com/androidpublisher/v3/applications/:packageName/purchases/voidedpurchases",
+            "params": [
+              {
+                "name": "packageName",
+                "value": "",
+                "type": "path",
+                "description": "The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+              },
+              {
+                "name": "startTime",
+                "value": "example_value",
+                "type": "query",
+                "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time."
+              },
+              {
+                "name": "endTime",
+                "value": "example_value",
+                "type": "query",
+                "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return."
+              },
+              {
+                "name": "maxResults",
+                "value": "10",
+                "type": "query",
+                "description": "Maximum number of results to return. Default and maximum is 1000."
+              },
+              {
+                "name": "startIndex",
+                "value": "10",
+                "type": "query",
+                "description": "Index of the first result to return."
+              },
+              {
+                "name": "token",
+                "value": "example_value",
+                "type": "query",
+                "description": "Continuation token for paging through results."
+              },
+              {
+                "name": "type",
+                "value": "0",
+                "type": "query",
+                "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases."
+              }
+            ]
+          },
+          "docs": "Lists the purchases that were cancelled, refunded, or charged back. Voided purchases include both in-app product purchases and subscription purchases."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

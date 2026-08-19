@@ -1,0 +1,2679 @@
+{
+  "item": [
+    {
+      "id": "27736d97-2811-425c-9c47-8f50145d9fe5",
+      "name": "Purchases",
+      "description": {
+        "content": "Manage in-app product and subscription purchases, including verification, acknowledgment, and consumption of purchase tokens.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08cc647b-7234-45f4-bd90-6ded5442545a",
+          "name": "Get In-app Product Purchase Status",
+          "request": {
+            "name": "Get In-app Product Purchase Status",
+            "description": {
+              "content": "Checks the purchase and consumption status of an in-app product. Returns the purchase details including the purchase state, consumption state, and order ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "products",
+                ":productId",
+                "tokens",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productId",
+                  "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c211626-59d2-41f0-b5fe-3ee946fed710",
+              "name": "Successful response with product purchase details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"kind\": \"example_value\",\n  \"purchaseTimeMillis\": \"example_value\",\n  \"purchaseState\": 0,\n  \"consumptionState\": 0,\n  \"developerPayload\": \"example_value\",\n  \"orderId\": \"500123\",\n  \"purchaseType\": 0,\n  \"acknowledgementState\": 0,\n  \"purchaseToken\": \"example_value\",\n  \"productId\": \"500123\",\n  \"quantity\": 10,\n  \"obfuscatedExternalAccountId\": \"500123\",\n  \"obfuscatedExternalProfileId\": \"500123\",\n  \"regionCode\": \"example_value\",\n  \"refundableQuantity\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecbca561-ad2d-4502-9da4-b03333622e85",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 5095,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f7a1703-42a8-4eeb-af8f-46324f4aeddb",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 5095,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ef9c76f-9096-4f05-822c-f9e7eb3f1a82",
+          "name": "Acknowledge an In-app Product Purchase",
+          "request": {
+            "name": "Acknowledge an In-app Product Purchase",
+            "description": {
+              "content": "Acknowledges a purchase of an in-app item. Purchases that are not acknowledged within three days are automatically refunded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "products",
+                ":productId",
+                "tokens",
+                "{{token}}:acknowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productId",
+                  "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c1cc498f-99ee-4897-925d-b78c37bea638",
+              "name": "Purchase acknowledged successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7c2b7e4-a287-47ed-97ea-374b904c6613",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a873e1d7-0fd6-42ad-ab55-6bdd7a1e4e47",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62d7ad7f-1916-41cf-9882-6736e67feafc",
+          "name": "Consume an In-app Product Purchase",
+          "request": {
+            "name": "Consume an In-app Product Purchase",
+            "description": {
+              "content": "Consumes a purchase for an in-app item. Consumed purchases can be purchased again, making this appropriate for consumable items.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "products",
+                ":productId",
+                "tokens",
+                "{{token}}:consume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productId",
+                  "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6573384-cd3b-4ef4-8d9e-68be89260327",
+              "name": "Purchase consumed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:consume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22141cc0-6b35-4526-adc6-9519b4e7f0d5",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:consume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c686849-ddeb-46cc-9c9c-7c2cf0bd83bc",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "products",
+                    ":productId",
+                    "tokens",
+                    "{{token}}:consume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productId",
+                      "description": "(Required) The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60861659-ec5b-4ac5-84e9-4e0f12e6d37b",
+          "name": "Get Subscription Purchase Status",
+          "request": {
+            "name": "Get Subscription Purchase Status",
+            "description": {
+              "content": "Checks whether a user's subscription purchase is valid and returns its expiry time. Includes information about auto-renewal status, payment state, cancellation reason, and linked purchase token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptions",
+                ":subscriptionId",
+                "tokens",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53155a8a-9031-4bab-b98c-fe9798bfeb85",
+              "name": "Successful response with subscription purchase details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"kind\": \"example_value\",\n  \"startTimeMillis\": \"example_value\",\n  \"expiryTimeMillis\": \"example_value\",\n  \"userCancellationTimeMillis\": \"example_value\",\n  \"autoRenewing\": true,\n  \"priceCurrencyCode\": \"example_value\",\n  \"priceAmountMicros\": \"example_value\",\n  \"introductoryPriceInfo\": {\n    \"introductoryPriceCurrencyCode\": \"example_value\",\n    \"introductoryPriceAmountMicros\": \"example_value\",\n    \"introductoryPricePeriod\": \"example_value\",\n    \"introductoryPriceCycles\": 10\n  },\n  \"countryCode\": \"example_value\",\n  \"developerPayload\": \"example_value\",\n  \"paymentState\": 0,\n  \"cancelReason\": 0,\n  \"linkedPurchaseToken\": \"example_value\",\n  \"purchaseType\": 0,\n  \"orderId\": \"500123\",\n  \"acknowledgementState\": 0,\n  \"externalAccountId\": \"500123\",\n  \"promotionType\": 0,\n  \"promotionCode\": \"example_value\",\n  \"obfuscatedExternalAccountId\": \"500123\",\n  \"obfuscatedExternalProfileId\": \"500123\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93f8f389-1076-4344-bad9-dd60a3c9a8ce",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "943ee1bb-ff8b-4b0a-9c97-8e40c6053584",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28e5c2c1-7856-4646-babf-7f7f67768c7a",
+          "name": "Acknowledge a Subscription Purchase",
+          "request": {
+            "name": "Acknowledge a Subscription Purchase",
+            "description": {
+              "content": "Acknowledges a subscription purchase. Subscriptions that are not acknowledged within three days are automatically refunded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptions",
+                ":subscriptionId",
+                "tokens",
+                "{{token}}:acknowledge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"developerPayload\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aed10caa-5984-4819-a3ae-a3372235dbf7",
+              "name": "Subscription purchase acknowledged successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4a07974-3705-4f19-8932-7e6677fc53f8",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70f6fc50-5dd2-459f-a859-4b24fe1ebd31",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:acknowledge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"developerPayload\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99602aec-b879-400f-86da-0c6daa8f17c7",
+          "name": "Cancel a Subscription Purchase",
+          "request": {
+            "name": "Cancel a Subscription Purchase",
+            "description": {
+              "content": "Cancels a user's subscription purchase. The subscription remains valid until its expiration time and will not be auto-renewed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptions",
+                ":subscriptionId",
+                "tokens",
+                "{{token}}:cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5214210b-daec-4fd5-ab15-c9f12c2d75e2",
+              "name": "Subscription cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05b1ed5c-7ceb-4023-8b07-2fda29e2e3a7",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f81974c-bf10-4562-8767-3c5c966cc0db",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ac2d067-2e9b-44df-b9e3-8cafb85a3133",
+          "name": "Defer a Subscription Purchase",
+          "request": {
+            "name": "Defer a Subscription Purchase",
+            "description": {
+              "content": "Defers a user's subscription purchase until a specified future expiration time. The user retains access to the subscription content during the deferral period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptions",
+                ":subscriptionId",
+                "tokens",
+                "{{token}}:defer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"<int64>\",\n    \"desiredExpiryTimeMillis\": \"<int64>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "71570918-b0d7-45fc-953f-1b57eaabb889",
+              "name": "Subscription deferred successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:defer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"example_value\",\n    \"desiredExpiryTimeMillis\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"newExpiryTimeMillis\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df9f6372-d166-4418-84d1-72d826e56d7a",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:defer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"example_value\",\n    \"desiredExpiryTimeMillis\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcdc0d7c-cd31-4be3-b70a-55a7ffcca8ff",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:defer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"deferralInfo\": {\n    \"expectedExpiryTimeMillis\": \"example_value\",\n    \"desiredExpiryTimeMillis\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "434ea16e-1243-4b75-b83a-a4b59f71f65e",
+          "name": "Revoke a Subscription Purchase",
+          "request": {
+            "name": "Revoke a Subscription Purchase",
+            "description": {
+              "content": "Refunds and immediately revokes a user's subscription purchase. Access to the subscription is terminated immediately and a refund is issued. This cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptions",
+                ":subscriptionId",
+                "tokens",
+                "{{token}}:revoke"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3951f2d3-7e88-477b-9e94-c19242492203",
+              "name": "Subscription revoked and refunded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c777975-b698-4216-8bf1-724267a946ac",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a3e6864-ec56-4a69-b166-335c1124860c",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptions",
+                    ":subscriptionId",
+                    "tokens",
+                    "{{token}}:revoke"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The subscription ID (e.g., monthly_sub)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3709309-739f-4450-bc20-54e2f36979af",
+          "name": "Get Subscription Purchase V2",
+          "request": {
+            "name": "Get Subscription Purchase V2",
+            "description": {
+              "content": "Gets the latest subscription purchase state using the Purchases Subscriptions v2 API. Returns detailed information about the subscription including line items, external account identifiers, and subscription state.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "subscriptionsv2",
+                "tokens",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b2561734-0084-4b37-b75c-469c5abe07e1",
+              "name": "Successful response with subscription purchase v2 details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptionsv2",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"kind\": \"example_value\",\n  \"regionCode\": \"example_value\",\n  \"latestOrderId\": \"500123\",\n  \"lineItems\": [\n    {\n      \"productId\": \"500123\",\n      \"expiryTime\": \"2026-01-15T10:30:00Z\",\n      \"autoRenewingPlan\": {},\n      \"prepaidPlan\": {},\n      \"offerDetails\": {}\n    }\n  ],\n  \"startTime\": \"2026-01-15T10:30:00Z\",\n  \"subscriptionState\": \"SUBSCRIPTION_STATE_UNSPECIFIED\",\n  \"linkedPurchaseToken\": \"example_value\",\n  \"pausedStateContext\": {\n    \"autoResumeTime\": \"2026-01-15T10:30:00Z\"\n  },\n  \"canceledStateContext\": {\n    \"userInitiatedCancellation\": {\n      \"finishTime\": \"2026-01-15T10:30:00Z\"\n    },\n    \"systemInitiatedCancellation\": \"example_value\",\n    \"developerInitiatedCancellation\": \"example_value\",\n    \"replacementCancellation\": \"example_value\"\n  },\n  \"acknowledgementState\": \"ACKNOWLEDGEMENT_STATE_UNSPECIFIED\",\n  \"externalAccountIdentifiers\": {\n    \"externalAccountId\": \"500123\",\n    \"obfuscatedExternalAccountId\": \"500123\",\n    \"obfuscatedExternalProfileId\": \"500123\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bcd2ef9-2f77-420e-92fc-e3d986efd5dd",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptionsv2",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f00752c-7a1e-4319-b7b6-0e56493b9511",
+              "name": "The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "subscriptionsv2",
+                    "tokens",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f71717e1-288c-4abe-8657-b8c584638219",
+          "name": "List Voided Purchases",
+          "request": {
+            "name": "List Voided Purchases",
+            "description": {
+              "content": "Lists the purchases that were cancelled, refunded, or charged back. Voided purchases include both in-app product purchases and subscription purchases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":packageName",
+                "purchases",
+                "voidedpurchases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<int64>",
+                  "description": "The time (in milliseconds since Epoch) of the oldest voided purchase to return. Defaults to 30 days before the current time."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<int64>",
+                  "description": "The time (in milliseconds since Epoch) of the newest voided purchase to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return. Default and maximum is 1000."
+                },
+                {
+                  "disabled": false,
+                  "key": "startIndex",
+                  "value": "<integer>",
+                  "description": "Index of the first result to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "Continuation token for paging through results."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<integer>",
+                  "description": "The type of voided purchases to return. 0 for voided in-app product purchases, 1 for voided subscription purchases."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "packageName",
+                  "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "43274478-0625-4475-a084-8f5c341a22f0",
+              "name": "Successful response with list of voided purchases",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "voidedpurchases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "10"
+                    },
+                    {
+                      "key": "token",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "type",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pageInfo\": {\n    \"totalResults\": 10,\n    \"resultPerPage\": 10,\n    \"startIndex\": 10\n  },\n  \"tokenPagination\": {\n    \"nextPageToken\": \"example_value\",\n    \"previousPageToken\": \"example_value\"\n  },\n  \"voidedPurchases\": [\n    {\n      \"kind\": \"example_value\",\n      \"purchaseToken\": \"example_value\",\n      \"purchaseTimeMillis\": \"example_value\",\n      \"voidedTimeMillis\": \"example_value\",\n      \"orderId\": \"500123\",\n      \"voidedSource\": 0,\n      \"voidedReason\": 0,\n      \"voidedQuantity\": 10\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77e10831-2f96-4594-9598-46a277dccd7d",
+              "name": "Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":packageName",
+                    "purchases",
+                    "voidedpurchases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "10"
+                    },
+                    {
+                      "key": "startIndex",
+                      "value": "10"
+                    },
+                    {
+                      "key": "token",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "type",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "packageName",
+                      "description": "(Required) The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": 3876,\n    \"message\": \"string\",\n    \"status\": \"string\",\n    \"errors\": [\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      },\n      {\n        \"message\": \"string\",\n        \"domain\": \"string\",\n        \"reason\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://androidpublisher.googleapis.com/androidpublisher/v3",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "token"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "androidpublisher"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "298d4500-db68-48b4-83e8-2d96632cabcf",
+    "name": "Google Play Developer Orders Purchases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.\n\nContact Support:\n Name: Google Play Developer Support",
+      "type": "text/plain"
+    }
+  }
+}
