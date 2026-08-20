@@ -23,6 +23,16 @@ created: '2024-01-01'
 modified: '2026-06-20'
 specificationVersion: '0.23'
 tags:
+  - Artificial Intelligence
+  - Android
+  - Automotive
+  - Google
+  - Machine-Learning
+  - Mobile Development
+  - SDK
+  - TV
+  - Wearables
+tags_raw:
   - AI
   - Android
   - Automotive
@@ -186,6 +196,11 @@ apis:
   - Billing
   - In-App Purchases
   - Monetization
+  - Subscription
+  tags_raw:
+  - Billing
+  - In-App Purchases
+  - Monetization
   - Subscriptions
   properties:
   - type: Documentation
@@ -229,6 +244,14 @@ apis:
   humanURL: https://developers.google.com/ml-kit
   baseURL: https://developers.google.com/ml-kit
   tags:
+  - Barcode Scanning
+  - Face Detection
+  - Machine-Learning
+  - ML Kit
+  - On-Device
+  - Text Recognition
+  - Vision
+  tags_raw:
   - Barcode Scanning
   - Face Detection
   - Machine Learning
@@ -434,6 +457,13 @@ apis:
   - Identity
   - Passkeys
   - Security
+  - Sign In
+  tags_raw:
+  - Authentication
+  - Credentials
+  - Identity
+  - Passkeys
+  - Security
   - Sign-In
   properties:
   - type: Documentation
@@ -449,6 +479,13 @@ apis:
   humanURL: https://developer.android.com/ai/gemini-nano
   baseURL: https://developer.android.com/ai
   tags:
+  - Artificial Intelligence
+  - Gemini Nano
+  - Generative AI
+  - LLM
+  - Machine-Learning
+  - On-Device
+  tags_raw:
   - AI
   - Gemini Nano
   - Generative AI
@@ -468,6 +505,12 @@ apis:
   humanURL: https://developer.android.com/ai/gemini/developer-api
   baseURL: https://developer.android.com/ai
   tags:
+  - Artificial Intelligence
+  - Cloud
+  - Gemini
+  - Generative AI
+  - LLM
+  tags_raw:
   - AI
   - Cloud
   - Gemini
@@ -487,6 +530,8 @@ apis:
   humanURL: https://developer.android.com/reference
   baseURL: https://developer.android.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -551,6 +596,8 @@ apis:
   humanURL: https://developer.android.com/reference
   baseURL: https://developer.android.com
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
