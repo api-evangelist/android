@@ -15,8 +15,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: googlePlayDeveloperApi
-  url: ../openapi/google-play-developer-api.yml
+- name: subscriptionsApi
+  url: ../openapi/android-subscriptions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: audit-update-subscription

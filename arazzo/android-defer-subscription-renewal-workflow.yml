@@ -15,8 +15,8 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: googlePlayDeveloperApi
-  url: ../openapi/google-play-developer-api.yml
+- name: purchasesApi
+  url: ../openapi/android-purchases-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: defer-subscription-renewal

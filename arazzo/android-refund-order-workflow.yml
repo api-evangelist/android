@@ -14,8 +14,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: googlePlayDeveloperApi
-  url: ../openapi/google-play-developer-api.yml
+- name: ordersApi
+  url: ../openapi/android-orders-api-openapi.yml
+  type: openapi
+- name: purchasesApi
+  url: ../openapi/android-purchases-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: refund-order
