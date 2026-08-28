@@ -1,6 +1,18 @@
 aid: android
 name: Android
 description: Collection of APIs and services available in the Android ecosystem.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -613,6 +625,9 @@ apis:
   - type: ReleaseNotes
     url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
 common:
+  - type: CapabilityMap
+    url: capabilities/android-capability-edges.yml
+    name: Android Business Capability Map
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/android/overview
   - type: AgenticAccess
