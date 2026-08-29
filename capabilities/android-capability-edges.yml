@@ -3,8 +3,7 @@ provider: Android
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Banking & Capital Markets
-- Software & Technology
+- Healthcare Providers
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -12,27 +11,34 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 2
+edge_count: 3
 edges:
-- tag: Purchases
-  spec_file: android-purchases-api-openapi.yml
-  capability_id: BC-4240
-  capability_id_l1: BC-4240
-  capability_name: Subscription Lifecycle Management
-  confidence: 0.75
-  evidence: GET /applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}  getPurchaseSubscription  Get
-    Subscription Purchase Status; POST ...:cancel  cancelPurchaseSubscription
-  reason: Operations validate purchase/subscription state, acknowledge and consume entitlements, and cancel,
-    defer or revoke subscription purchases — the runtime subscription entitlement and in-life change surface.
-    Spans entitlement enforcement, modification and cancellation, so mapped at L1 only.
 - tag: Subscriptions
   spec_file: android-subscriptions-api-openapi.yml
   capability_id: BC-4240.10
   capability_id_l1: BC-4240
   capability_name: Plan & Entitlement Design
+  confidence: 0.75
+  evidence: 'Create a Subscription Product; List Subscription Offers; schemas: BasePlan, SubscriptionOffer,
+    SubscriptionOfferPhase'
+  reason: CRUD over subscription products, base plans and offers (plan/entitlement design) alongside purchase-state
+    operations; plan definition dominates the monetization endpoints.
+- tag: Purchases
+  spec_file: android-purchases-api-openapi.yml
+  capability_id: BC-4240.70
+  capability_id_l1: BC-4240
+  capability_name: Entitlement Enforcement
   confidence: 0.7
-  evidence: POST /applications/{packageName}/monetization/subscriptions  createSubscription  Create a
-    Subscription Product; GET .../basePlans/{basePlanId}/offers  listSubscriptionOffers
-  reason: The tag manages subscription products, base plans and offers (schemas BasePlan, SubscriptionOffer,
-    SubscriptionListing), i.e. definition of subscription plans and their entitlements/pricing phases.
-    It also carries purchase-state operations, which tempers confidence in the specific L2.
+  evidence: Get In-app Product Purchase Status; Acknowledge an In-app Product Purchase; Cancel a Subscription
+    Purchase
+  reason: Validating and acknowledging purchase tokens to grant/revoke entitlements, plus cancel/defer/revoke
+    of subscription purchases — entitlement resolution and enforcement over subscription lifecycle.
+- tag: Reviews
+  spec_file: android-reviews-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.7
+  evidence: List App Reviews; POST .../reviews/{reviewId}:reply  Reply to a Review
+  reason: Retrieving and replying to end-user app reviews — voice-of-customer feedback handling; could
+    also read as customer inquiry response, hence moderate confidence.
