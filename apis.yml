@@ -469,7 +469,7 @@ apis:
   - Identity
   - Passkeys
   - Security
-  - Sign-In
+  - Sign In
   tags_raw:
   - Authentication
   - Credentials
