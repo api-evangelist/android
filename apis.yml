@@ -26,7 +26,7 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-image: https://www.android.com/static/images/logos/android-logo.png
+image: ''
 url: https://developer.android.com/reference
 type: Index
 position: Consumer
