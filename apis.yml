@@ -29,7 +29,7 @@ accessModel:
 image: ''
 url: https://developer.android.com/reference
 type: Index
-position: Consumer
+position: Consuming
 access: 3rd-Party
 created: '2024-01-01'
 modified: '2026-06-20'
@@ -644,8 +644,9 @@ common:
     url: well-known/android-well-known.yml
   - type: SecurityTxt
     url: well-known/android-security.txt
-  - type: MCPServer
+  - type: X-MCPServerCandidate
     url: mcp/android-mcp.yml
+    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
   - type: LLMsTxt
     url: llms/android-llms.txt
   - type: Overlay
