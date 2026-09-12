@@ -625,6 +625,8 @@ apis:
   - type: ReleaseNotes
     url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
 common:
+  - type: Website
+    url: https://www.android.com/
   - type: CapabilityMap
     url: capabilities/android-capability-edges.yml
     name: Android Business Capability Map
