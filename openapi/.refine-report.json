@@ -1,10 +1,7 @@
 {
   "provider": "android",
   "sources": [
-    "android-orders-api-openapi.yml",
-    "android-purchases-api-openapi.yml",
-    "android-reviews-api-openapi.yml",
-    "android-subscriptions-api-openapi.yml"
+    "_original/google-play-developer-api.yml"
   ],
   "outputs": [
     "android-orders-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "google-play-developer-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "android-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "android-purchases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "android-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "android-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Google Play Developer Orders Purchases API
+  title: Google Play Developer Purchases API
   description: The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.
   version: '3.0'
   termsOfService: https://developers.google.com/terms
@@ -447,6 +447,14 @@ components:
       schema:
         type: string
         example: com.example.myapp
+    productId:
+      name: productId
+      in: path
+      required: true
+      description: The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub).
+      schema:
+        type: string
+        example: premium_upgrade
     purchaseToken:
       name: token
       in: path
@@ -462,40 +470,28 @@ components:
       schema:
         type: string
         example: monthly_sub
-    productId:
-      name: productId
-      in: path
-      required: true
-      description: The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub).
-      schema:
-        type: string
-        example: premium_upgrade
   schemas:
-    SubscriptionPurchasesDeferRequest:
+    IntroductoryPriceInfo:
       type: object
-      description: Request body for deferring a subscription purchase.
+      description: Contains the introductory price information for a subscription.
       properties:
-        deferralInfo:
-          $ref: '#/components/schemas/SubscriptionDeferralInfo'
-      required:
-      - deferralInfo
-    SubscriptionDeferralInfo:
-      type: object
-      description: Contains the new desired expiry time for a subscription deferral.
-      properties:
-        expectedExpiryTimeMillis:
+        introductoryPriceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the introductory price.
+          example: example_value
+        introductoryPriceAmountMicros:
           type: string
           format: int64
-          description: The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.
+          description: Introductory price in micro-units of the currency.
           example: example_value
-        desiredExpiryTimeMillis:
+        introductoryPricePeriod:
           type: string
-          format: int64
-          description: The desired next expiry time to assign to the subscription. Must be later than the current expiry time.
+          description: Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month).
           example: example_value
-      required:
-      - expectedExpiryTimeMillis
-      - desiredExpiryTimeMillis
+        introductoryPriceCycles:
+          type: integer
+          description: Number of billing periods the introductory price applies for.
+          example: 10
     SubscriptionPurchaseLineItem:
       type: object
       description: An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.
@@ -537,43 +533,35 @@ components:
             offerId:
               type: string
           example: example_value
-    PageInfo:
+    SubscriptionPurchasesDeferResponse:
       type: object
-      description: Pagination information for list responses.
+      description: Response from deferring a subscription purchase.
       properties:
-        totalResults:
-          type: integer
-          description: Total number of results available.
-          example: 10
-        resultPerPage:
-          type: integer
-          description: Maximum number of results per page.
-          example: 10
-        startIndex:
-          type: integer
-          description: Index of the first result returned.
-          example: 10
-    IntroductoryPriceInfo:
-      type: object
-      description: Contains the introductory price information for a subscription.
-      properties:
-        introductoryPriceCurrencyCode:
-          type: string
-          description: ISO 4217 currency code for the introductory price.
-          example: example_value
-        introductoryPriceAmountMicros:
+        newExpiryTimeMillis:
           type: string
           format: int64
-          description: Introductory price in micro-units of the currency.
+          description: The new expiry time for the subscription.
           example: example_value
-        introductoryPricePeriod:
+    TokenPagination:
+      type: object
+      description: Token-based pagination for large result sets.
+      properties:
+        nextPageToken:
           type: string
-          description: Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month).
+          description: Token to retrieve the next page of results.
           example: example_value
-        introductoryPriceCycles:
-          type: integer
-          description: Number of billing periods the introductory price applies for.
-          example: 10
+        previousPageToken:
+          type: string
+          description: Token to retrieve the previous page of results.
+          example: example_value
+    SubscriptionPurchasesDeferRequest:
+      type: object
+      description: Request body for deferring a subscription purchase.
+      properties:
+        deferralInfo:
+          $ref: '#/components/schemas/SubscriptionDeferralInfo'
+      required:
+      - deferralInfo
     VoidedPurchasesListResponse:
       type: object
       description: Response containing a list of voided purchases.
@@ -669,15 +657,6 @@ components:
           type: integer
           description: The quantity eligible for refund.
           example: 10
-    SubscriptionPurchasesDeferResponse:
-      type: object
-      description: Response from deferring a subscription purchase.
-      properties:
-        newExpiryTimeMillis:
-          type: string
-          format: int64
-          description: The new expiry time for the subscription.
-          example: example_value
     SubscriptionPurchase:
       type: object
       description: Represents a subscription purchase. Contains the subscription state, expiry time, auto-renewal status, and cancellation details.
@@ -789,67 +768,6 @@ components:
           type: string
           description: Obfuscated user profile ID in the third-party service.
           example: '500123'
-    VoidedPurchase:
-      type: object
-      description: A purchase that has been voided (cancelled, refunded, or charged back).
-      properties:
-        kind:
-          type: string
-          description: Resource type identifier.
-          const: androidpublisher#voidedPurchase
-          example: example_value
-        purchaseToken:
-          type: string
-          description: The token which uniquely identifies the purchase.
-          example: example_value
-        purchaseTimeMillis:
-          type: string
-          format: int64
-          description: Time at which the purchase was made (milliseconds since Epoch).
-          example: example_value
-        voidedTimeMillis:
-          type: string
-          format: int64
-          description: Time at which the purchase was voided (milliseconds since Epoch).
-          example: example_value
-        orderId:
-          type: string
-          description: The order ID associated with the voided purchase.
-          example: '500123'
-        voidedSource:
-          type: integer
-          description: The source of the voiding. 0 = User, 1 = Developer, 2 = Google.
-          enum:
-          - 0
-          - 1
-          - 2
-          example: 0
-        voidedReason:
-          type: integer
-          description: The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          example: 0
-        voidedQuantity:
-          type: integer
-          description: The voided quantity as related to multi-quantity purchases.
-          example: 10
-    SubscriptionPurchasesAcknowledgeRequest:
-      type: object
-      description: Request body for acknowledging a subscription purchase.
-      properties:
-        developerPayload:
-          type: string
-          description: Payload to attach to the purchase after acknowledgement.
-          deprecated: true
-          example: example_value
     ProductPurchasesAcknowledgeRequest:
       type: object
       description: Request body for acknowledging an in-app product purchase.
@@ -859,17 +777,14 @@ components:
           description: Payload to attach to the purchase after it is acknowledged.
           deprecated: true
           example: example_value
-    TokenPagination:
+    SubscriptionPurchasesAcknowledgeRequest:
       type: object
-      description: Token-based pagination for large result sets.
+      description: Request body for acknowledging a subscription purchase.
       properties:
-        nextPageToken:
+        developerPayload:
           type: string
-          description: Token to retrieve the next page of results.
-          example: example_value
-        previousPageToken:
-          type: string
-          description: Token to retrieve the previous page of results.
+          description: Payload to attach to the purchase after acknowledgement.
+          deprecated: true
           example: example_value
     SubscriptionPurchaseV2:
       type: object
@@ -962,6 +877,75 @@ components:
             obfuscatedExternalProfileId:
               type: string
           example: example_value
+    SubscriptionDeferralInfo:
+      type: object
+      description: Contains the new desired expiry time for a subscription deferral.
+      properties:
+        expectedExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.
+          example: example_value
+        desiredExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The desired next expiry time to assign to the subscription. Must be later than the current expiry time.
+          example: example_value
+      required:
+      - expectedExpiryTimeMillis
+      - desiredExpiryTimeMillis
+    VoidedPurchase:
+      type: object
+      description: A purchase that has been voided (cancelled, refunded, or charged back).
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#voidedPurchase
+          example: example_value
+        purchaseToken:
+          type: string
+          description: The token which uniquely identifies the purchase.
+          example: example_value
+        purchaseTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the purchase was made (milliseconds since Epoch).
+          example: example_value
+        voidedTimeMillis:
+          type: string
+          format: int64
+          description: Time at which the purchase was voided (milliseconds since Epoch).
+          example: example_value
+        orderId:
+          type: string
+          description: The order ID associated with the voided purchase.
+          example: '500123'
+        voidedSource:
+          type: integer
+          description: The source of the voiding. 0 = User, 1 = Developer, 2 = Google.
+          enum:
+          - 0
+          - 1
+          - 2
+          example: 0
+        voidedReason:
+          type: integer
+          description: The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          example: 0
+        voidedQuantity:
+          type: integer
+          description: The voided quantity as related to multi-quantity purchases.
+          example: 10
     Error:
       type: object
       description: Error response from the API.
@@ -991,6 +975,22 @@ components:
                   reason:
                     type: string
           example: example_value
+    PageInfo:
+      type: object
+      description: Pagination information for list responses.
+      properties:
+        totalResults:
+          type: integer
+          description: Total number of results available.
+          example: 10
+        resultPerPage:
+          type: integer
+          description: Maximum number of results per page.
+          example: 10
+        startIndex:
+          type: integer
+          description: Index of the first result returned.
+          example: 10
   responses:
     Unauthorized:
       description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Google Play Developer Orders API
   description: The Google Play Developer API allows you to perform a number of publishing and app-management tasks. It includes the Subscriptions and In-App Purchases API, which lets you manage in-app purchases and subscriptions, and the Reviews API for retrieving and replying to user reviews. This specification covers the purchases, reviews, and subscriptions resources of the Google Play Developer API v3.
@@ -58,6 +58,15 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
   responses:
     NotFound:
       description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
@@ -101,15 +110,6 @@ components:
                   reason:
                     type: string
           example: example_value
-  parameters:
-    packageName:
-      name: packageName
-      in: path
-      required: true
-      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
-      schema:
-        type: string
-        example: com.example.myapp
   securitySchemes:
     oauth2:
       type: oauth2
