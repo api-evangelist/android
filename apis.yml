@@ -39,7 +39,7 @@ tags:
   - Android
   - Automotive
   - Google
-  - Machine-Learning
+  - Machine Learning
   - Mobile Development
   - SDK
   - TV
@@ -54,6 +54,7 @@ tags_raw:
   - SDK
   - TV
   - Wearables
+  - Machine-Learning
 apis:
 - name: Android Platform APIs
   description: Core Android framework APIs for building Android applications.
@@ -163,6 +164,12 @@ apis:
   - Architecture
   - Compose
   - Jetpack
+  - Library
+  - UI
+  tags_raw:
+  - Architecture
+  - Compose
+  - Jetpack
   - Libraries
   - UI
   properties:
@@ -258,7 +265,7 @@ apis:
   tags:
   - Barcode Scanning
   - Face Detection
-  - Machine-Learning
+  - Machine Learning
   - ML Kit
   - On-Device
   - Text Recognition
@@ -271,6 +278,7 @@ apis:
   - On-Device
   - Text Recognition
   - Vision
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://developers.google.com/ml-kit
@@ -446,6 +454,12 @@ apis:
   humanURL: https://developer.android.com/google/play/integrity
   baseURL: https://developer.android.com/google/play/integrity
   tags:
+  - Fraud Prevention
+  - Device Attestation
+  - Integrity
+  - Security
+  - Verification
+  tags_raw:
   - Anti-Fraud
   - Device Attestation
   - Integrity
@@ -495,7 +509,7 @@ apis:
   - Gemini Nano
   - Generative AI
   - LLM
-  - Machine-Learning
+  - Machine Learning
   - On-Device
   tags_raw:
   - AI
@@ -504,6 +518,7 @@ apis:
   - LLM
   - Machine Learning
   - On-Device
+  - Machine-Learning
   properties:
   - type: Documentation
     url: https://developer.android.com/ai/gemini-nano

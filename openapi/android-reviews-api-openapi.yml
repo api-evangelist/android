@@ -173,6 +173,96 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ReviewsListResponse:
+      type: object
+      description: Response containing a paginated list of reviews.
+      properties:
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        reviews:
+          type: array
+          description: List of reviews.
+          items:
+            $ref: '#/components/schemas/Review'
+          example: []
+    Review:
+      type: object
+      description: An individual review of an app on Google Play, containing the user comment and optional developer reply.
+      properties:
+        reviewId:
+          type: string
+          description: Unique identifier for the review.
+          example: '500123'
+        authorName:
+          type: string
+          description: The name of the user who wrote the review.
+          example: example_value
+        comments:
+          type: array
+          description: A list of comments for this review. Contains the user comment and optionally the developer reply.
+          items:
+            $ref: '#/components/schemas/Comment'
+          example: []
+    PageInfo:
+      type: object
+      description: Pagination information for list responses.
+      properties:
+        totalResults:
+          type: integer
+          description: Total number of results available.
+          example: 10
+        resultPerPage:
+          type: integer
+          description: Maximum number of results per page.
+          example: 10
+        startIndex:
+          type: integer
+          description: Index of the first result returned.
+          example: 10
+    Timestamp:
+      type: object
+      description: A timestamp in seconds and nanoseconds.
+      properties:
+        seconds:
+          type: string
+          format: int64
+          description: Seconds since Unix Epoch.
+          example: example_value
+        nanos:
+          type: integer
+          description: Non-negative fractions of a second at nanosecond resolution.
+          example: 10
+    Error:
+      type: object
+      description: Error response from the API.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+              description: HTTP status code.
+            message:
+              type: string
+              description: A human-readable error message.
+            status:
+              type: string
+              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
+            errors:
+              type: array
+              description: Detailed list of errors.
+              items:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  domain:
+                    type: string
+                  reason:
+                    type: string
+          example: example_value
     DeviceMetadata:
       type: object
       description: Metadata about the device used to write a review.
@@ -221,114 +311,6 @@ components:
           type: integer
           description: Device RAM in megabytes.
           example: 10
-    PageInfo:
-      type: object
-      description: Pagination information for list responses.
-      properties:
-        totalResults:
-          type: integer
-          description: Total number of results available.
-          example: 10
-        resultPerPage:
-          type: integer
-          description: Maximum number of results per page.
-          example: 10
-        startIndex:
-          type: integer
-          description: Index of the first result returned.
-          example: 10
-    DeveloperComment:
-      type: object
-      description: A reply from the developer to a user review.
-      properties:
-        text:
-          type: string
-          description: The text content of the developer reply.
-          example: example_value
-        lastModified:
-          $ref: '#/components/schemas/Timestamp'
-    Error:
-      type: object
-      description: Error response from the API.
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-              description: HTTP status code.
-            message:
-              type: string
-              description: A human-readable error message.
-            status:
-              type: string
-              description: The status of the error (e.g., NOT_FOUND, UNAUTHENTICATED).
-            errors:
-              type: array
-              description: Detailed list of errors.
-              items:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  domain:
-                    type: string
-                  reason:
-                    type: string
-          example: example_value
-    Comment:
-      type: object
-      description: A comment associated with a review, either a user comment or a developer comment (reply).
-      properties:
-        userComment:
-          $ref: '#/components/schemas/UserComment'
-        developerComment:
-          $ref: '#/components/schemas/DeveloperComment'
-    Timestamp:
-      type: object
-      description: A timestamp in seconds and nanoseconds.
-      properties:
-        seconds:
-          type: string
-          format: int64
-          description: Seconds since Unix Epoch.
-          example: example_value
-        nanos:
-          type: integer
-          description: Non-negative fractions of a second at nanosecond resolution.
-          example: 10
-    ReviewsListResponse:
-      type: object
-      description: Response containing a paginated list of reviews.
-      properties:
-        pageInfo:
-          $ref: '#/components/schemas/PageInfo'
-        tokenPagination:
-          $ref: '#/components/schemas/TokenPagination'
-        reviews:
-          type: array
-          description: List of reviews.
-          items:
-            $ref: '#/components/schemas/Review'
-          example: []
-    Review:
-      type: object
-      description: An individual review of an app on Google Play, containing the user comment and optional developer reply.
-      properties:
-        reviewId:
-          type: string
-          description: Unique identifier for the review.
-          example: '500123'
-        authorName:
-          type: string
-          description: The name of the user who wrote the review.
-          example: example_value
-        comments:
-          type: array
-          description: A list of comments for this review. Contains the user comment and optionally the developer reply.
-          items:
-            $ref: '#/components/schemas/Comment'
-          example: []
     ReviewsReplyRequest:
       type: object
       description: Request body for replying to a review.
@@ -340,32 +322,16 @@ components:
           example: example_value
       required:
       - replyText
-    ReviewsReplyResponse:
+    DeveloperComment:
       type: object
-      description: Response from posting a reply to a review.
+      description: A reply from the developer to a user review.
       properties:
-        result:
-          type: object
-          description: The result of the reply.
-          properties:
-            replyText:
-              type: string
-              description: The reply text that was posted.
-            lastEdited:
-              $ref: '#/components/schemas/Timestamp'
-          example: example_value
-    TokenPagination:
-      type: object
-      description: Token-based pagination for large result sets.
-      properties:
-        nextPageToken:
+        text:
           type: string
-          description: Token to retrieve the next page of results.
+          description: The text content of the developer reply.
           example: example_value
-        previousPageToken:
-          type: string
-          description: Token to retrieve the previous page of results.
-          example: example_value
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
     UserComment:
       type: object
       description: A comment from a user reviewing the app.
@@ -416,7 +382,61 @@ components:
           type: string
           description: The untranslated text of the review, if a translation was requested.
           example: example_value
+    Comment:
+      type: object
+      description: A comment associated with a review, either a user comment or a developer comment (reply).
+      properties:
+        userComment:
+          $ref: '#/components/schemas/UserComment'
+        developerComment:
+          $ref: '#/components/schemas/DeveloperComment'
+    ReviewsReplyResponse:
+      type: object
+      description: Response from posting a reply to a review.
+      properties:
+        result:
+          type: object
+          description: The result of the reply.
+          properties:
+            replyText:
+              type: string
+              description: The reply text that was posted.
+            lastEdited:
+              $ref: '#/components/schemas/Timestamp'
+          example: example_value
+    TokenPagination:
+      type: object
+      description: Token-based pagination for large result sets.
+      properties:
+        nextPageToken:
+          type: string
+          description: Token to retrieve the next page of results.
+          example: example_value
+        previousPageToken:
+          type: string
+          description: Token to retrieve the previous page of results.
+          example: example_value
+  responses:
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    reviewId:
+      name: reviewId
+      in: path
+      required: true
+      description: The unique identifier for the review.
+      schema:
+        type: string
     packageName:
       name: packageName
       in: path
@@ -425,26 +445,6 @@ components:
       schema:
         type: string
         example: com.example.myapp
-    reviewId:
-      name: reviewId
-      in: path
-      required: true
-      description: The unique identifier for the review.
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
