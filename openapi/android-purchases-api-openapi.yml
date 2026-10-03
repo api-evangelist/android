@@ -438,139 +438,73 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    subscriptionId:
-      name: subscriptionId
-      in: path
-      required: true
-      description: The subscription ID (e.g., monthly_sub).
-      schema:
-        type: string
-        example: monthly_sub
-    purchaseToken:
-      name: token
-      in: path
-      required: true
-      description: The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase.
-      schema:
-        type: string
-    productId:
-      name: productId
-      in: path
-      required: true
-      description: The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub).
-      schema:
-        type: string
-        example: premium_upgrade
-    packageName:
-      name: packageName
-      in: path
-      required: true
-      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
-      schema:
-        type: string
-        example: com.example.myapp
   schemas:
-    SubscriptionPurchasesDeferResponse:
+    SubscriptionPurchasesDeferRequest:
       type: object
-      description: Response from deferring a subscription purchase.
+      description: Request body for deferring a subscription purchase.
       properties:
-        newExpiryTimeMillis:
-          type: string
-          format: int64
-          description: The new expiry time for the subscription.
-          example: example_value
-    SubscriptionPurchaseV2:
+        deferralInfo:
+          $ref: '#/components/schemas/SubscriptionDeferralInfo'
+      required:
+      - deferralInfo
+    SubscriptionPurchaseLineItem:
       type: object
-      description: Indicates the v2 subscription purchase details, including subscription state, line items, and external account information.
+      description: An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.
       properties:
-        kind:
+        productId:
           type: string
-          description: Resource type identifier.
-          const: androidpublisher#subscriptionPurchaseV2
-          example: example_value
-        regionCode:
-          type: string
-          description: ISO 3166-1 alpha-2 billing region code.
-          example: example_value
-        latestOrderId:
-          type: string
-          description: The order ID of the latest order associated with this subscription.
+          description: The product ID of the subscription.
           example: '500123'
-        lineItems:
-          type: array
-          description: Item-level info for a subscription purchase. Each line item corresponds to a base plan or offer.
-          items:
-            $ref: '#/components/schemas/SubscriptionPurchaseLineItem'
-          example: []
-        startTime:
+        expiryTime:
           type: string
           format: date-time
-          description: Time at which the subscription was granted.
+          description: Time at which the subscription line item will expire.
           example: '2026-01-15T10:30:00Z'
-        subscriptionState:
-          type: string
-          description: The current state of the subscription.
-          enum:
-          - SUBSCRIPTION_STATE_UNSPECIFIED
-          - SUBSCRIPTION_STATE_PENDING
-          - SUBSCRIPTION_STATE_ACTIVE
-          - SUBSCRIPTION_STATE_PAUSED
-          - SUBSCRIPTION_STATE_IN_GRACE_PERIOD
-          - SUBSCRIPTION_STATE_ON_HOLD
-          - SUBSCRIPTION_STATE_CANCELED
-          - SUBSCRIPTION_STATE_EXPIRED
-          - SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED
-          example: SUBSCRIPTION_STATE_UNSPECIFIED
-        linkedPurchaseToken:
-          type: string
-          description: The purchase token of the old subscription if replaced.
-          example: example_value
-        pausedStateContext:
+        autoRenewingPlan:
           type: object
-          description: Additional context around paused subscriptions.
+          description: Details for auto-renewing plans.
           properties:
-            autoResumeTime:
+            autoRenewEnabled:
+              type: boolean
+          example: example_value
+        prepaidPlan:
+          type: object
+          description: Details for prepaid plans.
+          properties:
+            allowExtendAfterTime:
               type: string
               format: date-time
-              description: Time at which the subscription will auto-resume.
           example: example_value
-        canceledStateContext:
+        offerDetails:
           type: object
-          description: Additional context around canceled subscriptions.
+          description: Details of the offer applied to this line item.
           properties:
-            userInitiatedCancellation:
-              type: object
-              properties:
-                finishTime:
-                  type: string
-                  format: date-time
-            systemInitiatedCancellation:
-              type: object
-            developerInitiatedCancellation:
-              type: object
-            replacementCancellation:
-              type: object
+            offerTags:
+              type: array
+              items:
+                type: string
+            basePlanId:
+              type: string
+            offerId:
+              type: string
           example: example_value
-        acknowledgementState:
+    SubscriptionDeferralInfo:
+      type: object
+      description: Contains the new desired expiry time for a subscription deferral.
+      properties:
+        expectedExpiryTimeMillis:
           type: string
-          description: The acknowledgement state of the subscription.
-          enum:
-          - ACKNOWLEDGEMENT_STATE_UNSPECIFIED
-          - ACKNOWLEDGEMENT_STATE_PENDING
-          - ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED
-          example: ACKNOWLEDGEMENT_STATE_UNSPECIFIED
-        externalAccountIdentifiers:
-          type: object
-          description: User account identification in third-party services.
-          properties:
-            externalAccountId:
-              type: string
-            obfuscatedExternalAccountId:
-              type: string
-            obfuscatedExternalProfileId:
-              type: string
+          format: int64
+          description: The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.
           example: example_value
+        desiredExpiryTimeMillis:
+          type: string
+          format: int64
+          description: The desired next expiry time to assign to the subscription. Must be later than the current expiry time.
+          example: example_value
+      required:
+      - expectedExpiryTimeMillis
+      - desiredExpiryTimeMillis
     SubscriptionPurchasesAcknowledgeRequest:
       type: object
       description: Request body for acknowledging a subscription purchase.
@@ -580,6 +514,27 @@ components:
           description: Payload to attach to the purchase after acknowledgement.
           deprecated: true
           example: example_value
+    IntroductoryPriceInfo:
+      type: object
+      description: Contains the introductory price information for a subscription.
+      properties:
+        introductoryPriceCurrencyCode:
+          type: string
+          description: ISO 4217 currency code for the introductory price.
+          example: example_value
+        introductoryPriceAmountMicros:
+          type: string
+          format: int64
+          description: Introductory price in micro-units of the currency.
+          example: example_value
+        introductoryPricePeriod:
+          type: string
+          description: Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month).
+          example: example_value
+        introductoryPriceCycles:
+          type: integer
+          description: Number of billing periods the introductory price applies for.
+          example: 10
     ProductPurchase:
       type: object
       description: Represents an in-app product purchase. Contains the purchase state, consumption status, and order information.
@@ -661,14 +616,20 @@ components:
           type: integer
           description: The quantity eligible for refund.
           example: 10
-    SubscriptionPurchasesDeferRequest:
+    VoidedPurchasesListResponse:
       type: object
-      description: Request body for deferring a subscription purchase.
+      description: Response containing a list of voided purchases.
       properties:
-        deferralInfo:
-          $ref: '#/components/schemas/SubscriptionDeferralInfo'
-      required:
-      - deferralInfo
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        voidedPurchases:
+          type: array
+          description: List of voided purchases.
+          items:
+            $ref: '#/components/schemas/VoidedPurchase'
+          example: []
     SubscriptionPurchase:
       type: object
       description: Represents a subscription purchase. Contains the subscription state, expiry time, auto-renewal status, and cancellation details.
@@ -780,26 +741,57 @@ components:
           type: string
           description: Obfuscated user profile ID in the third-party service.
           example: '500123'
-    IntroductoryPriceInfo:
+    VoidedPurchase:
       type: object
-      description: Contains the introductory price information for a subscription.
+      description: A purchase that has been voided (cancelled, refunded, or charged back).
       properties:
-        introductoryPriceCurrencyCode:
+        kind:
           type: string
-          description: ISO 4217 currency code for the introductory price.
+          description: Resource type identifier.
+          const: androidpublisher#voidedPurchase
           example: example_value
-        introductoryPriceAmountMicros:
+        purchaseToken:
+          type: string
+          description: The token which uniquely identifies the purchase.
+          example: example_value
+        purchaseTimeMillis:
           type: string
           format: int64
-          description: Introductory price in micro-units of the currency.
+          description: Time at which the purchase was made (milliseconds since Epoch).
           example: example_value
-        introductoryPricePeriod:
+        voidedTimeMillis:
           type: string
-          description: Introductory price period in ISO 8601 format (e.g., P1W for one week, P1M for one month).
+          format: int64
+          description: Time at which the purchase was voided (milliseconds since Epoch).
           example: example_value
-        introductoryPriceCycles:
+        orderId:
+          type: string
+          description: The order ID associated with the voided purchase.
+          example: '500123'
+        voidedSource:
           type: integer
-          description: Number of billing periods the introductory price applies for.
+          description: The source of the voiding. 0 = User, 1 = Developer, 2 = Google.
+          enum:
+          - 0
+          - 1
+          - 2
+          example: 0
+        voidedReason:
+          type: integer
+          description: The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          example: 0
+        voidedQuantity:
+          type: integer
+          description: The voided quantity as related to multi-quantity purchases.
           example: 10
     ProductPurchasesAcknowledgeRequest:
       type: object
@@ -855,129 +847,14 @@ components:
                   reason:
                     type: string
           example: example_value
-    SubscriptionDeferralInfo:
+    SubscriptionPurchasesDeferResponse:
       type: object
-      description: Contains the new desired expiry time for a subscription deferral.
+      description: Response from deferring a subscription purchase.
       properties:
-        expectedExpiryTimeMillis:
+        newExpiryTimeMillis:
           type: string
           format: int64
-          description: The expected expiry time for the subscription. If the current expiry time does not match, the deferral will not occur.
-          example: example_value
-        desiredExpiryTimeMillis:
-          type: string
-          format: int64
-          description: The desired next expiry time to assign to the subscription. Must be later than the current expiry time.
-          example: example_value
-      required:
-      - expectedExpiryTimeMillis
-      - desiredExpiryTimeMillis
-    VoidedPurchasesListResponse:
-      type: object
-      description: Response containing a list of voided purchases.
-      properties:
-        pageInfo:
-          $ref: '#/components/schemas/PageInfo'
-        tokenPagination:
-          $ref: '#/components/schemas/TokenPagination'
-        voidedPurchases:
-          type: array
-          description: List of voided purchases.
-          items:
-            $ref: '#/components/schemas/VoidedPurchase'
-          example: []
-    VoidedPurchase:
-      type: object
-      description: A purchase that has been voided (cancelled, refunded, or charged back).
-      properties:
-        kind:
-          type: string
-          description: Resource type identifier.
-          const: androidpublisher#voidedPurchase
-          example: example_value
-        purchaseToken:
-          type: string
-          description: The token which uniquely identifies the purchase.
-          example: example_value
-        purchaseTimeMillis:
-          type: string
-          format: int64
-          description: Time at which the purchase was made (milliseconds since Epoch).
-          example: example_value
-        voidedTimeMillis:
-          type: string
-          format: int64
-          description: Time at which the purchase was voided (milliseconds since Epoch).
-          example: example_value
-        orderId:
-          type: string
-          description: The order ID associated with the voided purchase.
-          example: '500123'
-        voidedSource:
-          type: integer
-          description: The source of the voiding. 0 = User, 1 = Developer, 2 = Google.
-          enum:
-          - 0
-          - 1
-          - 2
-          example: 0
-        voidedReason:
-          type: integer
-          description: The reason for voiding. 0 = Other, 1 = Remorse, 2 = Not received, 3 = Defective, 4 = Accidental purchase, 5 = Fraud, 6 = Friendly fraud, 7 = Chargeback.
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          - 4
-          - 5
-          - 6
-          - 7
-          example: 0
-        voidedQuantity:
-          type: integer
-          description: The voided quantity as related to multi-quantity purchases.
-          example: 10
-    SubscriptionPurchaseLineItem:
-      type: object
-      description: An individual line item within a v2 subscription purchase. Each line item represents a base plan or offer.
-      properties:
-        productId:
-          type: string
-          description: The product ID of the subscription.
-          example: '500123'
-        expiryTime:
-          type: string
-          format: date-time
-          description: Time at which the subscription line item will expire.
-          example: '2026-01-15T10:30:00Z'
-        autoRenewingPlan:
-          type: object
-          description: Details for auto-renewing plans.
-          properties:
-            autoRenewEnabled:
-              type: boolean
-          example: example_value
-        prepaidPlan:
-          type: object
-          description: Details for prepaid plans.
-          properties:
-            allowExtendAfterTime:
-              type: string
-              format: date-time
-          example: example_value
-        offerDetails:
-          type: object
-          description: Details of the offer applied to this line item.
-          properties:
-            offerTags:
-              type: array
-              items:
-                type: string
-            basePlanId:
-              type: string
-            offerId:
-              type: string
+          description: The new expiry time for the subscription.
           example: example_value
     TokenPagination:
       type: object
@@ -991,19 +868,142 @@ components:
           type: string
           description: Token to retrieve the previous page of results.
           example: example_value
+    SubscriptionPurchaseV2:
+      type: object
+      description: Indicates the v2 subscription purchase details, including subscription state, line items, and external account information.
+      properties:
+        kind:
+          type: string
+          description: Resource type identifier.
+          const: androidpublisher#subscriptionPurchaseV2
+          example: example_value
+        regionCode:
+          type: string
+          description: ISO 3166-1 alpha-2 billing region code.
+          example: example_value
+        latestOrderId:
+          type: string
+          description: The order ID of the latest order associated with this subscription.
+          example: '500123'
+        lineItems:
+          type: array
+          description: Item-level info for a subscription purchase. Each line item corresponds to a base plan or offer.
+          items:
+            $ref: '#/components/schemas/SubscriptionPurchaseLineItem'
+          example: []
+        startTime:
+          type: string
+          format: date-time
+          description: Time at which the subscription was granted.
+          example: '2026-01-15T10:30:00Z'
+        subscriptionState:
+          type: string
+          description: The current state of the subscription.
+          enum:
+          - SUBSCRIPTION_STATE_UNSPECIFIED
+          - SUBSCRIPTION_STATE_PENDING
+          - SUBSCRIPTION_STATE_ACTIVE
+          - SUBSCRIPTION_STATE_PAUSED
+          - SUBSCRIPTION_STATE_IN_GRACE_PERIOD
+          - SUBSCRIPTION_STATE_ON_HOLD
+          - SUBSCRIPTION_STATE_CANCELED
+          - SUBSCRIPTION_STATE_EXPIRED
+          - SUBSCRIPTION_STATE_PENDING_PURCHASE_CANCELED
+          example: SUBSCRIPTION_STATE_UNSPECIFIED
+        linkedPurchaseToken:
+          type: string
+          description: The purchase token of the old subscription if replaced.
+          example: example_value
+        pausedStateContext:
+          type: object
+          description: Additional context around paused subscriptions.
+          properties:
+            autoResumeTime:
+              type: string
+              format: date-time
+              description: Time at which the subscription will auto-resume.
+          example: example_value
+        canceledStateContext:
+          type: object
+          description: Additional context around canceled subscriptions.
+          properties:
+            userInitiatedCancellation:
+              type: object
+              properties:
+                finishTime:
+                  type: string
+                  format: date-time
+            systemInitiatedCancellation:
+              type: object
+            developerInitiatedCancellation:
+              type: object
+            replacementCancellation:
+              type: object
+          example: example_value
+        acknowledgementState:
+          type: string
+          description: The acknowledgement state of the subscription.
+          enum:
+          - ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+          - ACKNOWLEDGEMENT_STATE_PENDING
+          - ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED
+          example: ACKNOWLEDGEMENT_STATE_UNSPECIFIED
+        externalAccountIdentifiers:
+          type: object
+          description: User account identification in third-party services.
+          properties:
+            externalAccountId:
+              type: string
+            obfuscatedExternalAccountId:
+              type: string
+            obfuscatedExternalProfileId:
+              type: string
+          example: example_value
   responses:
-    Unauthorized:
-      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
+    purchaseToken:
+      name: token
+      in: path
+      required: true
+      description: The token provided to the user's device when the purchase was made. Used to uniquely identify a purchase.
+      schema:
+        type: string
+    productId:
+      name: productId
+      in: path
+      required: true
+      description: The product ID of the in-app product or subscription (e.g., premium_upgrade, monthly_sub).
+      schema:
+        type: string
+        example: premium_upgrade
+    subscriptionId:
+      name: subscriptionId
+      in: path
+      required: true
+      description: The subscription ID (e.g., monthly_sub).
+      schema:
+        type: string
+        example: monthly_sub
   securitySchemes:
     oauth2:
       type: oauth2
