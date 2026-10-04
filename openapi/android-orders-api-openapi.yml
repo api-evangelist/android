@@ -71,15 +71,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    packageName:
-      name: packageName
-      in: path
-      required: true
-      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
-      schema:
-        type: string
-        example: com.example.myapp
   schemas:
     Error:
       type: object
@@ -110,6 +101,15 @@ components:
                   reason:
                     type: string
           example: example_value
+  parameters:
+    packageName:
+      name: packageName
+      in: path
+      required: true
+      description: The package name of the application (e.g., com.example.myapp). This is the unique identifier for the app on Google Play.
+      schema:
+        type: string
+        example: com.example.myapp
   securitySchemes:
     oauth2:
       type: oauth2

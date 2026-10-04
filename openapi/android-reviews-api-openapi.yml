@@ -173,20 +173,79 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ReviewsListResponse:
+    Timestamp:
       type: object
-      description: Response containing a paginated list of reviews.
+      description: A timestamp in seconds and nanoseconds.
       properties:
-        pageInfo:
-          $ref: '#/components/schemas/PageInfo'
-        tokenPagination:
-          $ref: '#/components/schemas/TokenPagination'
-        reviews:
+        seconds:
+          type: string
+          format: int64
+          description: Seconds since Unix Epoch.
+          example: example_value
+        nanos:
+          type: integer
+          description: Non-negative fractions of a second at nanosecond resolution.
+          example: 10
+    TokenPagination:
+      type: object
+      description: Token-based pagination for large result sets.
+      properties:
+        nextPageToken:
+          type: string
+          description: Token to retrieve the next page of results.
+          example: example_value
+        previousPageToken:
+          type: string
+          description: Token to retrieve the previous page of results.
+          example: example_value
+    Review:
+      type: object
+      description: An individual review of an app on Google Play, containing the user comment and optional developer reply.
+      properties:
+        reviewId:
+          type: string
+          description: Unique identifier for the review.
+          example: '500123'
+        authorName:
+          type: string
+          description: The name of the user who wrote the review.
+          example: example_value
+        comments:
           type: array
-          description: List of reviews.
+          description: A list of comments for this review. Contains the user comment and optionally the developer reply.
           items:
-            $ref: '#/components/schemas/Review'
+            $ref: '#/components/schemas/Comment'
           example: []
+    PageInfo:
+      type: object
+      description: Pagination information for list responses.
+      properties:
+        totalResults:
+          type: integer
+          description: Total number of results available.
+          example: 10
+        resultPerPage:
+          type: integer
+          description: Maximum number of results per page.
+          example: 10
+        startIndex:
+          type: integer
+          description: Index of the first result returned.
+          example: 10
+    ReviewsReplyResponse:
+      type: object
+      description: Response from posting a reply to a review.
+      properties:
+        result:
+          type: object
+          description: The result of the reply.
+          properties:
+            replyText:
+              type: string
+              description: The reply text that was posted.
+            lastEdited:
+              $ref: '#/components/schemas/Timestamp'
+          example: example_value
     Error:
       type: object
       description: Error response from the API.
@@ -216,58 +275,19 @@ components:
                   reason:
                     type: string
           example: example_value
-    Comment:
+    ReviewsListResponse:
       type: object
-      description: A comment associated with a review, either a user comment or a developer comment (reply).
+      description: Response containing a paginated list of reviews.
       properties:
-        userComment:
-          $ref: '#/components/schemas/UserComment'
-        developerComment:
-          $ref: '#/components/schemas/DeveloperComment'
-    PageInfo:
-      type: object
-      description: Pagination information for list responses.
-      properties:
-        totalResults:
-          type: integer
-          description: Total number of results available.
-          example: 10
-        resultPerPage:
-          type: integer
-          description: Maximum number of results per page.
-          example: 10
-        startIndex:
-          type: integer
-          description: Index of the first result returned.
-          example: 10
-    ReviewsReplyRequest:
-      type: object
-      description: Request body for replying to a review.
-      properties:
-        replyText:
-          type: string
-          description: The text of the reply. The reply will replace any existing reply. Maximum length is 350 characters.
-          maxLength: 350
-          example: example_value
-      required:
-      - replyText
-    Review:
-      type: object
-      description: An individual review of an app on Google Play, containing the user comment and optional developer reply.
-      properties:
-        reviewId:
-          type: string
-          description: Unique identifier for the review.
-          example: '500123'
-        authorName:
-          type: string
-          description: The name of the user who wrote the review.
-          example: example_value
-        comments:
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+        tokenPagination:
+          $ref: '#/components/schemas/TokenPagination'
+        reviews:
           type: array
-          description: A list of comments for this review. Contains the user comment and optionally the developer reply.
+          description: List of reviews.
           items:
-            $ref: '#/components/schemas/Comment'
+            $ref: '#/components/schemas/Review'
           example: []
     UserComment:
       type: object
@@ -319,6 +339,24 @@ components:
           type: string
           description: The untranslated text of the review, if a translation was requested.
           example: example_value
+    Comment:
+      type: object
+      description: A comment associated with a review, either a user comment or a developer comment (reply).
+      properties:
+        userComment:
+          $ref: '#/components/schemas/UserComment'
+        developerComment:
+          $ref: '#/components/schemas/DeveloperComment'
+    DeveloperComment:
+      type: object
+      description: A reply from the developer to a user review.
+      properties:
+        text:
+          type: string
+          description: The text content of the developer reply.
+          example: example_value
+        lastModified:
+          $ref: '#/components/schemas/Timestamp'
     DeviceMetadata:
       type: object
       description: Metadata about the device used to write a review.
@@ -367,55 +405,30 @@ components:
           type: integer
           description: Device RAM in megabytes.
           example: 10
-    ReviewsReplyResponse:
+    ReviewsReplyRequest:
       type: object
-      description: Response from posting a reply to a review.
+      description: Request body for replying to a review.
       properties:
-        result:
-          type: object
-          description: The result of the reply.
-          properties:
-            replyText:
-              type: string
-              description: The reply text that was posted.
-            lastEdited:
-              $ref: '#/components/schemas/Timestamp'
-          example: example_value
-    DeveloperComment:
-      type: object
-      description: A reply from the developer to a user review.
-      properties:
-        text:
+        replyText:
           type: string
-          description: The text content of the developer reply.
+          description: The text of the reply. The reply will replace any existing reply. Maximum length is 350 characters.
+          maxLength: 350
           example: example_value
-        lastModified:
-          $ref: '#/components/schemas/Timestamp'
-    TokenPagination:
-      type: object
-      description: Token-based pagination for large result sets.
-      properties:
-        nextPageToken:
-          type: string
-          description: Token to retrieve the next page of results.
-          example: example_value
-        previousPageToken:
-          type: string
-          description: Token to retrieve the previous page of results.
-          example: example_value
-    Timestamp:
-      type: object
-      description: A timestamp in seconds and nanoseconds.
-      properties:
-        seconds:
-          type: string
-          format: int64
-          description: Seconds since Unix Epoch.
-          example: example_value
-        nanos:
-          type: integer
-          description: Non-negative fractions of a second at nanosecond resolution.
-          example: 10
+      required:
+      - replyText
+  responses:
+    Unauthorized:
+      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     packageName:
       name: packageName
@@ -432,19 +445,6 @@ components:
       description: The unique identifier for the review.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Authentication failed. The OAuth 2.0 token is missing, expired, or does not have the required scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found. The package name, product ID, purchase token, or review ID may be invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
