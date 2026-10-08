@@ -640,6 +640,12 @@ apis:
   - type: ReleaseNotes
     url: https://developer.android.com/google/play/billing/play-developer-apis-release-notes
 common:
+  - type: Plans
+    url: plans/android-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/android-rate-limits.yml
+  - type: FinOps
+    url: finops/android-finops.yml
   - type: Website
     url: https://www.android.com/
   - type: CapabilityMap
