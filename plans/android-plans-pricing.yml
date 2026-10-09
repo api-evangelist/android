@@ -424,3 +424,78 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units:
+  - data
+  - money
+  - negotiated
+  - object
+  - request
+  - seat
+  - transaction
+  plans:
+  - name: Android SDK & Jetpack
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - object
+    periods:
+    - per-use
+  - name: Google Play Console & Distribution
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - object
+    - transaction
+    periods:
+    - per-use
+    - year
+  - name: Google Maps Platform (Android SDK)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - month
+  - name: Firebase Spark (Free)
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - data
+    - object
+    - other
+    - seat
+    periods:
+    - day
+    - month
+    - per-use
+  - name: Firebase Blaze (Pay-As-You-Go)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - data
+    - money
+    - negotiated
+    - seat
+    periods:
+    - month
+    - per-use
+  - name: Google AdMob (Revenue Share)
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - other
+    periods:
+    - per-use
