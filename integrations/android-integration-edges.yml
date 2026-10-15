@@ -1,0 +1,32 @@
+edges:
+- partner_name: Junction (Vital)
+  partner: vital-io
+  partner_match: aggregator
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://docs.junction.com/wearables/providers/introduction
+  category: health data source
+  contract_reference:
+    list: Junction (Vital) supported providers (docs.junction.com)
+    spec_file: null
+    listed_name: Android Health Connect
+    listed_id: health_connect
+    listed_names:
+    - Android Health Connect
+    matched_domain: android.com
+    matched_by: domain
+    signal_note: delivery mode / access model / table section are context, never counted
+    detected_by: sweep-health-wellness.py
+    detected: '2026-10-15'
+    table_section:
+    - sdk-provider
+  detected_by: sweep-health-wellness.py
+  first_seen: '2026-10-15'
+generated: '2026-10-15'
+method: searched
+source:
+- https://docs.junction.com/wearables/providers/introduction
+checked:
+- https://docs.junction.com/wearables/providers/introduction
