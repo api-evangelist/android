@@ -1,4 +1,4 @@
-# Android (android)
+# Android
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,546 +66,319 @@
 
 Collection of APIs and services available in the Android ecosystem.
 
-**APIs.json:** [https://developer.android.com/reference](https://developer.android.com/reference)
-
-## Scope
-
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
-
-## Tags
-
-- AI
-- Android
-- Automotive
-- Google
-- Machine Learning
-- Mobile Development
-- SDK
-- TV
-- Wearables
-
-## Timestamps
-
-- **Created:** 2024-01-01
-- **Modified:** 2026-05-19
-
-## APIs
-
-### Android Platform APIs
-
-Core Android framework APIs for building Android applications.
-
-- **Human URL:** [https://developer.android.com/reference](https://developer.android.com/reference)
-- **Base URL:** `https://developer.android.com`
-
-#### Tags
-
-- Android
-- Framework
-- Mobile
-- SDK
-
-#### Properties
-
-- [Documentation](https://developer.android.com/docs)
-- [API Reference](https://developer.android.com/reference)
-- [Getting Started](https://developer.android.com/training/basics/firstapp)
-- [Code Examples](https://developer.android.com/samples)
-- [Release Notes](https://developer.android.com/tools/releases/platforms)
-- [Features](https://developer.android.com/about/versions/16/features)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Play Services APIs
-
-APIs for integrating Google services into Android apps.
-
-- **Human URL:** [https://developers.google.com/android/guides/overview](https://developers.google.com/android/guides/overview)
-- **Base URL:** `https://developers.google.com/android`
-
-#### Tags
-
-- Authentication
-- Google Play
-- Location
-- Maps
-
-#### Properties
-
-- [Documentation](https://developers.google.com/android/guides/overview)
-- [API Reference](https://developers.google.com/android/reference)
-- [Getting Started](https://developers.google.com/android/guides/setup)
-- [Release Notes](https://developers.google.com/android/guides/releases)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Firebase Android APIs
-
-Firebase SDKs and APIs for Android app development.
-
-- **Human URL:** [https://firebase.google.com/docs/android/setup](https://firebase.google.com/docs/android/setup)
-- **Base URL:** `https://firebase.google.com`
-
-#### Tags
-
-- Analytics
-- Authentication
-- Backend
-- Cloud Messaging
-- Database
-- Firebase
-
-#### Properties
-
-- [Documentation](https://firebase.google.com/docs/android/setup)
-- [API Reference](https://firebase.google.com/docs/reference/android)
-- [Code Examples](https://github.com/firebase/quickstart-android)
-- [Console](https://console.firebase.google.com)
-- [Release Notes](https://firebase.google.com/support/release-notes/android)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Maps Android API
-
-Add maps, location, and geospatial data to Android applications.
-
-- **Human URL:** [https://developers.google.com/maps/documentation/android-sdk](https://developers.google.com/maps/documentation/android-sdk)
-- **Base URL:** `https://maps.googleapis.com`
-
-#### Tags
-
-- Geolocation
-- Location
-- Maps
-- Navigation
-
-#### Properties
-
-- [Documentation](https://developers.google.com/maps/documentation/android-sdk)
-- [API Reference](https://developers.google.com/android/reference/com/google/android/gms/maps/package-summary)
-- [Pricing](https://developers.google.com/maps/pricing-and-plans)
-- [Getting Started](https://developers.google.com/maps/documentation/android-sdk/start)
-- [Code Examples](https://github.com/googlemaps/android-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android Jetpack APIs
-
-Suite of libraries to help developers follow best practices.
-
-- **Human URL:** [https://developer.android.com/jetpack](https://developer.android.com/jetpack)
-- **Base URL:** `https://developer.android.com/jetpack`
-
-#### Tags
-
-- Architecture
-- Compose
-- Jetpack
-- Libraries
-- UI
-
-#### Properties
-
-- [Documentation](https://developer.android.com/jetpack/getting-started)
-- [API Reference](https://developer.android.com/jetpack/androidx)
-- [Release Notes](https://developer.android.com/jetpack/androidx/versions)
-- [Code Examples](https://developer.android.com/jetpack/samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Play Console API
-
-Programmatically manage app releases and track analytics.
-
-- **Human URL:** [https://developers.google.com/android-publisher](https://developers.google.com/android-publisher)
-- **Base URL:** `https://androidpublisher.googleapis.com`
-
-#### Tags
-
-- Analytics
-- Distribution
-- Publishing
-- REST API
-
-#### Properties
-
-- [Documentation](https://developers.google.com/android-publisher)
-- [API Reference](https://developers.google.com/android-publisher/api-ref)
-- [Authentication](https://developers.google.com/android-publisher/authorization)
-- [Release Notes](https://developer.android.com/google/play/billing/play-developer-apis-release-notes)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Play Billing API
-
-Implement in-app purchases and subscriptions.
-
-- **Human URL:** [https://developer.android.com/google/play/billing](https://developer.android.com/google/play/billing)
-- **Base URL:** `https://developer.android.com/google/play/billing`
-
-#### Tags
-
-- Billing
-- In-App Purchases
-- Monetization
-- Subscriptions
-
-#### Properties
-
-- [Documentation](https://developer.android.com/google/play/billing/integrate)
-- [API Reference](https://developer.android.com/google/play/billing/api)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android NDK APIs
-
-Native Development Kit for implementing parts of Android apps in C and C++ for performance-critical code.
-
-- **Human URL:** [https://developer.android.com/ndk](https://developer.android.com/ndk)
-- **Base URL:** `https://developer.android.com/ndk`
-
-#### Tags
-
-- C++
-- Native
-- NDK
-- OpenGL
-- Performance
-- Vulkan
-
-#### Properties
-
-- [Documentation](https://developer.android.com/ndk/guides)
-- [API Reference](https://developer.android.com/ndk/guides/stable_apis)
-- [Getting Started](https://developer.android.com/ndk/guides)
-- [Code Examples](https://github.com/android/ndk-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google ML Kit Android APIs
-
-On-device machine learning APIs for text recognition, face detection, barcode scanning, image labeling, and more.
-
-- **Human URL:** [https://developers.google.com/ml-kit](https://developers.google.com/ml-kit)
-- **Base URL:** `https://developers.google.com/ml-kit`
-
-#### Tags
-
-- Barcode Scanning
-- Face Detection
-- Machine Learning
-- ML Kit
-- On-Device
-- Text Recognition
-- Vision
-
-#### Properties
-
-- [Documentation](https://developers.google.com/ml-kit)
-- [API Reference](https://developers.google.com/ml-kit/reference/android)
-- [Release Notes](https://developers.google.com/ml-kit/release-notes)
-- [Code Examples](https://github.com/googlesamples/mlkit)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android Health Connect API
-
-Health data platform providing a single consolidated interface for accessing user health and fitness data across apps.
-
-- **Human URL:** [https://developer.android.com/health-and-fitness/health-connect](https://developer.android.com/health-and-fitness/health-connect)
-- **Base URL:** `https://developer.android.com/health-and-fitness`
-
-#### Tags
-
-- Data Sharing
-- Fitness
-- Health
-- Privacy
-- Wearables
-
-#### Properties
-
-- [Documentation](https://developer.android.com/health-and-fitness/health-connect)
-- [Getting Started](https://developer.android.com/health-and-fitness/health-connect/get-started)
-- [API Reference](https://developer.android.com/reference/android/health/connect/package-summary)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android CameraX API
-
-Jetpack library for camera app development with consistent behavior across Android devices.
-
-- **Human URL:** [https://developer.android.com/media/camera/camerax](https://developer.android.com/media/camera/camerax)
-- **Base URL:** `https://developer.android.com/media/camera`
-
-#### Tags
-
-- Camera
-- Image Capture
-- Jetpack
-- Media
-- Video
-
-#### Properties
-
-- [Documentation](https://developer.android.com/media/camera/camerax)
-- [Getting Started](https://developer.android.com/codelabs/camerax-getting-started)
-- [Release Notes](https://developer.android.com/jetpack/androidx/releases/camera)
-- [Code Examples](https://github.com/android/camera-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Wear OS APIs
-
-APIs for building applications for Wear OS smartwatches and wearable devices.
-
-- **Human URL:** [https://developer.android.com/wear](https://developer.android.com/wear)
-- **Base URL:** `https://developer.android.com/wear`
-
-#### Tags
-
-- Smartwatch
-- Tiles
-- Watch Face
-- Wear OS
-- Wearables
-
-#### Properties
-
-- [Documentation](https://developer.android.com/training/wearables)
-- [Getting Started](https://developer.android.com/training/wearables)
-- [Code Examples](https://github.com/android/wear-os-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android for Cars APIs
-
-APIs for building apps for Android Auto and Android Automotive OS in-vehicle experiences.
-
-- **Human URL:** [https://developer.android.com/cars](https://developer.android.com/cars)
-- **Base URL:** `https://developer.android.com/cars`
-
-#### Tags
-
-- Android Auto
-- Automotive
-- Cars
-- Media
-- Navigation
-
-#### Properties
-
-- [Documentation](https://developer.android.com/training/cars)
-- [API Reference](https://developer.android.com/reference/android/car/package-summary)
-- [Code Examples](https://github.com/android/car-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google AdMob Android API
-
-Monetize Android apps with in-app advertising including banner, interstitial, native, and rewarded ad formats.
-
-- **Human URL:** [https://developers.google.com/admob](https://developers.google.com/admob)
-- **Base URL:** `https://developers.google.com/admob`
-
-#### Tags
-
-- AdMob
-- Ads
-- Advertising
-- Banner
-- Interstitial
-- Monetization
-
-#### Properties
-
-- [Documentation](https://developers.google.com/admob)
-- [Getting Started](https://developers.google.com/admob/android/quick-start)
-- [API Reference](https://developers.google.com/admob/api)
-- [Code Examples](https://github.com/googleads/googleads-mobile-android-examples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android Accessibility APIs
-
-Framework APIs for building accessible applications and custom accessibility services.
-
-- **Human URL:** [https://developer.android.com/guide/topics/ui/accessibility](https://developer.android.com/guide/topics/ui/accessibility)
-- **Base URL:** `https://developer.android.com`
-
-#### Tags
-
-- A11y
-- Accessibility
-- Assistive Technology
-- Screen Reader
-
-#### Properties
-
-- [Documentation](https://developer.android.com/guide/topics/ui/accessibility)
-- [API Reference](https://developer.android.com/reference/android/accessibilityservice/AccessibilityService)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android TV APIs
-
-APIs and tools for building apps optimized for the television experience using Compose for TV and Leanback.
-
-- **Human URL:** [https://developer.android.com/tv](https://developer.android.com/tv)
-- **Base URL:** `https://developer.android.com/tv`
-
-#### Tags
-
-- Android TV
-- Leanback
-- Living Room
-- Media
-- Television
-
-#### Properties
-
-- [Documentation](https://developer.android.com/tv)
-- [Code Examples](https://github.com/android/tv-samples)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Play Integrity API
-
-Verify that interactions and server requests come from genuine apps on genuine Android devices.
-
-- **Human URL:** [https://developer.android.com/google/play/integrity](https://developer.android.com/google/play/integrity)
-- **Base URL:** `https://developer.android.com/google/play/integrity`
-
-#### Tags
-
-- Anti-Fraud
-- Device Attestation
-- Integrity
-- Security
-- Verification
-
-#### Properties
-
-- [Documentation](https://developer.android.com/google/play/integrity/overview)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Android Credential Manager API
-
-Unified API for managing user credentials including passkeys, passwords, and federated sign-in.
-
-- **Human URL:** [https://developer.android.com/identity/credential-manager](https://developer.android.com/identity/credential-manager)
-- **Base URL:** `https://developer.android.com/identity`
-
-#### Tags
-
-- Authentication
-- Credentials
-- Identity
-- Passkeys
-- Security
-- Sign-In
-
-#### Properties
-
-- [Documentation](https://developer.android.com/identity/credential-manager)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Gemini Nano On-Device AI API
-
-On-device generative AI powered by Gemini Nano for summarization, proofreading, rewriting, and image description without network connectivity.
-
-- **Human URL:** [https://developer.android.com/ai/gemini-nano](https://developer.android.com/ai/gemini-nano)
-- **Base URL:** `https://developer.android.com/ai`
-
-#### Tags
-
-- AI
-- Gemini Nano
-- Generative AI
-- LLM
-- Machine Learning
-- On-Device
-
-#### Properties
-
-- [Documentation](https://developer.android.com/ai/gemini-nano)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Google Play Developer APIs
-
-Suite of REST-based web service APIs for performing publishing, reporting, and app-management functions programmatically.
-
-- **Human URL:** [https://developer.android.com/google/play/developer-api](https://developer.android.com/google/play/developer-api)
-- **Base URL:** `https://androidpublisher.googleapis.com`
-
-#### Tags
-
-- App Management
-- Google Play
-- Publishing
-- Purchases
-- Reporting
-- REST API
-- Reviews
-- Subscriptions
-
-#### Properties
-
-- [Documentation](https://developer.android.com/google/play/developer-api)
-- [API Reference](https://developers.google.com/android-publisher/api-ref/rest)
-- [OpenAPI](openapi/google-play-developer-api.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/android-app-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/android-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Release Notes](https://developer.android.com/google/play/billing/play-developer-apis-release-notes)
-
-### Gemini Developer API for Android
-
-Cloud-based Gemini API for integrating generative AI capabilities into Android applications.
-
-- **Human URL:** [https://developer.android.com/ai/gemini/developer-api](https://developer.android.com/ai/gemini/developer-api)
-- **Base URL:** `https://developer.android.com/ai`
-
-#### Tags
-
-- AI
-- Cloud
-- Gemini
-- Generative AI
-- LLM
-
-#### Properties
-
-- [Documentation](https://developer.android.com/ai/gemini/developer-api)
-- [Getting Started](https://developer.android.com/ai/gemini/developer-api)
-- [Postman Collection](collections/google-play-developer-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/google-play-developer-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/showcase/android_by_google)
-- [Portal](https://developer.android.com)
+**Areas:** Artificial Intelligence · Android · Automotive · Google · Machine Learning · Mobile Development · SDK · TV · Wearables
+
+## Android on APIs.io
+
+Everything profiled for Android is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/android/](https://apis.io/providers/android/)** — or go straight to one of the APIs or properties below.
+
+### APIs (24)
+
+- [Android Platform APIs](https://apis.io/apis/android/android-platform-apis/) — Core Android framework APIs for building Android applications.
+- [Google Play Services APIs](https://apis.io/apis/android/google-play-services-apis/) — APIs for integrating Google services into Android apps.
+- [Firebase Android APIs](https://apis.io/apis/android/firebase-android-apis/) — Firebase SDKs and APIs for Android app development.
+- [Google Maps Android API](https://apis.io/apis/android/google-maps-android-api/) — Add maps, location, and geospatial data to Android applications.
+- [Android Jetpack APIs](https://apis.io/apis/android/android-jetpack-apis/) — Suite of libraries to help developers follow best practices.
+- [Google Play Console API](https://apis.io/apis/android/google-play-console-api/) — Programmatically manage app releases and track analytics.
+- [Google Play Billing API](https://apis.io/apis/android/google-play-billing-api/) — Implement in-app purchases and subscriptions.
+- [Android NDK APIs](https://apis.io/apis/android/android-ndk-apis/) — Native Development Kit for implementing parts of Android apps in C and C++ for performance-critical code.
+- [Google ML Kit Android APIs](https://apis.io/apis/android/google-ml-kit-android-apis/) — On-device machine learning APIs for text recognition, face detection, barcode scanning, image labeling, and more.
+- [Android Health Connect API](https://apis.io/apis/android/android-health-connect-api/) — Health data platform providing a single consolidated interface for accessing user health and fitness data across apps.
+- [Android CameraX API](https://apis.io/apis/android/android-camerax-api/) — Jetpack library for camera app development with consistent behavior across Android devices.
+- [Wear OS APIs](https://apis.io/apis/android/wear-os-apis/) — APIs for building applications for Wear OS smartwatches and wearable devices.
+- [Android for Cars APIs](https://apis.io/apis/android/android-for-cars-apis/) — APIs for building apps for Android Auto and Android Automotive OS in-vehicle experiences.
+- [Google AdMob Android API](https://apis.io/apis/android/google-admob-android-api/) — Monetize Android apps with in-app advertising including banner, interstitial, native, and rewarded ad formats.
+- [Android Accessibility APIs](https://apis.io/apis/android/android-accessibility-apis/) — Framework APIs for building accessible applications and custom accessibility services.
+- [Android TV APIs](https://apis.io/apis/android/android-tv-apis/) — APIs and tools for building apps optimized for the television experience using Compose for TV and Leanback.
+- [Google Play Integrity API](https://apis.io/apis/android/google-play-integrity-api/) — Verify that interactions and server requests come from genuine apps on genuine Android devices.
+- [Android Credential Manager API](https://apis.io/apis/android/android-credential-manager-api/) — Unified API for managing user credentials including passkeys, passwords, and federated sign-in.
+- [Gemini Nano On-Device AI API](https://apis.io/apis/android/gemini-nano-on-device-ai-api/) — On-device generative AI powered by Gemini Nano for summarization, proofreading, rewriting, and image description without network connectivity.
+- [Gemini Developer API for Android](https://apis.io/apis/android/gemini-developer-api-for-android/) — Cloud-based Gemini API for integrating generative AI capabilities into Android applications.
+- [Android Orders API](https://apis.io/apis/android/android-orders-api/) — Refund orders placed through Google Play for in-app products and subscriptions.
+- [Android Purchases API](https://apis.io/apis/android/android-purchases-api/) — Manage in-app product and subscription purchases, including verification, acknowledgment, and consumption of purchase tokens.
+- [Android Reviews API](https://apis.io/apis/android/android-reviews-api/) — Retrieve user reviews from the Google Play Store and post developer replies to those reviews.
+- [Android Subscriptions API](https://apis.io/apis/android/android-subscriptions-api/) — Create, manage, and query subscription products and their base plans, offers, and purchase entitlements.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (12)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Android Audit and Update a Subscription Product](https://apis.io/arazzos/android/android-audit-update-subscription-workflow/)
+- [Android Cancel a Subscription Purchase](https://apis.io/arazzos/android/android-cancel-subscription-purchase-workflow/)
+- [Android Defer a Subscription Renewal](https://apis.io/arazzos/android/android-defer-subscription-renewal-workflow/)
+- [Android Grant and Consume a Consumable Purchase](https://apis.io/arazzos/android/android-grant-consumable-purchase-workflow/)
+- [Android Launch a Subscription Product with an Introductory Offer](https://apis.io/arazzos/android/android-launch-subscription-product-workflow/)
+- [Android Reconcile Voided Purchases](https://apis.io/arazzos/android/android-reconcile-voided-purchases-workflow/)
+- [Android Refund a Play Order](https://apis.io/arazzos/android/android-refund-order-workflow/)
+- [Android Retire an Unpublished Subscription Product](https://apis.io/arazzos/android/android-retire-subscription-product-workflow/)
+- [Android Triage and Reply to App Reviews](https://apis.io/arazzos/android/android-review-triage-reply-workflow/)
+- [Android Revoke and Refund a Subscription Purchase](https://apis.io/arazzos/android/android-revoke-subscription-purchase-workflow/)
+- [Android Verify and Acknowledge an In-App Product Purchase](https://apis.io/arazzos/android/android-verify-acknowledge-product-purchase-workflow/)
+- [Android Verify and Acknowledge a Subscription Purchase](https://apis.io/arazzos/android/android-verify-acknowledge-subscription-purchase-workflow/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [android-google-play-developer](https://apis.io/servers/android/android-google-play-developer/)
+
+#### Agent skills (18)
+
+Agent skills built on the API.
+
+- [adaptive](https://apis.io/agent-skills/android/adaptive/)
+- [agp-9-upgrade](https://apis.io/agent-skills/android/agp-9-upgrade/)
+- [android-cli](https://apis.io/agent-skills/android/android-cli/)
+- [appfunctions](https://apis.io/agent-skills/android/appfunctions/)
+- [camera1-to-camerax](https://apis.io/agent-skills/android/camera1-to-camerax/)
+- [display-glasses-with-jetpack-compose-glimmer](https://apis.io/agent-skills/android/display-glasses-with-jetpack-compose-glimmer/)
+- [edge-to-edge](https://apis.io/agent-skills/android/edge-to-edge/)
+- [engage-sdk-integration](https://apis.io/agent-skills/android/engage-sdk-integration/)
+- [jetpack-compose-m3](https://apis.io/agent-skills/android/jetpack-compose-m3/)
+- [migrate-xml-views-to-jetpack-compose](https://apis.io/agent-skills/android/migrate-xml-views-to-jetpack-compose/)
+- [navigation-3](https://apis.io/agent-skills/android/navigation-3/)
+- [perfetto-sql](https://apis.io/agent-skills/android/perfetto-sql/)
+- [perfetto-trace-analysis](https://apis.io/agent-skills/android/perfetto-trace-analysis/)
+- [play-billing-library-version-upgrade](https://apis.io/agent-skills/android/play-billing-library-version-upgrade/)
+- [r8-analyzer](https://apis.io/agent-skills/android/r8-analyzer/)
+- [styles](https://apis.io/agent-skills/android/styles/)
+- [testing-setup](https://apis.io/agent-skills/android/testing-setup/)
+- [verified-email](https://apis.io/agent-skills/android/verified-email/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Android Agentic Access](https://apis.io/agentic-access/android/android-agentic-access/)
+
+#### JSON Schema (67)
+
+The data models the API reads and writes.
+
+- [Android Application](https://apis.io/schemas/android/android-app/)
+- [BasePlan](https://apis.io/schemas/android/android-baseplan/)
+- [Comment](https://apis.io/schemas/android/android-comment/)
+- [DeveloperComment](https://apis.io/schemas/android/android-developercomment/)
+- [DeviceMetadata](https://apis.io/schemas/android/android-devicemetadata/)
+- [Error](https://apis.io/schemas/android/android-error/)
+- [IntroductoryPriceInfo](https://apis.io/schemas/android/android-introductorypriceinfo/)
+- [ListSubscriptionOffersResponse](https://apis.io/schemas/android/android-listsubscriptionoffersresponse/)
+- [ListSubscriptionsResponse](https://apis.io/schemas/android/android-listsubscriptionsresponse/)
+- [Money](https://apis.io/schemas/android/android-money/)
+- [PageInfo](https://apis.io/schemas/android/android-pageinfo/)
+- [ProductPurchase](https://apis.io/schemas/android/android-productpurchase/)
+- [ProductPurchasesAcknowledgeRequest](https://apis.io/schemas/android/android-productpurchasesacknowledgerequest/)
+- [Review](https://apis.io/schemas/android/android-review/)
+- [ReviewsListResponse](https://apis.io/schemas/android/android-reviewslistresponse/)
+- [ReviewsReplyRequest](https://apis.io/schemas/android/android-reviewsreplyrequest/)
+- [ReviewsReplyResponse](https://apis.io/schemas/android/android-reviewsreplyresponse/)
+- [Subscription](https://apis.io/schemas/android/android-subscription/)
+- [SubscriptionDeferralInfo](https://apis.io/schemas/android/android-subscriptiondeferralinfo/)
+- [SubscriptionListing](https://apis.io/schemas/android/android-subscriptionlisting/)
+- [SubscriptionOffer](https://apis.io/schemas/android/android-subscriptionoffer/)
+- [SubscriptionOfferPhase](https://apis.io/schemas/android/android-subscriptionofferphase/)
+- [SubscriptionPurchase](https://apis.io/schemas/android/android-subscriptionpurchase/)
+- [SubscriptionPurchaseLineItem](https://apis.io/schemas/android/android-subscriptionpurchaselineitem/)
+- [SubscriptionPurchasesAcknowledgeRequest](https://apis.io/schemas/android/android-subscriptionpurchasesacknowledgerequest/)
+- …and 42 more published on APIs.io
+
+#### JSON Structure (34)
+
+Data models expressed in JSON Structure.
+
+- [Android Structure](https://apis.io/json-structure/android/android-structure/)
+- [Google Play Developer Base Plan Structure](https://apis.io/json-structure/android/google-play-developer-base-plan-structure/)
+- [Google Play Developer Comment Structure](https://apis.io/json-structure/android/google-play-developer-comment-structure/)
+- [Google Play Developer Developer Comment Structure](https://apis.io/json-structure/android/google-play-developer-developer-comment-structure/)
+- [Google Play Developer Device Metadata Structure](https://apis.io/json-structure/android/google-play-developer-device-metadata-structure/)
+- [Google Play Developer Error Structure](https://apis.io/json-structure/android/google-play-developer-error-structure/)
+- [Google Play Developer Introductory Price Info Structure](https://apis.io/json-structure/android/google-play-developer-introductory-price-info-structure/)
+- [Google Play Developer List Subscription Offers Response Structure](https://apis.io/json-structure/android/google-play-developer-list-subscription-offers-response-structure/)
+- [Google Play Developer List Subscriptions Response Structure](https://apis.io/json-structure/android/google-play-developer-list-subscriptions-response-structure/)
+- [Google Play Developer Money Structure](https://apis.io/json-structure/android/google-play-developer-money-structure/)
+- [Google Play Developer Page Info Structure](https://apis.io/json-structure/android/google-play-developer-page-info-structure/)
+- [Google Play Developer Product Purchase Structure](https://apis.io/json-structure/android/google-play-developer-product-purchase-structure/)
+- [Google Play Developer Product Purchases Acknowledge Request Structure](https://apis.io/json-structure/android/google-play-developer-product-purchases-acknowledge-request-structure/)
+- [Google Play Developer Review Structure](https://apis.io/json-structure/android/google-play-developer-review-structure/)
+- [Google Play Developer Reviews List Response Structure](https://apis.io/json-structure/android/google-play-developer-reviews-list-response-structure/)
+- [Google Play Developer Reviews Reply Request Structure](https://apis.io/json-structure/android/google-play-developer-reviews-reply-request-structure/)
+- [Google Play Developer Reviews Reply Response Structure](https://apis.io/json-structure/android/google-play-developer-reviews-reply-response-structure/)
+- [Google Play Developer Subscription Deferral Info Structure](https://apis.io/json-structure/android/google-play-developer-subscription-deferral-info-structure/)
+- [Google Play Developer Subscription Listing Structure](https://apis.io/json-structure/android/google-play-developer-subscription-listing-structure/)
+- [Google Play Developer Subscription Offer Phase Structure](https://apis.io/json-structure/android/google-play-developer-subscription-offer-phase-structure/)
+- [Google Play Developer Subscription Offer Structure](https://apis.io/json-structure/android/google-play-developer-subscription-offer-structure/)
+- [Google Play Developer Subscription Purchase Line Item Structure](https://apis.io/json-structure/android/google-play-developer-subscription-purchase-line-item-structure/)
+- [Google Play Developer Subscription Purchase Structure](https://apis.io/json-structure/android/google-play-developer-subscription-purchase-structure/)
+- [Google Play Developer Subscription Purchase V2 Structure](https://apis.io/json-structure/android/google-play-developer-subscription-purchase-v2-structure/)
+- [Google Play Developer Subscription Purchases Acknowledge Request Structure](https://apis.io/json-structure/android/google-play-developer-subscription-purchases-acknowledge-request-structure/)
+- …and 9 more published on APIs.io
+
+#### JSON-LD (2)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Android Context](https://apis.io/jsonld/android/android-context/)
+- [Google Play Developer Context](https://apis.io/jsonld/android/google-play-developer-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Android Domain Vocabulary](https://apis.io/vocabularies/android/android-vocabulary/)
+
+#### Examples (49)
+
+Example requests and responses.
+
+- [Android Acknowledgepurchaseproduct Example](https://apis.io/examples/android/android-acknowledgepurchaseproduct-example/)
+- [Android Acknowledgepurchasesubscription Example](https://apis.io/examples/android/android-acknowledgepurchasesubscription-example/)
+- [Android Createsubscription Example](https://apis.io/examples/android/android-createsubscription-example/)
+- [Android Createsubscriptionoffer Example](https://apis.io/examples/android/android-createsubscriptionoffer-example/)
+- [Android Deferpurchasesubscription Example](https://apis.io/examples/android/android-deferpurchasesubscription-example/)
+- [Android Getpurchaseproduct Example](https://apis.io/examples/android/android-getpurchaseproduct-example/)
+- [Android Getpurchasesubscription Example](https://apis.io/examples/android/android-getpurchasesubscription-example/)
+- [Android Getreview Example](https://apis.io/examples/android/android-getreview-example/)
+- [Android Getsubscription Example](https://apis.io/examples/android/android-getsubscription-example/)
+- [Android Getsubscriptionpurchasev2 Example](https://apis.io/examples/android/android-getsubscriptionpurchasev2-example/)
+- [Android Listreviews Example](https://apis.io/examples/android/android-listreviews-example/)
+- [Android Listsubscriptionoffers Example](https://apis.io/examples/android/android-listsubscriptionoffers-example/)
+- [Android Listsubscriptions Example](https://apis.io/examples/android/android-listsubscriptions-example/)
+- [Android Listvoidedpurchases Example](https://apis.io/examples/android/android-listvoidedpurchases-example/)
+- [Android Replytoreview Example](https://apis.io/examples/android/android-replytoreview-example/)
+- [Android Updatesubscription Example](https://apis.io/examples/android/android-updatesubscription-example/)
+- [Google Play Developer Base Plan Example](https://apis.io/examples/android/google-play-developer-base-plan-example/)
+- [Google Play Developer Comment Example](https://apis.io/examples/android/google-play-developer-comment-example/)
+- [Google Play Developer Developer Comment Example](https://apis.io/examples/android/google-play-developer-developer-comment-example/)
+- [Google Play Developer Device Metadata Example](https://apis.io/examples/android/google-play-developer-device-metadata-example/)
+- [Google Play Developer Error Example](https://apis.io/examples/android/google-play-developer-error-example/)
+- [Google Play Developer Introductory Price Info Example](https://apis.io/examples/android/google-play-developer-introductory-price-info-example/)
+- [Google Play Developer List Subscription Offers Response Example](https://apis.io/examples/android/google-play-developer-list-subscription-offers-response-example/)
+- [Google Play Developer List Subscriptions Response Example](https://apis.io/examples/android/google-play-developer-list-subscriptions-response-example/)
+- [Google Play Developer Money Example](https://apis.io/examples/android/google-play-developer-money-example/)
+- …and 24 more published on APIs.io
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [Google Play Developer Orders API](https://apis.io/collections/android/open-android-orders-api/)
+- [Google Play Developer Orders Purchases API](https://apis.io/collections/android/open-android-purchases-api/)
+- [Google Play Developer Orders Subscriptions API](https://apis.io/collections/android/open-android-subscriptions-api/)
+- [Google Play Developer API](https://apis.io/collections/android/open-google-play-developer-api/)
+- [Google Play Developer Orders API](https://apis.io/collections/android/postman-android-orders-api/)
+- [Google Play Developer Orders Purchases API](https://apis.io/collections/android/postman-android-purchases-api/)
+- [Google Play Developer Orders Reviews API](https://apis.io/collections/android/postman-android-reviews-api/)
+- [Google Play Developer Orders Subscriptions API](https://apis.io/collections/android/postman-android-subscriptions-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Android Google Play Developer Api Overlay](https://apis.io/overlays/android/android-google-play-developer-api-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Android — jsonschema rules](https://apis.io/rules/android/android-jsonschema-spectral-rules/)
+- [Android API Rules](https://apis.io/rules/android/android-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Android Authentication](https://apis.io/security/android/android-authentication/)
+- [Android Domain Security](https://apis.io/security/android/android-domain-security/)
+- [Android Vulnerability Disclosure](https://apis.io/security/android/android-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Android Scopes](https://apis.io/scopes/android/android-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Android Plans Pricing](https://apis.io/plans/android/android-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Android Rate Limits](https://apis.io/rate-limits/android/android-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Android Finops](https://apis.io/finops/android/android-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.android.com/)
+- [Getting started](https://developer.android.com/get-started/overview)
 - [Blog](https://android-developers.googleblog.com)
-- [GitHub Organization](https://github.com/android)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/android)
-- [X (Twitter)](https://twitter.com/AndroidDev)
-- [YouTube](https://www.youtube.com/user/androiddevelopers)
-- [Getting Started](https://developer.android.com/get-started/overview)
-- [Training](https://developer.android.com/courses)
-- [Release Notes](https://developer.android.com/about/versions)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Agent Skill](https://github.com/android/skills)
+- [GitHub](https://github.com/android)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 49.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.7 |
+| Contract quality | 66.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 74.3 |
+| Access clarity | 18.4 |
+
+**Agent readiness 40.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | unknown |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.0** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/android/](https://apis.io/providers/android/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Android: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/android/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
