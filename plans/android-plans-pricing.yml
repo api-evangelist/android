@@ -1,0 +1,92 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://mapsplatform.google.com/pricing/
+sources:
+- https://mapsplatform.google.com/pricing/
+- https://developers.google.com/maps/pricing-and-plans
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T161713
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Starter
+published: true
+note: Subscription tiers plus pay-as-you-go with free monthly calls per SKU (Essentials 10K, Pro 5K, Enterprise
+  1K); $300 trial credit; volume discounts start at 20% above 100K monthly requests, up to 80% above 5
+  million monthly calls. Per-SKU pay-as-you-go rates are not listed on this page.
+plan_count: 4
+currency: USD
+plans:
+- name: Starter
+  price_text: $100 / month
+  price: 100
+  currency: USD
+  period: month
+  unit: monthly calls
+  included_quota: 50,000 monthly calls; Dynamic Maps and Geocoding
+  overage: extra usage billed as pay-as-you-go
+- name: Essentials
+  price_text: $275 / month
+  price: 275
+  currency: USD
+  period: month
+  unit: monthly calls
+  included_quota: 100,000 monthly calls across Maps, Routes, Places, Environment
+  overage: extra usage billed as pay-as-you-go
+- name: Pro
+  price_text: $1,200 / month
+  price: 1200
+  currency: USD
+  period: month
+  unit: monthly calls
+  included_quota: 250,000 monthly calls
+  overage: extra usage billed as pay-as-you-go
+- name: Enterprise
+  price_text: Contact sales
+  period: none
+  included_quota: Custom monthly calls
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - request
+  plans:
+  - name: Starter
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Essentials
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
